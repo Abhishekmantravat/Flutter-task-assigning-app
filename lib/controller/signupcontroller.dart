@@ -12,6 +12,8 @@ class SignUpController extends GetxController {
   final fullName = TextEditingController();
   final phoneNo = TextEditingController();
 
+  //creating a function to access authrepository method
+
   void registerUser(String fullName,String email, String password,String phoneNo){
     AuthenticationRepository.instance.createUserWithEmailAndPassword(fullName,email,password,phoneNo);
   }

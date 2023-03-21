@@ -7,6 +7,7 @@ import 'package:taskmanagement/utils/theme/theme.dart';
 import 'package:get/get.dart';
 
 void main() {
+  //initializing the firebase
   WidgetsFlutterBinding.ensureInitialized();
   Firebase.initializeApp().then((value) => Get.put(AuthenticationRepository()));
   runApp(const MyApp());
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       title: 'Flutter Demo',
+      //defining themes for app
       theme: TAppTheme.lightTheme,
         darkTheme:TAppTheme.darkTheme,
         themeMode: ThemeMode.system,

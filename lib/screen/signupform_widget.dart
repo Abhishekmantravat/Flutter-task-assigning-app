@@ -11,6 +11,7 @@ class SignUpFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    //creating the instance of signupcontroller to use its properties
     final controller = Get.put(SignUpController());
     final _formKey = GlobalKey<FormState>();
     return Container(
@@ -54,6 +55,7 @@ class SignUpFormWidget extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(onPressed: (){
+                 // using the method to authenticate user
                  SignUpController.instance.registerUser(controller.fullName.text.trim(),controller.email.text.trim(),controller.password.text.trim(),controller.phoneNo.text.trim());
                 },
                     child: Text("SignUp".toUpperCase())),
