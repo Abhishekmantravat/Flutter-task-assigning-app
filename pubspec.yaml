@@ -41,6 +41,8 @@ dependencies:
   firebase_auth: ^4.2.10
   line_awesome_flutter: ^2.0.0
   cloud_firestore: ^4.4.4
+  fluttertoast: ^8.2.1
+  intl: ^0.17.0
 
 
 dev_dependencies:

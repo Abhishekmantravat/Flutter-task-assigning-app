@@ -56,7 +56,11 @@ class SignUpFormWidget extends StatelessWidget {
                 width: double.infinity,
                 child: ElevatedButton(onPressed: (){
                  // using the method to authenticate user
-                 SignUpController.instance.registerUser(controller.fullName.text.trim(),controller.email.text.trim(),controller.password.text.trim(),controller.phoneNo.text.trim());
+                 SignUpController.instance.registerUser(
+                     controller.fullName.text.trim(),
+                     controller.email.text.trim(),
+                     controller.password.text.trim(),
+                     controller.phoneNo.text.trim());
                 },
                     child: Text("SignUp".toUpperCase())),
               )
