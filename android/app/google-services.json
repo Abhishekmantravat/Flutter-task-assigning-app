@@ -1,34 +1,77 @@
 {
   "project_info": {
-    "project_number": "403511766426",
-    "project_id": "taskmanagement-ccde1",
-    "storage_bucket": "taskmanagement-ccde1.appspot.com"
+    "project_number": "1076543723806",
+    "project_id": "mantravat-intern",
+    "storage_bucket": "mantravat-intern.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:403511766426:android:841d6c8146eaf8e5b7de23",
+        "mobilesdk_app_id": "1:1076543723806:android:ab04971507a595a179110f",
         "android_client_info": {
-          "package_name": "com.example.taskmanagement"
+          "package_name": "com.example.management_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "403511766426-jo7e1ih9oh57q5hu499rqgpbjopoie7d.apps.googleusercontent.com",
+          "client_id": "1076543723806-qc710s03h5dpgr1d48rgm45u98667np0.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDM6QQh4RVua_BNwjGSq5eFCnOtp9kxPQ8"
+          "current_key": "AIzaSyCqxVPB2tFWxB3cNGSSiOUNSnkfn2ofQV0"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "403511766426-jo7e1ih9oh57q5hu499rqgpbjopoie7d.apps.googleusercontent.com",
+              "client_id": "1076543723806-qc710s03h5dpgr1d48rgm45u98667np0.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "1076543723806-rgruruelj74872lcg70ulsp4h0upldsb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.managementApp"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076543723806:android:86e607193326e05c79110f",
+        "android_client_info": {
+          "package_name": "com.example.taskmanagement"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076543723806-qc710s03h5dpgr1d48rgm45u98667np0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqxVPB2tFWxB3cNGSSiOUNSnkfn2ofQV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076543723806-qc710s03h5dpgr1d48rgm45u98667np0.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "1076543723806-rgruruelj74872lcg70ulsp4h0upldsb.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.managementApp"
+              }
             }
           ]
         }
