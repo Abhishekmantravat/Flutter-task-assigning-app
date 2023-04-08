@@ -1,16 +1,16 @@
 # management_app
 
-A new Flutter project.
-
+A new Flutter project
 ## Getting Started
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+every one make a
+ clone and work.
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+
+<!-- future use Platform  Firebase App Id -->
+
+web       1:1076543723806:web:53ef8a1ce59342fa79110f
+android   1:1076543723806:android:ab04971507a595a179110f
+ios       1:1076543723806:ios:1ee907d6b451d2eb79110f

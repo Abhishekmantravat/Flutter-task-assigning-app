@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1076543723806",
+    "project_id": "mantravat-intern",
+    "storage_bucket": "mantravat-intern.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1076543723806:android:ab04971507a595a179110f",
+        "android_client_info": {
+          "package_name": "com.example.management_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1076543723806-qc710s03h5dpgr1d48rgm45u98667np0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCqxVPB2tFWxB3cNGSSiOUNSnkfn2ofQV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1076543723806-qc710s03h5dpgr1d48rgm45u98667np0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
