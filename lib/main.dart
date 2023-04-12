@@ -12,6 +12,7 @@ import 'package:taskmanagement/services/authentication.dart';
 import 'package:taskmanagement/utils/theme/theme.dart';
 import 'package:get/get.dart';
 
+
 late Size mq;
 
 Future<void> main() async {
@@ -39,6 +40,7 @@ Future<void> main() async {
  }
  runApp(const MyApp());
   }
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
