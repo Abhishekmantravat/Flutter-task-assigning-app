@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:taskmanagement/screen/signupbuttonwidget.dart';
 import 'package:taskmanagement/screen/signupform_widget.dart';
+import 'package:get/get.dart';
+import "package:taskmanagement/screen/taskscreen.dart";
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({Key? key}) : super(key: key);
 
@@ -15,7 +17,9 @@ class SignUpScreen extends StatelessWidget {
 
              SignUpFormWidget(),
       SignUpButtonWidget(
-        onTap:(){} ,
+        onTap:(){
+          Get.to(TaskScreen());
+        } ,
         title:"Already have an Account" ,
         subtitle: "SignIn",
       )
