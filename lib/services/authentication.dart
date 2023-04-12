@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:taskmanagement/screen/homescreen/home_view.dart';
 import 'package:taskmanagement/screen/signup_screen.dart';
 
 import '../screen/addtask.dart';
@@ -24,7 +25,7 @@ class AuthenticationRepository extends GetxController {
   _setInitialScreen(User? user) {
     user == null
         ? Get.offAll(() => const SignUpScreen())
-        : Get.offAll(() => TaskScreen());
+        : Get.offAll(() => Home_view());
   }
   //creating instance of firebaseauth
 
@@ -39,7 +40,7 @@ class AuthenticationRepository extends GetxController {
       // print("user created");
       Get.snackbar('successful','you logged in successfully' );
       //query to store user data in firestore
-      Get.to(()=>TaskScreen());
+      Get.to(()=>Home_view());
       FirebaseFirestore.instance.collection('users').doc().set({
         "FullName":fullName,
         "Email":email,

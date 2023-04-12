@@ -40,10 +40,12 @@ class _TaskScreenState extends State<TaskScreen> {
         actions: [
           IconButton(
               icon: Icon(Icons.logout),
-              onPressed: () async {
-                await FirebaseAuth.instance.signOut();
-                Get.back();
-              }),
+              onPressed: () {}
+              // async {
+              //   await FirebaseAuth.instance.signOut();
+              //   Get.back();
+              // }
+              ),
         ],
       ),
     body: Container(
@@ -58,7 +60,7 @@ class _TaskScreenState extends State<TaskScreen> {
             .snapshots(),
         builder: (context, snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
+            return const Center(
               child: CircularProgressIndicator(),
             );
           } else {
@@ -81,7 +83,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       Padding(
                         padding: const EdgeInsets.all(10),
                         child: Text(docs![index]['title'],
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: tWhiteColor,
                           fontSize: 16,)),
                       )
