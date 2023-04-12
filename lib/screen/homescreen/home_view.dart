@@ -45,11 +45,10 @@ class _Home_viewState extends State<Home_view> {
 
   @override
   Widget build(BuildContext context) {
-    
+    mq = MediaQuery.of(context).size;
     return Scaffold(
-      
       appBar: AppBar(
-    backgroundColor:tSecondaryColor,
+        backgroundColor: tSecondaryColor,
         title: const Text("Mantravat"),
         centerTitle: true,
         leading: Builder(
@@ -178,19 +177,18 @@ class _Home_viewState extends State<Home_view> {
               },
             ),
             ListTile(
-              textColor: Colors.white,
-              iconColor: Colors.white,
-              hoverColor: const Color.fromARGB(255, 102, 185, 213),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              leading: const Icon(Icons.logout),
-              title: const Text('LogOut'),
-              onTap: () async {
-                await FirebaseAuth.instance.signOut();
-                Get.back();
-              }
-            ),
+                textColor: Colors.white,
+                iconColor: Colors.white,
+                hoverColor: const Color.fromARGB(255, 102, 185, 213),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                leading: const Icon(Icons.logout),
+                title: const Text('LogOut'),
+                onTap: () async {
+                  await FirebaseAuth.instance.signOut();
+                  Get.back();
+                }),
           ],
         ),
       ),
@@ -307,8 +305,7 @@ class _chatState extends State<chat> {
   }
 }
 
-
-// call task screen class inside task class 
+// call task screen class inside task class
 
 class task extends StatefulWidget {
   const task({super.key});

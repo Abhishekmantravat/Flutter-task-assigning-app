@@ -1,4 +1,3 @@
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
@@ -24,12 +23,13 @@ class _splashscreenState extends State<splashscreen> {
 
   //  show splash screen wait 2 second
 
-   void initState() {
-   super.initState();
-   Timer(Duration(seconds: 10), () { 
-    Navigator.pushReplacement(context, MaterialPageRoute(builder: (context)=> const SignUpScreen()));
-   });
- }
+  void initState() {
+    super.initState();
+    Timer(Duration(seconds: 10), () {
+      Navigator.pushReplacement(context,
+          MaterialPageRoute(builder: (context) => const SignUpScreen()));
+    });
+  }
 //   void initState() {
 //     super.initState();
 //     Future.delayed(const Duration(seconds: 3), () {
@@ -55,20 +55,19 @@ class _splashscreenState extends State<splashscreen> {
 //     });
 
 //   }
-  
 
   @override
   Widget build(BuildContext context) {
-        mq = MediaQuery.of(context).size;
+    // mq = MediaQuery.of(context).size;
 
     return Scaffold(
       body: Container(
         color: Color.fromARGB(255, 11, 90, 201),
         child: const Center(
-          child: Text("Infotech",
-          style: TextStyle(fontSize: 30,
-          color: Colors.white,
-          fontWeight: FontWeight.w700),
+          child: Text(
+            "Infotech",
+            style: TextStyle(
+                fontSize: 30, color: Colors.white, fontWeight: FontWeight.w700),
           ),
         ),
       ),
