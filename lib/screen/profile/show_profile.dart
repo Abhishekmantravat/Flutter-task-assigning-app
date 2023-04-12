@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+
 class UserProfilePage extends StatelessWidget {
   var name;
   var email;
@@ -44,7 +45,8 @@ class UserProfilePage extends StatelessWidget {
               decoration: const BoxDecoration(
                 image: DecorationImage(
                   fit: BoxFit.cover,
-                  image: NetworkImage("https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                  image: NetworkImage(
+                      "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                 ),
               ),
               child: Align(
@@ -66,7 +68,7 @@ class UserProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.people,
@@ -91,7 +93,7 @@ class UserProfilePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 20),
 
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.email,
@@ -111,7 +113,7 @@ class UserProfilePage extends StatelessWidget {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.phone,
@@ -131,7 +133,7 @@ class UserProfilePage extends StatelessWidget {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.my_location,
@@ -151,7 +153,7 @@ class UserProfilePage extends StatelessWidget {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     children: <Widget>[
                       Row(
                         children: [
@@ -189,7 +191,7 @@ class UserProfilePage extends StatelessWidget {
                   ),
 
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.date_range,
@@ -210,7 +212,7 @@ class UserProfilePage extends StatelessWidget {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.cast_for_education,
@@ -230,7 +232,7 @@ class UserProfilePage extends StatelessWidget {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.book_rounded,
@@ -250,7 +252,7 @@ class UserProfilePage extends StatelessWidget {
                     style: const TextStyle(fontSize: 18),
                   ),
                   const SizedBox(height: 20),
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.location_city,
@@ -285,7 +287,7 @@ class UserProfilePage extends StatelessWidget {
                   // ),
                   //                   const SizedBox(height: 16),
 
-                  const Row(
+                  Row(
                     children: [
                       Icon(
                         Icons.online_prediction,
