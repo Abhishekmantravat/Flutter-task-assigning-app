@@ -80,6 +80,7 @@ class _profileState extends State<profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF17203A),
         title: const Text('User Profile'),
       ),
       body: SingleChildScrollView(
@@ -92,7 +93,7 @@ class _profileState extends State<profile> {
                 child: Container(
                   width: 120,
                   height: 120,
-                  
+
 //                     child: CircleAvatar(
 //                     backgroundColor: Colors.white,
 //                     radius: 300,
@@ -115,40 +116,37 @@ class _profileState extends State<profile> {
 
 //                                     )                ),
 //                   ),
-                // ),
+                  // ),
 
-
-                decoration:  BoxDecoration(
-                  shape: BoxShape.circle,
-                      border: Border.all(width: 2.0, color: Colors.white),
-
-                  image:  DecorationImage(
-                    image: NetworkImage(
-                        "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                        
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 2.0, color: Colors.white),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 2.0, bottom: 20),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: CircleAvatar(
-                      radius: 20,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.edit),
-                        iconSize: 25,
-                        color: Colors.white,
-                
-                        tooltip: "change picture",
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 2.0, bottom: 20),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit),
+                          iconSize: 25,
+                          color: Colors.white,
 
-                        // backgroundColor: const Color(0xff94d500),
-                        mouseCursor: SystemMouseCursors.click,
+                          tooltip: "change picture",
+
+                          // backgroundColor: const Color(0xff94d500),
+                          mouseCursor: SystemMouseCursors.click,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
               ),
               const SizedBox(height: 16),
               const Text('Name:'),
@@ -378,8 +376,3 @@ class _profileState extends State<profile> {
     );
   }
 }
-
-
-
-
-

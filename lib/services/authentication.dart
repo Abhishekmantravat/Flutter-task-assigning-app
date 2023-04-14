@@ -7,7 +7,6 @@ import 'package:taskmanagement/screen/signup_screen.dart';
 import '../screen/addtask.dart';
 import '../screen/taskscreen.dart';
 
-
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
   final _auth = FirebaseAuth.instance;
@@ -30,23 +29,24 @@ class AuthenticationRepository extends GetxController {
   //creating instance of firebaseauth
 
   //getting the current login user
-  User? currentUser= FirebaseAuth.instance.currentUser;
+  User? currentUser = FirebaseAuth.instance.currentUser;
   //defining method to authenticate the user
-  Future<void> createUserWithEmailAndPassword(String fullName,String email,
-      String password,String phoneNo) async {
+  Future<void> createUserWithEmailAndPassword(
+      String fullName, String email, String password, String phoneNo) async {
     try {
       //query for the authentication
-      await _auth.createUserWithEmailAndPassword(email: email, password: password);
+      await _auth.createUserWithEmailAndPassword(
+          email: email, password: password);
       // print("user created");
-      Get.snackbar('successful','you logged in successfully' );
+      Get.snackbar('successful', 'you logged in successfully');
       //query to store user data in firestore
-      Get.to(()=>Home_view());
+      Get.to(() => Home_view());
       FirebaseFirestore.instance.collection('users').doc().set({
-        "FullName":fullName,
-        "Email":email,
-        "Password":password,
-        "PhoneNo":phoneNo,
-        "UserId":currentUser!.uid,
+        "FullName": fullName,
+        "Email": email,
+        "Password": password,
+        "PhoneNo": phoneNo,
+        "UserId": currentUser!.uid,
       });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
@@ -57,9 +57,5 @@ class AuthenticationRepository extends GetxController {
             snackPosition: SnackPosition.BOTTOM);
       }
     }
-
   }
-
-
-
 }
