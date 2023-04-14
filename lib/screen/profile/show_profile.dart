@@ -15,24 +15,26 @@ class UserProfilePage extends StatelessWidget {
   // UserProfilePage(String string, String string2, String string3, String string4, String string5, String string6, String string7, String string8, String string9, String string10, String string11);
 
   UserProfilePage(
-    this.name,
-    this.email,
-    this.phoneNumber,
-    this.address,
-    this.gender,
-    this.dateOfBirth,
-    this.education,
-    this.skills,
-    this.currentLocation,
-    this.status,
-    // this.profileImage,
-  );
+      this.name,
+      this.email,
+      this.phoneNumber,
+      this.address,
+      this.gender,
+      this.dateOfBirth,
+      this.education,
+      this.skills,
+      this.currentLocation,
+      this.status,
+      {super.key}
+      // this.profileImage,
+      );
 
   Widget build(BuildContext context) {
     var gender2 = gender;
 
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: const Color(0xFF17203A),
         title: const Text('User Profile'),
       ),
       body: SingleChildScrollView(
