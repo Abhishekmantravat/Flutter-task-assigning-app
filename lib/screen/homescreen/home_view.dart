@@ -84,10 +84,10 @@ class _Home_viewState extends State<Home_view> {
           padding: const EdgeInsets.all(0),
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Color(0xff17203A)),
+              decoration: const BoxDecoration(color: Color.fromRGBO(23, 32, 58, 1)),
               //BoxDecoration
               child: UserAccountsDrawerHeader(
-                decoration: const BoxDecoration(color: Color(0xff17203A)),
+                decoration: const BoxDecoration(color: Color(0xFF17203A)),
                 accountName: const Text(
                   "Abhishek Mishra",
                   style: TextStyle(fontSize: 18),
