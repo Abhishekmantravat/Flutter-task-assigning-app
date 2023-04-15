@@ -3,11 +3,12 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:get/get.dart';
+import 'package:taskmanagement/constant/colors.dart';
 
 class AddTask extends StatefulWidget {
   @override
   _AddTaskState createState() => _AddTaskState();
-
 }
 
 class _AddTaskState extends State<AddTask> {
@@ -31,30 +32,33 @@ class _AddTaskState extends State<AddTask> {
       'timestamp': time
     });
     Fluttertoast.showToast(msg: 'Data Added');
+    Get.back();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      // appBar: AppBar(title: Text('New Task')),
+      appBar: AppBar(
+        title: Text('New Task'),
+        backgroundColor: tSecondaryColor,
+      ),
       body: Container(
-          padding: EdgeInsets.symmetric(vertical: 100,horizontal: 20),
+          padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
           child: Column(
             children: [
               Container(
                 child: TextField(
                   controller: titleController,
                   decoration: InputDecoration(
-                      labelText: 'Enter Title',),
+                    labelText: 'Enter Title',
+                  ),
                 ),
               ),
               SizedBox(height: 10),
               Container(
                 child: TextField(
                   controller: descriptionController,
-                  decoration: InputDecoration(
-                      labelText: 'Enter Description'
-                     ),
+                  decoration: InputDecoration(labelText: 'Enter Description'),
                 ),
               ),
               SizedBox(height: 10),

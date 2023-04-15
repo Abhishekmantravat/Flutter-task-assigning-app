@@ -8,9 +8,9 @@ import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
-import 'package:taskmanagement/screen/addtask.dart';
+import 'package:taskmanagement/screen/taskscreen/addtask.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
-import 'package:taskmanagement/screen/taskscreen.dart';
+import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
 
 void main() => runApp(const Home_view());
 
@@ -160,7 +160,7 @@ class _Home_viewState extends State<Home_view> {
                 // Navigator.pushNamed(context, 'task');
 
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => AddTask()));
+                    MaterialPageRoute(builder: (context) => TaskScreen()));
               },
             ),
             ListTile(
@@ -232,6 +232,7 @@ class _chatState extends State<chat> {
   List<Chatuser> list = [];
 
   Widget build(BuildContext context) {
+    mq = MediaQuery.of(context).size;
     return Scaffold(
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 10),
