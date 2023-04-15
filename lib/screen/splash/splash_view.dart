@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taskmanagement/controller/signupcontroller.dart';
 import 'package:taskmanagement/main.dart';
-import 'package:taskmanagement/screen/signup_screen.dart';
+import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 // import 'package:mantravat_project/main.dart';
 // import 'package:mantravat_project/screens/Home_screen.dart';
 // import 'package:mantravat_project/screens/auth/login_screen.dart';

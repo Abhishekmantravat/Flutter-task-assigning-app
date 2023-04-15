@@ -14,11 +14,10 @@ class Chat_user_card extends StatefulWidget {
 class _Chat_user_cardState extends State<Chat_user_card> {
   @override
   Widget build(BuildContext context) {
-    // mq = MediaQuery.of(context).size;
+    mq = MediaQuery.of(context).size;
 
     return Card(
-        margin: EdgeInsets.symmetric(
-            horizontal: MediaQuery.of(context).size.width * .04, vertical: 4),
+        margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
         elevation: 1,
         child: InkWell(

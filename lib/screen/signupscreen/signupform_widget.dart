@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/services/authentication.dart';
-import '../constant/sizes.dart';
-import '../controller/signupcontroller.dart';
+import '../../constant/sizes.dart';
+import '../../controller/signupcontroller.dart';
 
 class SignUpFormWidget extends StatelessWidget {
   const SignUpFormWidget({
@@ -21,21 +21,25 @@ class SignUpFormWidget extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-               controller:controller.fullName,
+                controller: controller.fullName,
                 decoration: const InputDecoration(
                   label: Text("Full Name"),
                   prefixIcon: Icon(Icons.person_2_outlined),
                 ),
               ),
-              SizedBox(height: tFormHeight-20,),
+              SizedBox(
+                height: tFormHeight - 20,
+              ),
               TextFormField(
-                controller:controller.email,
+                controller: controller.email,
                 decoration: const InputDecoration(
                   label: Text("Email"),
                   prefixIcon: Icon(Icons.mail),
                 ),
               ),
-              SizedBox(height: tFormHeight-20,),
+              SizedBox(
+                height: tFormHeight - 20,
+              ),
               TextFormField(
                 controller: controller.phoneNo,
                 decoration: const InputDecoration(
@@ -43,7 +47,9 @@ class SignUpFormWidget extends StatelessWidget {
                   prefixIcon: Icon(Icons.phone),
                 ),
               ),
-              SizedBox(height: tFormHeight-20,),
+              SizedBox(
+                height: tFormHeight - 20,
+              ),
               TextFormField(
                 controller: controller.password,
                 decoration: const InputDecoration(
@@ -51,17 +57,20 @@ class SignUpFormWidget extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
-              SizedBox(height: tFormHeight-20,),
+              SizedBox(
+                height: tFormHeight - 20,
+              ),
               SizedBox(
                 width: double.infinity,
-                child: ElevatedButton(onPressed: (){
-                 // using the method to authenticate user
-                 SignUpController.instance.registerUser(
-                     controller.fullName.text.trim(),
-                     controller.email.text.trim(),
-                     controller.password.text.trim(),
-                     controller.phoneNo.text.trim());
-                },
+                child: ElevatedButton(
+                    onPressed: () {
+                      // using the method to authenticate user
+                      SignUpController.instance.registerUser(
+                          controller.fullName.text.trim(),
+                          controller.email.text.trim(),
+                          controller.password.text.trim(),
+                          controller.phoneNo.text.trim());
+                    },
                     child: Text("SignUp".toUpperCase())),
               )
             ],
