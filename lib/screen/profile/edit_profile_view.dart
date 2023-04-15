@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:taskmanagement/screen/profile/show_profile.dart';
 
 class UserProfileEditPage extends StatefulWidget {
+  const UserProfileEditPage({super.key});
+
   @override
-  _UserProfileEditPageState createState() => _UserProfileEditPageState();
+  UserProfileEditPageState createState() => UserProfileEditPageState();
 }
 
-class _UserProfileEditPageState extends State<UserProfileEditPage> {
+class UserProfileEditPageState extends State<UserProfileEditPage> {
   @override
 
 // future work Abhishek
@@ -30,21 +32,21 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
   Widget build(BuildContext context) {
     return const MaterialApp(
 //  call profile class Abhishek
-      home: profile(),
+      home: Profile(),
     );
   }
 }
 
 //  class Abhishek
 
-class profile extends StatefulWidget {
-  const profile({super.key});
+class Profile extends StatefulWidget {
+  const Profile({super.key});
 
   @override
-  State<profile> createState() => _profileState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _profileState extends State<profile> {
+class _ProfileState extends State<Profile> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
@@ -77,6 +79,7 @@ class _profileState extends State<profile> {
     _imageController = TextEditingController(text: "/path/to/user/image");
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -138,7 +141,9 @@ class _profileState extends State<profile> {
                           iconSize: 25,
                           color: Colors.white,
 
+
                           tooltip: "change picture",
+
 
                           // backgroundColor: const Color(0xff94d500),
                           mouseCursor: SystemMouseCursors.click,
@@ -340,6 +345,9 @@ class _profileState extends State<profile> {
               const SizedBox(height: 16),
               Center(
                 child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(const Color(0xff17203A))),
                   onPressed: () {
                     Future.delayed(const Duration(seconds: 2), () {
                       Navigator.push(
@@ -361,7 +369,10 @@ class _profileState extends State<profile> {
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Changes saved!'),
+                        content: Text(
+                          'Changes saved!',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
                         backgroundColor: Colors.green,
                       ),
                     );

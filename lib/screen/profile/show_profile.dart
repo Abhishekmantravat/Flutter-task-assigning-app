@@ -29,12 +29,15 @@ class UserProfilePage extends StatelessWidget {
       // this.profileImage,
       );
 
+  @override
   Widget build(BuildContext context) {
     var gender2 = gender;
 
     return Scaffold(
       appBar: AppBar(
+
         backgroundColor: const Color(0xFF17203A),
+
         title: const Text('User Profile'),
       ),
       body: SingleChildScrollView(
@@ -56,6 +59,7 @@ class UserProfilePage extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.all(16.0),
                   child: FloatingActionButton(
+                    backgroundColor: const Color(0xff17203A),
                     onPressed: () {
                       // TODO: Implement profile image upload functionality.
                     },
