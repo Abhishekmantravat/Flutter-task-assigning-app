@@ -35,7 +35,9 @@ class UserProfilePage extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff17203A),
+
+        backgroundColor: const Color(0xFF17203A),
+
         title: const Text('User Profile'),
       ),
       body: SingleChildScrollView(

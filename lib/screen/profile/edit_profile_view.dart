@@ -83,11 +83,8 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: const Color(0xff17203A),
-        title: const Text(
-          'Profile',
-          textAlign: TextAlign.center,
-        ),
+        backgroundColor: const Color(0xFF17203A),
+        title: const Text('User Profile'),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -144,7 +141,9 @@ class _ProfileState extends State<Profile> {
                           iconSize: 25,
                           color: Colors.white,
 
+
                           tooltip: "change picture",
+
 
                           // backgroundColor: const Color(0xff94d500),
                           mouseCursor: SystemMouseCursors.click,
