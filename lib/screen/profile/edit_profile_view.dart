@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:taskmanagement/screen/profile/show_profile.dart';
 
 class UserProfileEditPage extends StatefulWidget {
+  const UserProfileEditPage({super.key});
+
   @override
-  _UserProfileEditPageState createState() => _UserProfileEditPageState();
+  UserProfileEditPageState createState() => UserProfileEditPageState();
 }
 
-class _UserProfileEditPageState extends State<UserProfileEditPage> {
+class UserProfileEditPageState extends State<UserProfileEditPage> {
   @override
 
 // future work Abhishek
@@ -30,21 +32,21 @@ class _UserProfileEditPageState extends State<UserProfileEditPage> {
   Widget build(BuildContext context) {
     return const MaterialApp(
 //  call profile class Abhishek
-      home: profile(),
+      home: Profile(),
     );
   }
 }
 
 //  class Abhishek
 
-class profile extends StatefulWidget {
-  const profile({super.key});
+class Profile extends StatefulWidget {
+  const Profile({super.key});
 
   @override
-  State<profile> createState() => _profileState();
+  State<Profile> createState() => _ProfileState();
 }
 
-class _profileState extends State<profile> {
+class _ProfileState extends State<Profile> {
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
@@ -77,10 +79,15 @@ class _profileState extends State<profile> {
     _imageController = TextEditingController(text: "/path/to/user/image");
   }
 
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('User Profile'),
+        backgroundColor: const Color(0xff17203A),
+        title: const Text(
+          'Profile',
+          textAlign: TextAlign.center,
+        ),
       ),
       body: SingleChildScrollView(
         child: Padding(
@@ -92,7 +99,7 @@ class _profileState extends State<profile> {
                 child: Container(
                   width: 120,
                   height: 120,
-                  
+
 //                     child: CircleAvatar(
 //                     backgroundColor: Colors.white,
 //                     radius: 300,
@@ -115,40 +122,37 @@ class _profileState extends State<profile> {
 
 //                                     )                ),
 //                   ),
-                // ),
+                  // ),
 
-
-                decoration:  BoxDecoration(
-                  shape: BoxShape.circle,
-                      border: Border.all(width: 2.0, color: Colors.white),
-
-                  image:  DecorationImage(
-                    image: NetworkImage(
-                        "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                        
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    border: Border.all(width: 2.0, color: Colors.white),
+                    image: DecorationImage(
+                      image: NetworkImage(
+                          "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                    ),
                   ),
-                ),
-                child: Padding(
-                  padding: const EdgeInsets.only(right: 2.0, bottom: 20),
-                  child: Align(
-                    alignment: Alignment.bottomRight,
-                    child: CircleAvatar(
-                      radius: 20,
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.edit),
-                        iconSize: 25,
-                        color: Colors.white,
-                
-                        tooltip: "change picture",
+                  child: Padding(
+                    padding: const EdgeInsets.only(right: 2.0, bottom: 20),
+                    child: Align(
+                      alignment: Alignment.bottomRight,
+                      child: CircleAvatar(
+                        radius: 20,
+                        child: IconButton(
+                          onPressed: () {},
+                          icon: const Icon(Icons.edit),
+                          iconSize: 25,
+                          color: Colors.white,
 
-                        // backgroundColor: const Color(0xff94d500),
-                        mouseCursor: SystemMouseCursors.click,
+                          tooltip: "change picture",
+
+                          // backgroundColor: const Color(0xff94d500),
+                          mouseCursor: SystemMouseCursors.click,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
               ),
               const SizedBox(height: 16),
               const Text('Name:'),
@@ -342,6 +346,9 @@ class _profileState extends State<profile> {
               const SizedBox(height: 16),
               Center(
                 child: ElevatedButton(
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(const Color(0xff17203A))),
                   onPressed: () {
                     Future.delayed(const Duration(seconds: 2), () {
                       Navigator.push(
@@ -363,7 +370,10 @@ class _profileState extends State<profile> {
 
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Changes saved!'),
+                        content: Text(
+                          'Changes saved!',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
                         backgroundColor: Colors.green,
                       ),
                     );
@@ -378,8 +388,3 @@ class _profileState extends State<profile> {
     );
   }
 }
-
-
-
-
-
