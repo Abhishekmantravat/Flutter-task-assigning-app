@@ -17,15 +17,12 @@ class SignUpController extends GetxController {
 
   //creating a function to access authrepository method
 
-  void registerUser(String fullName,String email, String password,String phoneNo){
-    AuthenticationRepository.instance.createUserWithEmailAndPassword(fullName,email,password,phoneNo);
+  void registerUser(
+      String fullName, String email, String password, String phoneNo) {
+    AuthenticationRepository.instance
+        .createUserWithEmailAndPassword(fullName, email, password, phoneNo);
   }
-
 }
-
-
-
-
 
 class Api {
   // for authentication
@@ -54,8 +51,10 @@ class Api {
         isonline: false.toString(),
         image: user.photoURL.toString(),
         createdAt: time,
-        pushToken: " "
-        );
-    return await firestore.collection('user').doc(user.uid).set(ChatUser.toJson());
+        pushToken: " ");
+    return await firestore
+        .collection('user')
+        .doc(user.uid)
+        .set(ChatUser.toJson());
   }
 }
