@@ -83,6 +83,7 @@ class _ProfileState extends State<Profile> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: const Icon(Icons.arrow_back),
         backgroundColor: const Color(0xFF17203A),
         title: const Text('User Profile'),
       ),
@@ -141,9 +142,7 @@ class _ProfileState extends State<Profile> {
                           iconSize: 25,
                           color: Colors.white,
 
-
                           tooltip: "change picture",
-
 
                           // backgroundColor: const Color(0xff94d500),
                           mouseCursor: SystemMouseCursors.click,
