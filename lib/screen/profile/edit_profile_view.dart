@@ -141,9 +141,7 @@ class _ProfileState extends State<Profile> {
                           iconSize: 25,
                           color: Colors.white,
 
-
                           tooltip: "change picture",
-
 
                           // backgroundColor: const Color(0xff94d500),
                           mouseCursor: SystemMouseCursors.click,
