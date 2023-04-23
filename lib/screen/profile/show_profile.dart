@@ -53,7 +53,7 @@ class UserProfilePage extends StatelessWidget {
                   image: NetworkImage(
                       "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                 ),
-              ),
+                ),
               child: Align(
                 alignment: Alignment.bottomRight,
                 child: Padding(
@@ -74,7 +74,7 @@ class UserProfilePage extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Row(
+                  const Row(
                     children: [
                       Icon(
                         Icons.people,

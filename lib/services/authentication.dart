@@ -39,13 +39,28 @@ class AuthenticationRepository extends GetxController {
       //query to store user data in firestore
       Get.to(() => Home_view());
       try {
-        FirebaseFirestore.instance.collection('users').add({
-          "FullName": fullName,
+        // FirebaseFirestore.instance.collection('users').add({
+        // "FullName": fullName,
+        // "Email": email,
+        // "Password": password,
+        // "PhoneNo": phoneNo,
+        // "UserId": currentUser!.uid,
+
+        await FirebaseFirestore.instance.collection('users').add({
+          "id": currentUser!.uid,
+          "name": fullName,
           "Email": email,
           "Password": password,
           "PhoneNo": phoneNo,
-          "UserId": currentUser!.uid,
+          "pushToken": " ",
+          "about": "i am working",
+          "lastActive": "time",
+          "isonline": "false",
+          "image": "https://images.app.goo.gl/Gks6FvmgD8qQco7ZA",
+          "createdAt": fullName,
         });
+
+        // });
       } catch (exception) {
         Get.snackbar("error", "error in saving data");
       }

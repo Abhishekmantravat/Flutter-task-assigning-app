@@ -29,12 +29,13 @@ class _Chat_user_cardState extends State<Chat_user_card> {
               widget.user.about,
               maxLines: 1,
             ),
-            trailing: Text(
-              "12:00:pm",
-              style: TextStyle(
-                color: Colors.black45,
-              ),
-            ),
+            trailing: Container(
+              width: 15,
+              height:15,
+              decoration:BoxDecoration(
+             color:  Colors.greenAccent.shade400,
+              borderRadius:BorderRadius.circular(10)),
+            )
           ),
         ));
   }

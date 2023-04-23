@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
+import 'package:taskmanagement/screen/drawer/drawer.dart';
+import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/taskscreen/addtask.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
@@ -31,9 +33,9 @@ class _Home_viewState extends State<Home_view> {
 
   int _selectedIndex = 0;
 
-  static const List<Widget> _pages = <Widget>[
+  static  List<Widget> _pages = <Widget>[
     Text("Home screen"),
-    task(),
+    TaskScreen(),
     chat(),
   ];
 
@@ -67,7 +69,9 @@ class _Home_viewState extends State<Home_view> {
         actions: [
           IconButton(
             icon: const Icon(Icons.search_rounded),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context)=> const MyHomePage(),) );
+            },
           ),
           const SizedBox(
             width: 15,
@@ -78,7 +82,7 @@ class _Home_viewState extends State<Home_view> {
           ),
         ],
       ),
-      drawer: Drawer(
+ drawer: Drawer(
         backgroundColor: const Color(0xff17203A),
         child: ListView(
           padding: const EdgeInsets.all(0),
@@ -191,8 +195,7 @@ class _Home_viewState extends State<Home_view> {
                 }),
           ],
         ),
-      ),
-      body: Center(
+      ),      body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -210,6 +213,7 @@ class _Home_viewState extends State<Home_view> {
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'chat',
+            
           ),
         ],
         currentIndex: _selectedIndex,
@@ -240,7 +244,7 @@ class _chatState extends State<chat> {
           onPressed: () async {
             // await Api.auth.signOut();
             // await GoogleSignIn().signOut();
-            await FirebaseFirestore.instance.collection('user').add({
+            await FirebaseFirestore.instance.collection('uses').add({
               'id': " 232323ws",
               "pushToken": " ",
               "about": "happy day",
@@ -256,7 +260,7 @@ class _chatState extends State<chat> {
         ),
       ),
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("user").snapshots(),
+          stream: FirebaseFirestore.instance.collection("users").snapshots(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               // check firebase data is loding
@@ -306,20 +310,4 @@ class _chatState extends State<chat> {
   }
 }
 
-// call task screen class inside task class
 
-class task extends StatefulWidget {
-  const task({super.key});
-
-  @override
-  State<task> createState() => _taskState();
-}
-
-class _taskState extends State<task> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: TaskScreen(),
-    );
-  }
-}
