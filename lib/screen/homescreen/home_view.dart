@@ -244,17 +244,17 @@ class _chatState extends State<chat> {
           onPressed: () async {
             // await Api.auth.signOut();
             // await GoogleSignIn().signOut();
-            await FirebaseFirestore.instance.collection('uses').add({
-              'id': " 232323ws",
-              "pushToken": " ",
-              "about": "happy day",
-              "email": "Agmail.com",
-              "lastActive": "time",
-              "name": "Raman",
-              "isonline": "false",
-              "image": "https/wewewd",
-              "createdAt": "Raman",
-            });
+            // await FirebaseFirestore.instance.collection('uses').add({
+            //   'id': " 232323ws",
+            //   "pushToken": " ",
+            //   "about": "happy day",
+            //   "email": "Agmail.com",
+            //   "lastActive": "time",
+            //   "name": "Raman",
+            //   "isonline": "false",
+            //   "image": "https/wewewd",
+            //   "createdAt": "Raman",
+            // });
           },
           child: const Icon(Icons.add_comment_rounded),
         ),

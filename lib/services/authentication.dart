@@ -45,6 +45,7 @@ class AuthenticationRepository extends GetxController {
         // "Password": password,
         // "PhoneNo": phoneNo,
         // "UserId": currentUser!.uid,
+    var time = DateTime.now().millisecondsSinceEpoch.toString();
 
         await FirebaseFirestore.instance.collection('users').add({
           "id": currentUser!.uid,
@@ -52,12 +53,13 @@ class AuthenticationRepository extends GetxController {
           "Email": email,
           "Password": password,
           "PhoneNo": phoneNo,
+          "createdAt": fullName,
           "pushToken": " ",
           "about": "i am working",
-          "lastActive": "time",
+          "lastActive": time,
           "isonline": "false",
           "image": "https://images.app.goo.gl/Gks6FvmgD8qQco7ZA",
-          "createdAt": fullName,
+             
         });
 
         // });

@@ -7,11 +7,17 @@ import '../../controller/signupcontroller.dart';
 
 class SignUpFormWidget extends StatelessWidget {
 
-  
+  var fullName;
+  var email;
+  var phoneNo;
+  var password;
 
    SignUpFormWidget({super.key, 
   
-  
+  this.fullName,
+  this.email,
+  this.password,
+  this.phoneNo,
   });
 
   @override
