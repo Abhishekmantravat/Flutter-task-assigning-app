@@ -91,7 +91,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                   children: [
                                     Padding(
                                       padding: const EdgeInsets.all(10),
-                                      child: Text(docs![index]['title'],
+                                      child: Text(docs[index]['title'],
                                           style: const TextStyle(
                                             color: tWhiteColor,
                                             fontSize: 16,
