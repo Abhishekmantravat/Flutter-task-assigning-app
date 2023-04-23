@@ -37,7 +37,7 @@ class Api {
 //for checking if user exists or not?
 
   static Future<bool> UserExists() async {
-    return (await firestore.collection('User').doc(user.uid).get()).exists;
+    return (await firestore.collection('Users ').doc(user.uid).get()).exists;
   }
 
   static Future<void> createUser() async {

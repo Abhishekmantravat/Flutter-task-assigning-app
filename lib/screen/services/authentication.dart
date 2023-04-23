@@ -1,6 +1,11 @@
+import 'dart:html';
+import 'dart:js';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:taskmanagement/controller/signupcontroller.dart';
 import 'package:taskmanagement/screen/homescreen/home_view.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 
@@ -18,12 +23,26 @@ class AuthenticationRepository extends GetxController {
     ever(firebaseUser, _setInitialScreen);
   }
 
-  _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() => const SignUpScreen())
-        : Get.offAll(() => Home_view());
+  _setInitialScreen(User? user) async {
+    // user == null
+    //     ? Get.offAll(() => const SignUpScreen())
+    //     : Get.offAll(() => Home_view());
+    if(user == null){
+
+      if(( await Api.UserExists())){
+          
+         Navigator.pushReplacement(context as BuildContext,
+          MaterialPageRoute(builder: (context) => const SignUpScreen()));
+      }else{
+        await Api.createUser().then((value) {
+ Navigator.pushReplacement(context as BuildContext,
+          MaterialPageRoute(builder: (context) => const Home_view()));
+        });
+      }
+
+    }
   }
-  //creating instance of firebaseauth
+  //creating instance of firebaseAuth 
 
   //getting the current login user
   User? currentUser = FirebaseAuth.instance.currentUser;
@@ -46,10 +65,10 @@ class AuthenticationRepository extends GetxController {
           "PhoneNo": phoneNo,
           "UserId": currentUser!.uid,
         });
-      } catch (exception) {
+      }  catch (exception) {
         Get.snackbar("error", "error in saving data");
       }
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (e) { 
       if (e.code == 'weak-password') {
         Get.snackbar("Error", "weak password",
             snackPosition: SnackPosition.BOTTOM);

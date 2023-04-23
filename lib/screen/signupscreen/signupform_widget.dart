@@ -1,3 +1,4 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/services/authentication.dart';
@@ -5,8 +6,12 @@ import '../../constant/sizes.dart';
 import '../../controller/signupcontroller.dart';
 
 class SignUpFormWidget extends StatelessWidget {
-  const SignUpFormWidget({
-    super.key,
+
+  
+
+   SignUpFormWidget({super.key, 
+  
+  
   });
 
   @override
@@ -63,13 +68,18 @@ class SignUpFormWidget extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: () {
+                    onPressed: ()  async{
                       // using the method to authenticate user
                       SignUpController.instance.registerUser(
                           controller.fullName.text.trim(),
                           controller.email.text.trim(),
                           controller.password.text.trim(),
                           controller.phoneNo.text.trim());
+
+
+                           
+         
+          
                     },
                     child: Text("SignUp".toUpperCase())),
               )
