@@ -6,18 +6,17 @@ import '../../constant/sizes.dart';
 import '../../controller/signupcontroller.dart';
 
 class SignUpFormWidget extends StatelessWidget {
-
   var fullName;
   var email;
   var phoneNo;
   var password;
 
-   SignUpFormWidget({super.key, 
-  
-  this.fullName,
-  this.email,
-  this.password,
-  this.phoneNo,
+  SignUpFormWidget({
+    super.key,
+    this.fullName,
+    this.email,
+    this.password,
+    this.phoneNo,
   });
 
   @override
@@ -74,18 +73,13 @@ class SignUpFormWidget extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: ElevatedButton(
-                    onPressed: ()  async{
+                    onPressed: () async {
                       // using the method to authenticate user
                       SignUpController.instance.registerUser(
                           controller.fullName.text.trim(),
                           controller.email.text.trim(),
                           controller.password.text.trim(),
                           controller.phoneNo.text.trim());
-
-
-                           
-         
-          
                     },
                     child: Text("SignUp".toUpperCase())),
               )
