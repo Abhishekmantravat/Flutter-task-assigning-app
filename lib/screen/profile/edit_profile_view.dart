@@ -1,4 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/screen/profile/show_profile.dart';
 
 class UserProfileEditPage extends StatefulWidget {
@@ -9,8 +12,6 @@ class UserProfileEditPage extends StatefulWidget {
 }
 
 class UserProfileEditPageState extends State<UserProfileEditPage> {
-  @override
-
 // future work Abhishek
 
   // void dispose() {
@@ -59,12 +60,16 @@ class _ProfileState extends State<Profile> {
   late TextEditingController _statusController;
   late TextEditingController _imageController;
 
-  @override
+  // String uid = '';
+  String email = " ";
+
   void initState() {
+    getuid();
+
     super.initState();
     // Initialize text controllers with previous values
-    _nameController = TextEditingController(text: "John Doe");
-    _emailController = TextEditingController(text: "john.doe@example.com");
+    _nameController = TextEditingController(text: "John");
+    _emailController = TextEditingController(text: "email");
     _phoneController = TextEditingController(text: "555-555-5555");
     _addressController =
         TextEditingController(text: "123 Main St, Anytown USA");
@@ -79,6 +84,15 @@ class _ProfileState extends State<Profile> {
     _imageController = TextEditingController(text: "/path/to/user/image");
   }
 
+  getuid() async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final user = await auth.currentUser!;
+    setState(() {
+      // uid = user.uid ;
+      email = user.email!;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -87,7 +101,24 @@ class _ProfileState extends State<Profile> {
         backgroundColor: const Color(0xFF17203A),
         title: const Text('User Profile'),
       ),
-      body: SingleChildScrollView(
+      body:
+// StreamBuilder<QuerySnapshot>(
+//         stream: FirebaseFirestore.instance.collection("user Profile").snapshots(),
+
+// builder: (context, snapshot) {
+//   if(snapshot.hasData){
+// final Service=snapshot.data.docs;
+// List<widget>Servicewidget=[];
+// for (var profile in Service){
+//   final name=profile.data()['name'];
+// }
+
+//   }
+//   return const  CircularProgressIndicator();
+// },
+//       );
+
+          SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -125,7 +156,8 @@ class _ProfileState extends State<Profile> {
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
                     border: Border.all(width: 2.0, color: Colors.white),
-                    image: DecorationImage(
+                    image: const DecorationImage(
+                      fit: BoxFit.fill,
                       image: NetworkImage(
                           "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
                     ),
@@ -153,7 +185,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               const SizedBox(height: 16),
-              const Text('Name:'),
+              Text(uid),
               Row(
                 children: [
                   Expanded(
@@ -347,25 +379,63 @@ class _ProfileState extends State<Profile> {
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(const Color(0xff17203A))),
-                  onPressed: () {
-                    Future.delayed(const Duration(seconds: 2), () {
-                      Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => UserProfilePage(
-                                    _nameController.text.toString(),
-                                    _emailController.text.toString(),
-                                    _phoneController.text.toString(),
-                                    _addressController.text.toString(),
-                                    _genderController.text.toString(),
-                                    _dobController.text.toString(),
-                                    _educationController.text.toString(),
-                                    _skillsController.text.toString(),
-                                    _locationController.text.toString(),
-                                    _statusController.text.toString(),
-                                  )));
-                    });
+                  onPressed: () async {
+//  await FirebaseFirestore.instance
+//         .collection('tasks')
+//         .doc(uid)
+//         .collection('mytasks')
+//         .doc(time.toString())
+//         .set({
+//       'title': titleController.text,
+//       'description': descriptionController.text,
+//       'time': time.toString(),
+//       'timestamp': time
+//     });
 
+                    var time = DateTime.now().second;
+
+                    await FirebaseFirestore.instance
+                        .collection("users")
+                        .doc(uid)
+                        .collection('user profile')
+                        .add({
+                      // "id": currentUser!.uid,
+                      "name": _nameController.text.toString(),
+                      "email": _emailController.text.toString(),
+                      " phone": _phoneController.text.toString(),
+                      "address": _addressController.text.toString(),
+                      "gender": _genderController.text.toString(),
+                      "dob": _dobController.text.toString(),
+                      "education": _educationController.text.toString(),
+                      "skill": _skillsController.text.toString(),
+                      "location": _locationController.text.toString(),
+                      "status": _statusController.text.toString(),
+                      "createdAt": "fullName",
+                      "pushToken": " ",
+                      "about": "i am working",
+                      "lastActive": "time",
+                      "isonline": "false",
+                      "image":
+                          "https://images.pexels.com/photos/1366630/pexels-photo-1366630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+                    }).whenComplete(
+                      () => Future.delayed(const Duration(seconds: 2), () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => UserProfilePage(
+                                      _nameController.text.toString(),
+                                      _emailController.text.toString(),
+                                      _phoneController.text.toString(),
+                                      _addressController.text.toString(),
+                                      _genderController.text.toString(),
+                                      _dobController.text.toString(),
+                                      _educationController.text.toString(),
+                                      _skillsController.text.toString(),
+                                      _locationController.text.toString(),
+                                      _statusController.text.toString(),
+                                    )));
+                      }),
+                    );
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(

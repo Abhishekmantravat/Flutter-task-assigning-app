@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
+import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/screen/homescreen/home_view.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 
@@ -38,30 +39,22 @@ class AuthenticationRepository extends GetxController {
       Get.snackbar('successful', 'you logged in successfully');
       //query to store user data in firestore
       Get.to(() => Home_view());
-      try {
-        // FirebaseFirestore.instance.collection('users').add({
-        // "FullName": fullName,
-        // "Email": email,
-        // "Password": password,
-        // "PhoneNo": phoneNo,
-        // "UserId": currentUser!.uid,
-    var time = DateTime.now().millisecondsSinceEpoch.toString();
+      var time = DateTime.now().millisecondsSinceEpoch.toString();
 
-        await FirebaseFirestore.instance.collection('users').add({
+      try {
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(uid)
+            // .collection('user ')
+            //     .doc(uid)
+            //  .collection('user')
+            .set({
           "id": currentUser!.uid,
           "name": fullName,
-          "Email": email,
+          "email": email,
           "Password": password,
           "PhoneNo": phoneNo,
-          "createdAt": fullName,
-          "pushToken": " ",
-          "about": "i am working",
-          "lastActive": time,
-          "isonline": "false",
-          "image": "https://images.app.goo.gl/Gks6FvmgD8qQco7ZA",
-             
         });
-
         // });
       } catch (exception) {
         Get.snackbar("error", "error in saving data");
