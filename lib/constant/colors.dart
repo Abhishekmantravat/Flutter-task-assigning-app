@@ -1,4 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+//  get current user collection uid
+final FirebaseAuth auth = FirebaseAuth.instance;
+final user = auth.currentUser!;
+String uid = user.uid;
+// String email= user.email!;
+//   String? phoneno =user.phoneNumber;
+//       String we =user.displayName!;
 
 // List of all colors
 
@@ -9,4 +18,4 @@ const tSecondaryColor = Color(0xFF1E2552);
 const tWhiteColor = Colors.white;
 const tDarkColor = Color(0xff000000);
 const tCardBgColor = Color(0xFFF7F6F1);
-const tGreyColor=Colors.grey;
+const tGreyColor = Colors.grey;

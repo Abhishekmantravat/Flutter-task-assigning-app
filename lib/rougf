@@ -1,0 +1,138 @@
+// import 'package:firebase_core/firebase_core.dart';
+// import 'package:flutter/material.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// String name = "";
+
+
+
+get data in firebase with listtile
+// class profil extends StatefulWidget {
+//   @override
+//   _profilState createState() => _profilState();
+// }
+
+// class _profilState extends State<profil> {
+//   List<DocumentSnapshot> studentData = [];
+
+//   void getData() async {
+//     QuerySnapshot snapshot =
+//         await FirebaseFirestore.instance.collection('users').get();
+//     setState(() {
+//       studentData = snapshot.docs;
+//     });
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     getData();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Flutterl Firebase Demo'),
+//         actions: [
+//           IconButton(
+//             icon: const Icon(Icons.search_rounded),
+//             onPressed: () {
+//               print(name);
+//             },
+//           ),
+//           const SizedBox(
+//             width: 15,
+//           ),
+//           IconButton(
+//             icon: const Icon(Icons.more_vert),
+//             onPressed: () {},
+//           ),
+//         ],
+//       ),
+//       body: ListView.builder(
+//         itemCount: studentData.length,
+//         itemBuilder: (context, index) {
+//           var name = studentData[index]['name'];
+//           return ListTile(
+//             title: Text(studentData[index]['name']),
+//             subtitle: Text(studentData[index]['about']),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }
+
+
+
+
+
+
+get data in firebase without ListTile
+
+
+
+
+// class pro extends StatefulWidget {
+//   @override
+//   _proState createState() => _proState();
+// }
+
+// class _proState extends State<pro> {
+//   List<DocumentSnapshot> studentData = [];
+
+//   void getData() async {
+//     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
+//     setState(() {
+//       studentData = snapshot.docs;
+//     });
+//   }
+
+//   @override
+//   void initState() {
+//     super.initState();
+//     getData();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         title: Text('Flutter Firebase Demo'),
+//       ),
+//       body: ListView.builder(
+//         itemCount: studentData.length,
+//         itemBuilder: (context, index) {
+//           return Container(
+//             padding: EdgeInsets.all(16.0),
+//             margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+//             decoration: BoxDecoration(
+//               color: Colors.grey[200],
+//               borderRadius: BorderRadius.circular(8.0),
+//             ),
+//             child: Column(
+//               crossAxisAlignment: CrossAxisAlignment.start,
+//               children: [
+//                 Text(
+//                   'Name: ${studentData[index]['name']}',
+//                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+//                 ),
+//                 SizedBox(height: 8.0),
+//                 Text(
+//                   'Class: ${studentData[index]['about']}',
+//                   style: TextStyle(fontSize: 16.0),
+//                 ),
+//                 SizedBox(height: 8.0),
+//                 Text(
+//                   'Marks: ${studentData[index]['name']}',
+//                   style: TextStyle(fontSize: 16.0),
+//                 ),
+//               ],
+//             ),
+//           );
+//         },
+//       ),
+//     );
+//   }
+// }

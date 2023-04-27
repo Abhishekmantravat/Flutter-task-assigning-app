@@ -1,28 +1,21 @@
-import 'dart:convert';
-import 'dart:math';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
-import 'package:taskmanagement/screen/drawer/drawer.dart';
+import 'package:taskmanagement/screen/profile/profiles.dart';
 import 'package:taskmanagement/screen/search/search.dart';
-import 'package:taskmanagement/screen/taskscreen/addtask.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
+
+// String uid = " ";
 
 void main() => runApp(const Home_view());
 
 class Home_view extends StatefulWidget {
   const Home_view({super.key});
-//   var name;
-//   var email;
-//  Home_view(
-//   string string,string string2
-//  );
 
   @override
   State<Home_view> createState() => _Home_viewState();
@@ -33,9 +26,11 @@ class _Home_viewState extends State<Home_view> {
 
   int _selectedIndex = 0;
 
-  static  List<Widget> _pages = <Widget>[
+  static List<Widget> _pages = <Widget>[
     Text("Home screen"),
+    // call task screen page
     TaskScreen(),
+    // call chat screen page
     chat(),
   ];
 
@@ -70,25 +65,37 @@ class _Home_viewState extends State<Home_view> {
           IconButton(
             icon: const Icon(Icons.search_rounded),
             onPressed: () {
-              Navigator.push(context, MaterialPageRoute(builder: (context)=> const MyHomePage(),) );
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const MyHomePage(),
+                  ));
             },
           ),
           const SizedBox(
             width: 15,
           ),
           IconButton(
-            icon: const Icon(Icons.notifications),
-            onPressed: () {},
+            icon: const Icon(Icons.more_vert),
+            onPressed: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (contest) => pro()));
+              //  Get.to(() => ProfileScreen(
+              //       title: docs[index]['title'],
+              //       description: docs[index]['description'],
+              //     ));
+            },
           ),
         ],
       ),
- drawer: Drawer(
+      drawer: Drawer(
         backgroundColor: const Color(0xff17203A),
         child: ListView(
           padding: const EdgeInsets.all(0),
           children: [
             DrawerHeader(
-              decoration: const BoxDecoration(color: Color.fromRGBO(23, 32, 58, 1)),
+              decoration:
+                  const BoxDecoration(color: Color.fromRGBO(23, 32, 58, 1)),
               //BoxDecoration
               child: UserAccountsDrawerHeader(
                 decoration: const BoxDecoration(color: Color(0xFF17203A)),
@@ -177,7 +184,7 @@ class _Home_viewState extends State<Home_view> {
               leading: const Icon(Icons.more_time_sharp),
               title: const Text(' Time sheet '),
               onTap: () {
-                Navigator.pushNamed(context, 'time_sheet');
+                print(uid);
               },
             ),
             ListTile(
@@ -195,7 +202,8 @@ class _Home_viewState extends State<Home_view> {
                 }),
           ],
         ),
-      ),      body: Center(
+      ),
+      body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
       bottomNavigationBar: BottomNavigationBar(
@@ -213,7 +221,6 @@ class _Home_viewState extends State<Home_view> {
           BottomNavigationBarItem(
             icon: Icon(Icons.chat),
             label: 'chat',
-            
           ),
         ],
         currentIndex: _selectedIndex,
@@ -241,26 +248,18 @@ class _chatState extends State<chat> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.only(bottom: 10),
         child: FloatingActionButton(
-          onPressed: () async {
-            // await Api.auth.signOut();
-            // await GoogleSignIn().signOut();
-            // await FirebaseFirestore.instance.collection('uses').add({
-            //   'id': " 232323ws",
-            //   "pushToken": " ",
-            //   "about": "happy day",
-            //   "email": "Agmail.com",
-            //   "lastActive": "time",
-            //   "name": "Raman",
-            //   "isonline": "false",
-            //   "image": "https/wewewd",
-            //   "createdAt": "Raman",
-            // });
-          },
+          onPressed: () {},
           child: const Icon(Icons.add_comment_rounded),
         ),
       ),
       body: StreamBuilder(
-          stream: FirebaseFirestore.instance.collection("users").snapshots(),
+          stream: FirebaseFirestore.instance
+              .collection("users")
+
+//  get data to the user profile collection
+              // .doc(uid)
+              // .collection('user profile')
+              .snapshots(),
           builder: (context, snapshot) {
             switch (snapshot.connectionState) {
               // check firebase data is loding
@@ -276,11 +275,7 @@ class _chatState extends State<chat> {
                 final data = snapshot.data?.docs;
                 list = data?.map((e) => Chatuser.fromJson(e.data())).toList() ??
                     [];
-                print(list);
-                // for (var i in data!) {
-                //   print(jsonEncode(i.data()));
-                // }
-                // }
+                print(uid);
 
                 //  check user is not empty
                 if (list.isNotEmpty) {
@@ -309,5 +304,3 @@ class _chatState extends State<chat> {
     );
   }
 }
-
-

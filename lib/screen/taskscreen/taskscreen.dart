@@ -17,6 +17,7 @@ class TaskScreen extends StatefulWidget {
 
 class _TaskScreenState extends State<TaskScreen> {
   String uid = '';
+  String email= " ";
   @override
   void initState() {
     getuid();
@@ -27,7 +28,8 @@ class _TaskScreenState extends State<TaskScreen> {
     FirebaseAuth auth = FirebaseAuth.instance;
     final user = await auth.currentUser!;
     setState(() {
-      uid = user.uid;
+      uid = user.uid ;
+      email = user.email!;
     });
   }
 
@@ -37,17 +39,11 @@ class _TaskScreenState extends State<TaskScreen> {
       appBar: AppBar(
         title: Text('ALL TASKS'),
         backgroundColor: tSecondaryColor,
-        // actions: [
-        //   IconButton(icon: Icon(Icons.logout), onPressed: () {}
-        //       // async {
-        //   await FirebaseAuth.instance.signOut();
-        //   Get.back();
-        // }
       ),
       // ],
       // ),
       body: Container(
-          padding: EdgeInsets.all(10),
+          padding: const EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
           child: StreamBuilder(
@@ -133,6 +129,7 @@ class _TaskScreenState extends State<TaskScreen> {
           child: Icon(Icons.add, color: Colors.white),
           backgroundColor: tSecondaryColor,
           onPressed: () {
+            print(email);
             Navigator.push(
                 context, MaterialPageRoute(builder: (context) => AddTask()));
           }),
