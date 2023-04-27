@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/constant/sizes.dart';
+import 'package:taskmanagement/controller/logincontroller.dart';
+import 'package:get/get.dart';
 
 class LoginFormWidget extends StatelessWidget {
   var email;
@@ -7,6 +10,7 @@ class LoginFormWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final controller = Get.put(LoginFormWidget());
     final formKey = GlobalKey<FormState>();
     return Container(
       padding: const EdgeInsets.only(top: 300),
@@ -39,11 +43,9 @@ class LoginFormWidget extends StatelessWidget {
                 child: ElevatedButton(
                     onPressed: () async {
                       // using the method to authenticate user
-                      SignUpController.instance.registerUser(
-                          controller.fullName.text.trim(),
+                      LoginController.instance.loginUser(
                           controller.email.text.trim(),
-                          controller.password.text.trim(),
-                          controller.phoneNo.text.trim());
+                          controller.password.text.trim());
                     },
                     child: Text("SignUp".toUpperCase())),
               )
