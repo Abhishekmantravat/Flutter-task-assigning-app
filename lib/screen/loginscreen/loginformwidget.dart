@@ -1,28 +1,12 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:taskmanagement/services/authentication.dart';
-import '../../constant/sizes.dart';
-import '../../controller/signupcontroller.dart';
 
-class SignUpFormWidget extends StatelessWidget {
-  var fullName;
+class LoginFormWidget extends StatelessWidget {
   var email;
-  var phoneNo;
   var password;
-
-  SignUpFormWidget({
-    super.key,
-    this.fullName,
-    this.email,
-    this.password,
-    this.phoneNo,
-  });
+  LoginFormWidget({super.key, this.email, this.password});
 
   @override
   Widget build(BuildContext context) {
-    //creating the instance of signupcontroller to use its properties
-    final controller = Get.put(SignUpController());
     final formKey = GlobalKey<FormState>();
     return Container(
       padding: const EdgeInsets.only(top: 300),
@@ -31,30 +15,10 @@ class SignUpFormWidget extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                controller: controller.fullName,
-                decoration: const InputDecoration(
-                  label: Text("Full Name"),
-                  prefixIcon: Icon(Icons.person_2_outlined),
-                ),
-              ),
-              const SizedBox(
-                height: tFormHeight - 20,
-              ),
-              TextFormField(
                 controller: controller.email,
                 decoration: const InputDecoration(
                   label: Text("Email"),
                   prefixIcon: Icon(Icons.mail),
-                ),
-              ),
-              const SizedBox(
-                height: tFormHeight - 20,
-              ),
-              TextFormField(
-                controller: controller.phoneNo,
-                decoration: const InputDecoration(
-                  label: Text("Phone No"),
-                  prefixIcon: Icon(Icons.phone),
                 ),
               ),
               const SizedBox(
