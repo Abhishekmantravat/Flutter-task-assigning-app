@@ -26,13 +26,10 @@ Future<void> main() async {
     await Firebase.initializeApp(
         options: const FirebaseOptions(
       apiKey: "AIzaSyCcotkto_SbUDEJ3vKHSuznUK6GAtab6ok",
-      authDomain: "mantravat-intern.firebaseapp.com",
-      projectId: "mantravat-intern",
-      storageBucket: "mantravat-intern.appspot.com",
+       projectId: "mantravat-intern",
       messagingSenderId: "1076543723806",
       appId: "1:1076543723806:web:fc80a37608649ffa79110f",
-      measurementId: "G-CPSX3Q16VT",
-    )).then((value) => Get.put(AuthenticationRepository()));
+     )).then((value) => Get.put(AuthenticationRepository()));
   } else {
     //  for android fire base connection connection  priya
     await Firebase.initializeApp()

@@ -2,10 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
-
 import '../../constant/colors.dart';
 import 'addtask.dart';
 import 'description.dart';
@@ -65,6 +62,7 @@ class _TaskScreenState extends State<TaskScreen> {
                   final docs = snapshot.data?.docs;
 
                   return ListView.builder(
+                    
                       itemCount: docs?.length,
                       itemBuilder: (context, index) {
                         var time =
@@ -108,7 +106,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                 ),
                                 Container(
                                   child: IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete,
                                       color: Colors.white,
                                     ),

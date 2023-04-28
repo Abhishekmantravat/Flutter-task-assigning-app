@@ -35,17 +35,14 @@ class AuthenticationRepository extends GetxController {
       await _auth.createUserWithEmailAndPassword(
           email: email, password: password);
       // print("user created");
-      Get.snackbar('successful', 'you logged in successfully');
-      //query to store user data in firestore
-      Get.to(() => Home_view());
       try {
-        FirebaseFirestore.instance.collection('users').add({
+        await FirebaseFirestore.instance.collection('users').add({
           "FullName": fullName,
           "Email": email,
           "Password": password,
           "PhoneNo": phoneNo,
           "UserId": currentUser!.uid,
-        });
+        }).then((value) => Get.to(()=>Home_view()));
       } catch (exception) {
         Get.snackbar("error", "error in saving data");
       }

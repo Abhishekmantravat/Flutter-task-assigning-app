@@ -24,37 +24,37 @@ class SignUpController extends GetxController {
   }
 }
 
-class Api {
-  // for authentication
-  static FirebaseAuth auth = FirebaseAuth.instance;
+// class Api {
+//   // for authentication
+//   static FirebaseAuth auth = FirebaseAuth.instance;
 
-// for firebase storage
-  static FirebaseFirestore firestore = FirebaseFirestore.instance;
+// // for firebase storage
+//   static FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-//   return or create variable and initialized  value
-  static User get user => auth.currentUser!;
+// //   return or create variable and initialized  value
+//   static User get user => auth.currentUser!;
 
-//for checking if user exists or not?
+// //for checking if user exists or not?
 
-  static Future<bool> UserExists() async {
-    return (await firestore.collection('User').doc(user.uid).get()).exists;
-  }
+//   static Future<bool> UserExists() async {
+//     return (await firestore.collection('User').doc(user.uid).get()).exists;
+//   }
 
-  static Future<void> createUser() async {
-    final time = DateTime.now().millisecondsSinceEpoch.toString();
-    final ChatUser = Chatuser(
-        id: user.uid,
-        about: "happy happy",
-        email: user.email.toString(),
-        lastActive: time,
-        name: user.displayName.toString(),
-        isonline: false.toString(),
-        image: user.photoURL.toString(),
-        createdAt: time,
-        pushToken: " ");
-    return await firestore
-        .collection('user')
-        .doc(user.uid)
-        .set(ChatUser.toJson());
-  }
-}
+//   static Future<void> createUser() async {
+//     final time = DateTime.now().millisecondsSinceEpoch.toString();
+//     final ChatUser = Chatuser(
+//         id: user.uid,
+//         about: "happy happy",
+//         email: user.email.toString(),
+//         lastActive: time,
+//         name: user.displayName.toString(),
+//         isonline: false.toString(),
+//         image: user.photoURL.toString(),
+//         createdAt: time,
+//         pushToken: " ");
+//     return await firestore
+//         .collection('user')
+//         .doc(user.uid)
+//         .set(ChatUser.toJson());
+//   }
+// }
