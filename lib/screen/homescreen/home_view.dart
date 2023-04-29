@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
+import 'package:taskmanagement/screen/profile/profile.dart';
 import 'package:taskmanagement/screen/profile/profiles.dart';
 import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
@@ -12,7 +13,6 @@ import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
 
 // String uid = " ";
 
-void main() => runApp(const Home_view());
 
 class Home_view extends StatefulWidget {
   const Home_view({super.key});
@@ -22,6 +22,26 @@ class Home_view extends StatefulWidget {
 }
 
 class _Home_viewState extends State<Home_view> {
+
+
+
+
+ List<DocumentSnapshot> users = [];
+   void getData() async {
+    QuerySnapshot snapshot =
+        (await FirebaseFirestore.instance.collection('users').get());
+    setState(() {
+      users = snapshot.docs;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+
   List<Chatuser> list = [];
 
   int _selectedIndex = 0;
@@ -76,34 +96,35 @@ class _Home_viewState extends State<Home_view> {
             width: 15,
           ),
           IconButton(
-            icon: const Icon(Icons.more_vert),
+            icon: const Icon(Icons.more_horiz),
             onPressed: () {
               Navigator.push(
                   context, MaterialPageRoute(builder: (contest) => pro()));
-              //  Get.to(() => ProfileScreen(
-              //       title: docs[index]['title'],
-              //       description: docs[index]['description'],
-              //     ));
+            
             },
           ),
         ],
       ),
       drawer: Drawer(
         backgroundColor: const Color(0xff17203A),
-        child: ListView(
-          padding: const EdgeInsets.all(0),
+
+         child:ListView.builder(
+             itemCount: 1,
+            itemBuilder: (BuildContext context, index) 
+            {  
+        return  Column(
           children: [
-            DrawerHeader(
+             DrawerHeader(
               decoration:
                   const BoxDecoration(color: Color.fromRGBO(23, 32, 58, 1)),
               //BoxDecoration
               child: UserAccountsDrawerHeader(
                 decoration: const BoxDecoration(color: Color(0xFF17203A)),
-                accountName: const Text(
-                  "Abhishek Mishra",
+                accountName:  Text(
+                  users[index]["name"],
                   style: TextStyle(fontSize: 18),
                 ),
-                accountEmail: const Text("abhishekm977@gmail.com"),
+                accountEmail:  Text(users[index]["email"]),
                 currentAccountPictureSize: const Size.square(50),
                 currentAccountPicture: CircleAvatar(
                     backgroundColor: const Color.fromARGB(255, 1, 117, 211),
@@ -201,7 +222,12 @@ class _Home_viewState extends State<Home_view> {
                   Get.back();
                 }),
           ],
-        ),
+
+          
+        );
+            }
+         )
+
       ),
       body: Center(
         child: _pages.elementAt(_selectedIndex),
@@ -304,3 +330,10 @@ class _chatState extends State<chat> {
     );
   }
 }
+
+
+
+
+
+
+  
