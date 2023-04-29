@@ -186,20 +186,20 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   List<Chatuser> list = [];
 
-  String uid = '';
-  @override
-  void initState() {
-    getuid();
-    super.initState();
-  }
+  // String uid = '';
+  // @override
+  // void initState() {
+  //   getuid();
+  //   super.initState();
+  // }
 
-  getuid() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final user = await auth.currentUser!;
-    setState(() {
-      uid = user.uid;
-    });
-  }
+  // getuid() async {
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   final user = await auth.currentUser!;
+  //   setState(() {
+  //     uid = user.uid;
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -216,7 +216,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 Icons.account_circle,
               ),
               onPressed: () {
-                print(uid);
+                print("uid");
               },
             );
           },
@@ -225,7 +225,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
       body: Container(
           child: StreamBuilder(
               stream:
-                  FirebaseFirestore.instance.collection("users").snapshots(),
+                  FirebaseFirestore.instance.collection("users").doc(uid).collection("user profile").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
                   return const Center(
@@ -234,7 +234,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 } else {
                   final docs = snapshot.data?.docs;
 
-                  return Column(
+                  return 
+                  
+                  Column(
                     children: [
                       ClipRRect(
                         borderRadius: BorderRadius.circular(mq.height * .3),
@@ -301,77 +303,70 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 }
 
-// make a chat functionality
-
-// class chat extends StatefulWidget {
-//   const chat({super.key});
-
-//   @override
-//   State<chat> createState() => _chatState();
-// }
-
-// class _chatState extends State<chat> {
-//   List<Chatuser> list = [];
-
-//   Widget build(BuildContext context) {
-//     mq = MediaQuery.of(context).size;
-//     return Scaffold(
-//       floatingActionButton: Padding(
-//         padding: const EdgeInsets.only(bottom: 10),
-//         child: FloatingActionButton(
-//           onPressed: () {
-           
-         
-//           },
-//           child: const Icon(Icons.add_comment_rounded),
-//         ),
-//       ),
-//       body: StreamBuilder(
-//           stream: FirebaseFirestore.instance.collection("users").snapshots(),
-//           builder: (context, snapshot) {
-//             switch (snapshot.connectionState) {
-//               // check firebase data is loding
-//               case ConnectionState.waiting:
-//               case ConnectionState.none:
-//                 return const Center(child: CircularProgressIndicator());
-
-//               // check data loaded
-//               case ConnectionState.active:
-//               case ConnectionState.done:
-
-//                 // if (snapshot.hasData) {
-//                 final data = snapshot.data?.docs;
-//                 list = data?.map((e) => Chatuser.fromJson(e.data())).toList() ??
-//                     [];
-//                 print(list[0]);
-            
-
-//                 //  check user is not empty
-//                 if (list.isNotEmpty) {
-//                   return ListView.builder(
-//                       itemCount: list.length,
-//                       padding: EdgeInsets.only(top: mq.height * .02),
-//                       physics: const BouncingScrollPhysics(),
-//                       itemBuilder: (context, index) {
-//                         return Chat_user_card(user: list[index]);
-
-//                         //show name data in firebase
-//                         // return Text("name :${data[index]['name']}");
-//                       });
-
-//                   // user is empty show no collection found
-//                 } else {
-//                   return const Center(
-//                     child: Text(
-//                       "No Collection Found",
-//                       style: TextStyle(fontSize: 20),
-//                     ),
-//                   );
-//                 }
-//             }
-//           }),
-//     );
-//   }
-// }
 
 
+
+
+
+// // class pro extends StatefulWidget {
+// //   @override
+// //   _proState createState() => _proState();
+// // }
+
+// // class _proState extends State<pro> {
+// //   List<DocumentSnapshot> studentData = [];
+
+// //   void getData() async {
+// //     QuerySnapshot snapshot = await FirebaseFirestore.instance.collection('users').get();
+// //     setState(() {
+// //       studentData = snapshot.docs;
+// //     });
+// //   }
+
+// //   @override
+// //   void initState() {
+// //     super.initState();
+// //     getData();
+// //   }
+
+// //   @override
+// //   Widget build(BuildContext context) {
+// //     return Scaffold(
+// //       appBar: AppBar(
+// //         title: Text('Flutter Firebase Demo'),
+// //       ),
+// //       body: ListView.builder(
+// //         itemCount: studentData.length,
+// //         itemBuilder: (context, index) {
+// //           return Container(
+// //             padding: EdgeInsets.all(16.0),
+// //             margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
+// //             decoration: BoxDecoration(
+// //               color: Colors.grey[200],
+// //               borderRadius: BorderRadius.circular(8.0),
+// //             ),
+// //             child: Column(
+// //               crossAxisAlignment: CrossAxisAlignment.start,
+// //               children: [
+// //                 Text(
+// //                   'Name: ${studentData[index]['name']}',
+// //                   style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold),
+// //                 ),
+// //                 SizedBox(height: 8.0),
+// //                 Text(
+// //                   'Class: ${studentData[index]['about']}',
+// //                   style: TextStyle(fontSize: 16.0),
+// //                 ),
+// //                 SizedBox(height: 8.0),
+// //                 Text(
+// //                   'Marks: ${studentData[index]['name']}',
+// //                   style: TextStyle(fontSize: 16.0),
+// //                 ),
+// //               ],
+// //             ),
+// //           );
+// //         },
+// //       ),
+// //     );
+// //   }
+// // }
