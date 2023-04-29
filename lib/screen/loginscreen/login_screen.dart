@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/screen/homescreen/home_view.dart';
 import 'package:taskmanagement/screen/loginscreen/loginbuttonwidget.dart';
+import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 import 'package:taskmanagement/screen/signupscreen/signupform_widget.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +20,10 @@ class SignUpScreen extends StatelessWidget {
               SignUpFormWidget(),
               LoginButtonWidget(
                 onTap: () {
-                  Get.to(TaskScreen());
+                  Get.to(SignUpScreen());
                 },
-                title: "Already have an Account",
-                subtitle: "SignIn",
+                title: "Don't have an Account",
+                subtitle: "SignUp",
               )
             ],
           ),
