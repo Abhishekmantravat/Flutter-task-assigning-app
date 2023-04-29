@@ -19,3 +19,7 @@ const tWhiteColor = Colors.white;
 const tDarkColor = Color(0xff000000);
 const tCardBgColor = Color(0xFFF7F6F1);
 const tGreyColor = Colors.grey;
+ 
+ 
+
+//  FirebaseFirestore.instance.collection('users').doc('USER_ID_HERE')

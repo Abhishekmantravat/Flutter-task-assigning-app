@@ -22,41 +22,8 @@ void updateCollection() async {
 
 
 
-class UserProfileEditPage extends StatefulWidget {
-  const UserProfileEditPage({super.key});
 
-  @override
-  UserProfileEditPageState createState() => UserProfileEditPageState();
-}
-
-class UserProfileEditPageState extends State<UserProfileEditPage> {
-// future work Abhishek
-
-  // void dispose() {
-  //   // Clean up text controllers
-  //   _nameController.dispose();
-  //   _emailController.dispose();
-  //   _phoneController.dispose();
-  //   _addressController.dispose();
-  //   _genderController.dispose();
-  //   _dobController.dispose();
-  //   _educationController.dispose();
-  //   _skillsController.dispose();
-  //   _locationController.dispose();
-  //   _statusController.dispose();
-  //   _imageController.dispose();
-  //   super.dispose();
-  // }
-
-  Widget build(BuildContext context) {
-    return const MaterialApp(
-//  call profile class Abhishek
-      home: Profile(),
-    );
-  }
-}
-
-//  class Abhishek
+//  class basic information
 
 class Profile extends StatefulWidget {
   const Profile({super.key});
@@ -90,17 +57,7 @@ class _ProfileState extends State<Profile> {
     _nameController = TextEditingController(text: "John");
     _emailController = TextEditingController(text: "email");
     _phoneController = TextEditingController(text: "555-555-5555");
-    _addressController =
-        TextEditingController(text: "123 Main St, Anytown USA");
-    _genderController = TextEditingController(text: "Male");
-    _dobController = TextEditingController(text: "1990-01-01");
-    _educationController =
-        TextEditingController(text: "Bachelor's Degree in Computer Science");
-    _skillsController =
-        TextEditingController(text: "JavaScript, HTML, CSS, PHP, MySQL");
-    _locationController = TextEditingController(text: "San Francisco, CA");
-    _statusController = TextEditingController(text: "Active");
-    _imageController = TextEditingController(text: "/path/to/user/image");
+
   }
 
   getuid() async {
@@ -148,29 +105,7 @@ class _ProfileState extends State<Profile> {
                   width: 120,
                   height: 120,
 
-//                     child: CircleAvatar(
-//                     backgroundColor: Colors.white,
-//                     radius: 300,
-//                     child: CircleAvatar(
-//                       radius:
-//                           290, // This radius is the radius of the picture in the circle avatar itself.
-//                       backgroundImage: NetworkImage(
-//                         "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-//                       ),
-//                       backgroundColor: Colors.green,
-// child: Padding(
-// padding: EdgeInsets.fromLTRB(0, 0, 50, 0),
-// child: Align(
-// alignment: Alignment.bottomRight,
-// child: Icon(
-// Icons.verified_rounded,
-// color: Colors.blue,
-// size: 150.0,
-// ),),
-
-//                                     )                ),
-//                   ),
-                  // ),
+//                  
 
                   decoration: BoxDecoration(
                     shape: BoxShape.circle,
@@ -404,48 +339,13 @@ class _ProfileState extends State<Profile> {
                     await FirebaseFirestore.instance
                         .collection("users")
                         .doc(uid)
-                        .collection('user profile').doc(uid)
-                        .set({
+                        .collection('user profile')
+                        .add({
                       // "id": currentUser!.uid,
                       "name": _nameController.text.toString(),
                       "email": _emailController.text.toString(),
                       "phone": _phoneController.text.toString(),
-                      "address": _addressController.text.toString(),
-                      "gender": _genderController.text.toString(),
-                      "dob": _dobController.text.toString(),
-                      "education": _educationController.text.toString(),
-                      "skill": _skillsController.text.toString(),
-                      "location": _locationController.text.toString(),
-                      "status": _statusController.text.toString(),
-                      "createdAt": "fullName",
-                      "pushToken": " ",
-                      "about": "i am working",
-                      "lastActive": "time",
-                      "isonline": "false",
-                      "image":
-                          "https://images.pexels.com/photos/1366630/pexels-photo-1366630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
-                    }).whenComplete(
-                      () => Future.delayed(const Duration(seconds: 2), () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => UserProfilePage(
-                                      _nameController.text.toString(),
-                                      _emailController.text.toString(),
-                                      _phoneController.text.toString(),
-                                      _addressController.text.toString(),
-                                      _genderController.text.toString(),
-                                      _dobController.text.toString(),
-                                      _educationController.text.toString(),
-                                      _skillsController.text.toString(),
-                                      _locationController.text.toString(),
-                                      _statusController.text.toString(),
-                                    )));
-                      }),
-                    );
-
-
-
+                    });
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
                         content: Text(
@@ -458,46 +358,7 @@ class _ProfileState extends State<Profile> {
                   },
                   child: const Text('Save'),
                 ),
-              ),
-
-
-               Center(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(const Color(0xff17203A))),
-                
-                  onPressed: () async {
-                    print(email);
-// await FirebaseFirestore.instance.collection("users").doc(uid).collection("user profile").update({
-// getDocumentData();
-// })
-
-await FirebaseFirestore.instance.collection('users')
-    .doc(uid).collection("user profile").doc(uid)// <-- Doc ID where data should be updated.
-    .update({
-      
-       "name": _nameController.text.toString(),
-                      "email": _emailController.text.toString(),
-                      "phone": _phoneController.text.toString(),
-                      "address": _addressController.text.toString(),
-                      "gender": _genderController.text.toString(),
-                      "dob": _dobController.text.toString(),
-                      "education": _educationController.text.toString(),
-                      "skill": _skillsController.text.toString(),
-                      "location": _locationController.text.toString(),
-                      "status": _statusController.text.toString(),
-                      "createdAt": "fullName",
-                      "pushToken": " ",
-                      
-      
-      
-      
-      }) // <-- Nested value
-    .then((_) => print("userprofileid"))
-    .catchError((error) => print('Update failed: $error'));
-
-                  }, child: Text("update"),)),
+              ),           
             ],
           ),
         ),
@@ -505,64 +366,3 @@ await FirebaseFirestore.instance.collection('users')
     );
   }
 }
-
-
-// // Get a reference to the collection
-// final CollectionReference usersCollection = FirebaseFirestore.instance.collection('users');
-
-// // Get a reference to a specific document in the collection
-// final DocumentReference johnDoeDocument = usersCollection.doc("user profile");
-
-// // Get the ID of the document
-// final String userprofileid = johnDoeDocument.id;
-
-
-
-
-// // Get a reference to the user_profiles subcollection for a specific user
-// final CollectionReference userProfileCollection = FirebaseFirestore.instance
-//     .collection('users')
-//     .doc(uid)
-//     .collection('user_profiles');
-
-// // Get a reference to a specific document in the user_profiles subcollection
-// final DocumentReference johnDoeProfileDocument = userProfileCollection.doc('PROFILE_ID_HERE');
-
-// // Get the ID of the user profile document
-// final String johnDoeProfileId = johnDoeProfileDocument.id;
-
-
-
-
-
-
-
-
-
-
-Future<void> getDocumentData() async {
-  // Get a reference to a specific document
-  final DocumentReference docRef = FirebaseFirestore.instance.collection('users').doc(uid).collection("user profile ").doc("user profile");
-
-  // Get the document data and retrieve the ID
-  final DocumentSnapshot docSnapshot = await docRef.get();
-  final String docId = docSnapshot.id;
-
-  print('Document ID: $docId');
-}
-
-
-
-
-// // Get a reference to the user_profiles subcollection for a specific user
-// final CollectionReference userProfileCollection = FirebaseFirestore.instance
-//     .collection('users')
-//     .doc(uid)
-//     .collection('user_profiles');
-
-// // Get a reference to a specific document in the user_profiles subcollection
-// final DocumentReference johnDoeProfileDocument = userProfileCollection.doc('PROFILE_ID_HERE');
-
-// // Get the document data and retrieve the ID
-// final DocumentSnapshot johnDoeProfileSnapshot = await johnDoeProfileDocument.get();
-// final String johnDoeProfileId = johnDoeProfileSnapshot.id;
