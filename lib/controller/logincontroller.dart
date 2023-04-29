@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-
-import '../screen/services/authentication.dart';
+import 'package:taskmanagement/services/authentication.dart';
 
 class LoginController extends GetxController {
   static LoginController get instance => Get.find();
@@ -12,6 +11,7 @@ class LoginController extends GetxController {
   final password = TextEditingController();
 
   void loginUser(String email, String password) {
-    AuthenticationRepository.instance.firebaseUser;
+    AuthenticationRepository.instance
+        .loginWithEmailAndPassword(email, password);
   }
 }

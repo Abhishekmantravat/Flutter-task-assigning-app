@@ -69,4 +69,27 @@ class AuthenticationRepository extends GetxController {
       }
     }
   }
+
+  // For Loging In existing user
+
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
+    try {
+      await _auth.signInWithEmailAndPassword(email: email, password: password);
+      print("signin");
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        Get.snackbar(
+          "Error",
+          "No user found",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      } else if (e.code == 'wrong-password') {
+        Get.snackbar(
+          "Error",
+          "wrong password",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+      }
+    }
+  }
 }

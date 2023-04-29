@@ -42,7 +42,7 @@ class Api {
 
   static Future<void> createUser() async {
     final time = DateTime.now().millisecondsSinceEpoch.toString();
-    final ChatUser = Chatuser(
+    final chatUser = Chatuser(
         id: user.uid,
         about: "happy happy",
         email: user.email.toString(),
@@ -55,6 +55,6 @@ class Api {
     return await firestore
         .collection('user')
         .doc(user.uid)
-        .set(ChatUser.toJson());
+        .set(chatUser.toJson());
   }
 }
