@@ -5,6 +5,7 @@ import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 import 'package:taskmanagement/screen/signupscreen/signupform_widget.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
+import 'package:taskmanagement/screen/loginscreen/loginformwidget.dart';
 
 class LoginScreen extends StatelessWidget {
   const LoginScreen({Key? key}) : super(key: key);
@@ -17,7 +18,7 @@ class LoginScreen extends StatelessWidget {
           padding: EdgeInsets.all(30),
           child: Column(
             children: [
-              SignUpFormWidget(),
+              LoginFormWidget(),
               LoginButtonWidget(
                 onTap: () {
                   Get.to(SignUpScreen());
