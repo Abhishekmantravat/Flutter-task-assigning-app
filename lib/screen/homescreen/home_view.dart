@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
+import 'package:taskmanagement/screen/profile/basicprofile.dart';
 import 'package:taskmanagement/screen/profile/profile.dart';
 import 'package:taskmanagement/screen/profile/profiles.dart';
 import 'package:taskmanagement/screen/search/search.dart';
@@ -29,7 +30,7 @@ class _Home_viewState extends State<Home_view> {
  List<DocumentSnapshot> users = [];
    void getData() async {
     QuerySnapshot snapshot =
-        (await FirebaseFirestore.instance.collection('users').get());
+        (await FirebaseFirestore.instance.collection('users').where("id", isEqualTo: uid).get());
     setState(() {
       users = snapshot.docs;
     });
@@ -130,7 +131,10 @@ class _Home_viewState extends State<Home_view> {
                     backgroundColor: const Color.fromARGB(255, 1, 117, 211),
                     child: TextButton(
                       onPressed: () {
-                        Navigator.pushNamed(context, "edit_profile");
+                       Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileScreen()));
                       },
                       child: const Text(
                         "A",
@@ -151,17 +155,20 @@ class _Home_viewState extends State<Home_view> {
               iconColor: Colors.white,
               hoverColor: const Color.fromARGB(255, 102, 185, 213),
               leading: const Icon(
-                Icons.manage_accounts,
+                Icons.account_box_rounded,
               ),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(10),
               ),
               title: const Text(
-                ' Edit Profile ',
+                ' Profile ',
                 style: TextStyle(),
               ),
               onTap: () {
-                Navigator.pushNamed(context, 'edit_profile');
+             Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ProfileScreen()));
               },
             ),
 

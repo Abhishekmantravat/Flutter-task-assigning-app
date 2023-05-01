@@ -77,8 +77,7 @@ class _proState extends State<pro> {
                                   width: mq.height * .3,
                                   height: mq.height * .3,
                                   fit: BoxFit.fill,
-                                  imageUrl:
-                                      studentData[index]['image'],
+                                  imageUrl: studentData[index]['image'],
                                   placeholder: (context, url) =>
                                       const CircularProgressIndicator(),
                                   errorWidget: (context, url, error) =>
@@ -134,10 +133,8 @@ class _proState extends State<pro> {
                             )
                           ],
                         ),
-                        
                         const SizedBox(height: 20),
-
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.people,
@@ -160,10 +157,8 @@ class _proState extends State<pro> {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 20),
-
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.email,
@@ -183,7 +178,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.phone,
@@ -203,8 +198,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.people,
@@ -228,7 +222,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.my_location,
@@ -248,7 +242,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: <Widget>[
                             Row(
                               children: [
@@ -267,8 +261,6 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 8),
-
-
                         Row(
                           children: [
                             Icon(
@@ -282,9 +274,8 @@ class _proState extends State<pro> {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.date_range,
@@ -298,14 +289,13 @@ class _proState extends State<pro> {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 8),
                         Text(
                           studentData[index]['dob'],
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.cast_for_education,
@@ -325,7 +315,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.book_rounded,
@@ -345,7 +335,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.location_city,
@@ -365,7 +355,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.online_prediction,
@@ -384,21 +374,15 @@ class _proState extends State<pro> {
                           studentData[index]['status'],
                           style: const TextStyle(fontSize: 18),
                         ),
-                                                const SizedBox(height: 25),
-
-ElevatedButton(
-onHover: (value) {
-  "sdsd";
-},
-  onPressed :(){
-
-},
-        
-          child: const Text("save"),
-        
-    ),
-                                                                    const SizedBox(height: 25),
-
+                        const SizedBox(height: 25),
+                        ElevatedButton(
+                          onHover: (value) {
+                            "sdsd";
+                          },
+                          onPressed: () {},
+                          child: const Text("save"),
+                        ),
+                        const SizedBox(height: 25),
                       ],
                     ),
                   ),

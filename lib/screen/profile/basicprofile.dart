@@ -1,368 +1,210 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:taskmanagement/constant/colors.dart';
-import 'package:taskmanagement/screen/profile/show_profile.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:line_awesome_flutter/line_awesome_flutter.dart';
+import 'package:taskmanagement/about/about.dart';
+import 'package:taskmanagement/screen/profile/basicinfo.dart';
 
+import '../../constant/colors.dart';
+import '../../constant/sizes.dart';
 
-void updateCollection() async {
-  final CollectionReference collectionReference = FirebaseFirestore.instance.collection("users").doc(uid).collection("user profile");
-  final DocumentReference documentReference = collectionReference.doc(uid);
-
-  try {
-    await documentReference.update({
-      'field1': 'updated value',
-      'field2': 42,
-    });
-    print('Document updated successfully!');
-  } catch (e) {
-    print('Error updating document: $e');
-  }
-}
-
-
-
-
-//  class basic information
-
-class Profile extends StatefulWidget {
-  const Profile({super.key});
-
-  @override
-  State<Profile> createState() => _ProfileState();
-}
-
-class _ProfileState extends State<Profile> {
-  late TextEditingController _nameController;
-  late TextEditingController _emailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _addressController;
-  late TextEditingController _genderController;
-  late TextEditingController _dobController;
-  late TextEditingController _educationController;
-  late TextEditingController _skillsController;
-  late TextEditingController _locationController;
-  late TextEditingController _statusController;
-  late TextEditingController _imageController;
-
-  // String uid = '';
-  String email = " ";
-  String bool = "update";
-
-  void initState() {
-    getuid();
-
-    super.initState();
-    // Initialize text controllers with previous values
-    _nameController = TextEditingController(text: "John");
-    _emailController = TextEditingController(text: "email");
-    _phoneController = TextEditingController(text: "555-555-5555");
-
-  }
-
-  getuid() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final user = await auth.currentUser!;
-    setState(() {
-      // uid = user.uid ;
-      email = user.email!;
-    });
-  }
-
+class ProfileScreen extends StatelessWidget {
+  const ProfileScreen({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    //  final controller = Get.put(ProfileController());
+
+    var isDark = MediaQuery.of(context).platformBrightness == Brightness.dark;
     return Scaffold(
-      appBar: AppBar(
-        leading: const Icon(Icons.arrow_back),
-        backgroundColor: const Color(0xFF17203A),
-        title: const Text('User Profile'),
-      ),
-      body:
-// StreamBuilder<QuerySnapshot>(
-//         stream: FirebaseFirestore.instance.collection("user Profile").snapshots(),
-
-// builder: (context, snapshot) {
-//   if(snapshot.hasData){
-// final Service=snapshot.data.docs;
-// List<widget>Servicewidget=[];
-// for (var profile in Service){
-//   final name=profile.data()['name'];
-// }
-
-//   }
-//   return const  CircularProgressIndicator();
-// },
-//       );
-
-          SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 120,
-                  height: 120,
-
-//                  
-
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 2.0, color: Colors.white),
-                    image: const DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 2.0, bottom: 20),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: CircleAvatar(
-                        radius: 20,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                          iconSize: 25,
-                          color: Colors.white,
-
-                          tooltip: "change picture",
-
-                          // backgroundColor: const Color(0xff94d500),
-                          mouseCursor: SystemMouseCursors.click,
-                        ),
-                      ),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
-              Text(uid),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _nameController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Email:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _emailController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Phone:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _phoneController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Address:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _addressController,
-                      // initialValue: " ",
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Gender:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _genderController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Date of Birth:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _dobController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Education:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _educationController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Skills:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _skillsController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Current Location:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _locationController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Status:'),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _statusController,
-                      decoration: InputDecoration(
-                        focusedBorder: OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(const Color(0xff17203A))),
-                  onPressed: () async {
-                    var time = DateTime.now().second;
-                    await FirebaseFirestore.instance
-                        .collection("users")
-                        .doc(uid)
-                        .collection('user profile')
-                        .add({
-                      // "id": currentUser!.uid,
-                      "name": _nameController.text.toString(),
-                      "email": _emailController.text.toString(),
-                      "phone": _phoneController.text.toString(),
-                    });
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Changes saved!',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  },
-                  child: const Text('Save'),
-                ),
-              ),           
-            ],
+        appBar: AppBar(
+          leading: IconButton(
+              onPressed: () {
+                Get.back();
+              },
+              icon: const Icon(LineAwesomeIcons.angle_left)),
+          title: Text(
+            "Profile",
+            style: Theme.of(context).textTheme.headlineMedium,
           ),
+          actions: [
+            IconButton(
+                onPressed: () {},
+                icon:
+                    Icon(isDark ? LineAwesomeIcons.sun : LineAwesomeIcons.moon))
+          ],
         ),
-      ),
-    );
+        body: SingleChildScrollView(
+            child: Container(
+                padding: EdgeInsets.all(tDefaultSize),
+                child: Column(children: [
+                  Container(
+                    child:
+                        // future: controller.getUserData(),
+                        // UserModel userData =snapshot.data as UserModel;
+                        Column(children: [
+                      Stack(
+                        children: [
+                          SizedBox(
+                            width: 120,
+                            height: 120,
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(100),
+                                child: const Text(
+                                    "helbnbnbnnbnbnnbnlohelbnbnbnnbnbnnbnlohelbnbnbnnbnbnnbnlohelbnbnbnnbnbnnbnlohelbnbnbnnbnbnnbnlohelbnbnbnnbnbnnbnlohelbnbnbnnbnbnnbnlohelbnbnbnnbnbnnbnlohelbn")
+                                //  Image(image: AssetImage(tProfileImage)),
+                                ),
+                          ),
+                          Positioned(
+                              bottom: 0,
+                              right: 0,
+                              child: Container(
+                                width: 30, height: 30,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(100),
+                                  color: tSecondaryColor,
+                                ),
+                                //  child: const Icon(LineAwesomeIcons.alternate_pencil,
+                                //  color:Color.fromARGB(255, 231, 231, 231),size: 20,),
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: const Icon(Icons.edit),
+                                  iconSize: 20,
+                                  color: Colors.white,
+
+                                  tooltip: "change picture",
+
+                                  // backgroundColor: const Color(0xff94d500),
+                                  mouseCursor: SystemMouseCursors.click,
+                                ),
+                              ))
+                        ],
+                      ),
+                      const SizedBox(
+                        height: 14,
+                      ),
+                      Text("userData.fullName",
+                          style: TextStyle(
+                              color: const Color.fromARGB(255, 0, 0, 0))),
+                      Text(
+                        "userData.email",
+                        style:
+                            TextStyle(color: Color.fromARGB(255, 48, 45, 45)),
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                      SizedBox(
+                        width: 200,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            // Get.to(()=>UpdateProfileScreen());
+                          },
+                          child: const Text(
+                            "Edit picture",
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          style: ElevatedButton.styleFrom(
+                              backgroundColor: tSecondaryColor,
+                              side: BorderSide.none,
+                              shape: StadiumBorder()),
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                      const Divider(),
+                      const SizedBox(
+                        height: 20,
+                      ),
+                    ]),
+                  ),
+                  ListTile(
+                    textColor: iconcolor,
+                    iconColor: iconcolor,
+                    hoverColor: hovercolor,
+                    leading: const Icon(
+                      Icons.manage_accounts_rounded,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    title: const Text(
+                      ' Edit Profile ',
+                      style: TextStyle(),
+                    ),
+                    onTap: () {
+                       Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) =>  basicinfo(update: false , pphone: '', eemail: '', nname: '',)));
+                    },
+                  ),
+
+                  ListTile(
+                    textColor: iconcolor,
+                    iconColor: iconcolor,
+                    hoverColor: hovercolor,
+                    leading: const Icon(
+                      Icons.info_rounded,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    title: const Text(
+                      ' Personal information ',
+                      style: TextStyle(),
+                    ),
+                    onTap: () {
+                      // basicinfo
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => personalinfo()));
+                    },
+                  ),
+                  const Divider(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  ListTile(
+                    textColor: iconcolor,
+                    iconColor: iconcolor,
+                    hoverColor: hovercolor,
+                    leading: const Icon(
+                      Icons.account_box_outlined,
+                    ),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    title: const Text(
+                      ' About ',
+                      style: TextStyle(),
+                    ),
+                    onTap: () {
+                 Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => aboutscreen()));
+                    },
+                  ),
+                  //  menu
+                  //  ProfileWidgetMenu(title: "All Users",icon: LineAwesomeIcons.info,onPress: (){
+                  //       Get.to(()=>AllUserProfileScreen());},),
+                  //   ProfileWidgetMenu(title: "Filling Detail",icon: LineAwesomeIcons.outdent,onPress: (){
+                  //     Get.to(()=>FillingDetail());
+                  //   },),
+                  //   ProfileWidgetMenu(title: "Chat",icon: LineAwesomeIcons.cog,onPress: (){
+                  //     Get.to(()=>ChatScreen());
+                  //   },),
+                  //   ProfileWidgetMenu(title: "Tasks",icon: LineAwesomeIcons.user_check,onPress: (){},),
+                  //   const Divider(color: Colors.grey,),
+                  //   const SizedBox(height: 10,),
+                  //   ProfileWidgetMenu(title: "Logout",icon: LineAwesomeIcons.alternate_sign_out,
+                  //     endIcon:false,
+                  //     textColor:Colors.red,
+                  //       onPress: (){
+                  //         AuthenticationRepository.instance.logout();
+                  //       },),
+                ]))));
   }
 }
