@@ -20,6 +20,9 @@ const tDarkColor = Color(0xff000000);
 const tCardBgColor = Color(0xFFF7F6F1);
 const tGreyColor = Colors.grey;
  
+const iconcolor = Color.fromARGB(255, 0, 0, 0);
+const hovercolor=const Color.fromARGB(255, 102, 185, 213);
  
+const textcolor = Color.fromARGB(255, 0, 0, 0);
 
 //  FirebaseFirestore.instance.collection('users').doc('USER_ID_HERE')

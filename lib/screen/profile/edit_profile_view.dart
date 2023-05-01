@@ -5,20 +5,7 @@ import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/screen/profile/show_profile.dart';
 
 
-void updateCollection() async {
-  final CollectionReference collectionReference = FirebaseFirestore.instance.collection("users").doc(uid).collection("user profile");
-  final DocumentReference documentReference = collectionReference.doc(uid);
 
-  try {
-    await documentReference.update({
-      'field1': 'updated value',
-      'field2': 42,
-    });
-    print('Document updated successfully!');
-  } catch (e) {
-    print('Error updating document: $e');
-  }
-}
 
 
 

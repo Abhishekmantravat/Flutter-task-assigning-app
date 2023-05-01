@@ -46,6 +46,8 @@ dependencies:
   intl: ^0.17.0
   # use show network image 
   cached_network_image: ^3.2.3
+  # use rounded_background_text 
+  rounded_background_text: ^0.3.0
 
 
 dev_dependencies:
