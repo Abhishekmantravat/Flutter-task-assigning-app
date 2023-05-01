@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/screen/homescreen/home_view.dart';
+import 'package:taskmanagement/screen/profile/basicprofile.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 
 class AuthenticationRepository extends GetxController {
@@ -49,12 +50,40 @@ class AuthenticationRepository extends GetxController {
             //     .doc(uid)
             //  .collection('user')
             .set({
-          "id": currentUser!.uid,
+          "id": uid,
           "name": fullName,
           "email": email,
           "Password": password,
-          "PhoneNo": phoneNo,
-        });
+          "Phoneno": phoneNo,
+        }).whenComplete(()
+                // => Future.delayed(const Duration(seconds: 2), ()
+                {
+          FirebaseFirestore.instance
+              .collection("users")
+              .doc(uid)
+              .collection('user profile')
+              .doc(uid)
+              .set({
+            // "id": currentUser!.uid,
+
+            "address": " ",
+            "gender": " ",
+            "dob": " ",
+            "education": " ",
+            "skill": " ",
+            "location": " ",
+            "status": "Active",
+            "createdAt": fullName,
+            "pushToken": " ",
+            "lastActive": "time",
+            "isonline": "false",
+            "image":
+                "https://images.pexels.com/photos/1366630/pexels-photo-1366630.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+          });
+        }
+                // ),
+                );
+
         // });
       } catch (exception) {
         Get.snackbar("error", "error in saving data");
