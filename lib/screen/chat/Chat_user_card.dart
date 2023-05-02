@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
+import 'package:taskmanagement/screen/profile/profiles.dart';
 
 class Chat_user_card extends StatefulWidget {
   final Chatuser user;
@@ -43,6 +44,7 @@ class _Chat_user_cardState extends State<Chat_user_card> {
               
               title: Text(widget.user.name),
               subtitle: Text(
+
                 widget.user.email,
                 maxLines: 1,
               ),

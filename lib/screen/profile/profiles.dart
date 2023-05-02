@@ -5,14 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 
+List<DocumentSnapshot> userdata = [];
+List<DocumentSnapshot> studentData = [];
+
 class pro extends StatefulWidget {
   @override
   _proState createState() => _proState();
 }
 
 class _proState extends State<pro> {
-  List<DocumentSnapshot> studentData = [];
-
   void getData() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -24,10 +25,21 @@ class _proState extends State<pro> {
     });
   }
 
+  void getuserdata() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where("id", isEqualTo: uid)
+        .get();
+    setState(() {
+      userdata = snapshot.docs;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    getuserdata();
   }
 
   @override
@@ -47,12 +59,14 @@ class _proState extends State<pro> {
           ),
           IconButton(
             icon: const Icon(Icons.more_vert),
-            onPressed: () {},
+            onPressed: () {
+              print(uid);
+            },
           ),
         ],
       ),
       body: ListView.builder(
-        itemCount: studentData.length,
+        itemCount: 1,
         itemBuilder: (context, index) {
           if (studentData.isNotEmpty) {
             var gender2;
@@ -134,7 +148,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.people,
@@ -152,13 +166,13 @@ class _proState extends State<pro> {
                         Row(
                           children: [
                             Text(
-                              studentData[index]['name'],
+                              userdata[index]['name'],
                               style: const TextStyle(fontSize: 18),
                             ),
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.email,
@@ -174,11 +188,11 @@ class _proState extends State<pro> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          studentData[index]['email'],
+                          userdata[index]['email'],
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.phone,
@@ -194,35 +208,11 @@ class _proState extends State<pro> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          studentData[index]['phone'],
+                          userdata[index]['Phoneno'],
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
-                          children: [
-                            Icon(
-                              Icons.people,
-                            ),
-                            Text(
-                              'about',
-                              style: TextStyle(
-                                fontSize: 20,
-                                // fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Text(
-                              studentData[index]['about'],
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.my_location,
@@ -242,7 +232,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: <Widget>[
                             Row(
                               children: [
@@ -275,7 +265,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.date_range,
@@ -295,7 +285,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.cast_for_education,
@@ -311,11 +301,13 @@ class _proState extends State<pro> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          studentData[index]['education'],
+                          // studentData[index]['education'],
+
+                          '${studentData[index]['education'] ?? 'BBA'}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.book_rounded,
@@ -335,7 +327,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.location_city,
@@ -355,7 +347,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.online_prediction,
@@ -376,9 +368,6 @@ class _proState extends State<pro> {
                         ),
                         const SizedBox(height: 25),
                         ElevatedButton(
-                          onHover: (value) {
-                            "sdsd";
-                          },
                           onPressed: () {},
                           child: const Text("save"),
                         ),
@@ -394,7 +383,7 @@ class _proState extends State<pro> {
           } else {
             return const Center(
               child: Text(
-                "No Collection Found",
+                "Bad Internet connection",
                 style: TextStyle(fontSize: 20),
               ),
             );
@@ -404,5 +393,3 @@ class _proState extends State<pro> {
     );
   }
 }
-
-// final name = studentData[index]['image'];

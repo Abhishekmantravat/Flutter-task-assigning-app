@@ -113,6 +113,7 @@ class _Home_viewState extends State<Home_view> {
              itemCount: 1,
             itemBuilder: (BuildContext context, index) 
             {  
+              if (users.isNotEmpty) {
         return  Column(
           children: [
              DrawerHeader(
@@ -232,7 +233,16 @@ class _Home_viewState extends State<Home_view> {
 
           
         );
+      }  else {
+            return const Center(
+              child: Text(
+                "Bad Internet connection ! check your internet connection",
+                style: TextStyle(fontSize: 20),
+              ),
+            );
+          }
             }
+            
          )
 
       ),
