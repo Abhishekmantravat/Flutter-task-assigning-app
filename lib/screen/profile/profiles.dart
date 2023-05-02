@@ -5,14 +5,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 
+List<DocumentSnapshot> userdata = [];
+List<DocumentSnapshot> studentData = [];
+
 class pro extends StatefulWidget {
   @override
   _proState createState() => _proState();
 }
 
 class _proState extends State<pro> {
-  List<DocumentSnapshot> studentData = [];
-
   void getData() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('users')
@@ -24,10 +25,21 @@ class _proState extends State<pro> {
     });
   }
 
+  void getuserdata() async {
+    QuerySnapshot snapshot = await FirebaseFirestore.instance
+        .collection('users')
+        .where("id", isEqualTo: uid)
+        .get();
+    setState(() {
+      userdata = snapshot.docs;
+    });
+  }
+
   @override
   void initState() {
     super.initState();
     getData();
+    getuserdata();
   }
 
   @override
@@ -47,12 +59,14 @@ class _proState extends State<pro> {
           ),
           IconButton(
             icon: const Icon(Icons.more_vert),
-            onPressed: () {},
+            onPressed: () {
+              print(uid);
+            },
           ),
         ],
       ),
       body: ListView.builder(
-        itemCount: studentData.length,
+        itemCount: 1,
         itemBuilder: (context, index) {
           if (studentData.isNotEmpty) {
             var gender2;
@@ -77,8 +91,7 @@ class _proState extends State<pro> {
                                   width: mq.height * .3,
                                   height: mq.height * .3,
                                   fit: BoxFit.fill,
-                                  imageUrl:
-                                      studentData[index]['image'],
+                                  imageUrl: studentData[index]['image'],
                                   placeholder: (context, url) =>
                                       const CircularProgressIndicator(),
                                   errorWidget: (context, url, error) =>
@@ -134,10 +147,8 @@ class _proState extends State<pro> {
                             )
                           ],
                         ),
-                        
                         const SizedBox(height: 20),
-
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.people,
@@ -155,15 +166,13 @@ class _proState extends State<pro> {
                         Row(
                           children: [
                             Text(
-                              studentData[index]['name'],
+                              userdata[index]['name'],
                               style: const TextStyle(fontSize: 18),
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 20),
-
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.email,
@@ -179,11 +188,11 @@ class _proState extends State<pro> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          studentData[index]['email'],
+                          userdata[index]['email'],
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.phone,
@@ -199,36 +208,11 @@ class _proState extends State<pro> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          studentData[index]['phone'],
+                          userdata[index]['Phoneno'],
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-
-                        const Row(
-                          children: [
-                            Icon(
-                              Icons.people,
-                            ),
-                            Text(
-                              'about',
-                              style: TextStyle(
-                                fontSize: 20,
-                                // fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 8),
-                        Row(
-                          children: [
-                            Text(
-                              studentData[index]['about'],
-                              style: const TextStyle(fontSize: 18),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.my_location,
@@ -248,7 +232,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: <Widget>[
                             Row(
                               children: [
@@ -267,8 +251,6 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 8),
-
-
                         Row(
                           children: [
                             Icon(
@@ -282,9 +264,8 @@ class _proState extends State<pro> {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 20),
-                        const Row(
+                       Row(
                           children: [
                             Icon(
                               Icons.date_range,
@@ -298,14 +279,12 @@ class _proState extends State<pro> {
                             ),
                           ],
                         ),
-
                         const SizedBox(height: 8),
                         Text(
                           studentData[index]['dob'],
                           style: const TextStyle(fontSize: 18),
                         ),
-                        const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.cast_for_education,
@@ -321,11 +300,13 @@ class _proState extends State<pro> {
                         ),
                         const SizedBox(height: 8),
                         Text(
-                          studentData[index]['education'],
+                          // studentData[index]['education'],
+
+                          '${studentData[index]['education'] ?? 'BBA'}',
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.book_rounded,
@@ -345,7 +326,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                       Row(
                           children: [
                             Icon(
                               Icons.location_city,
@@ -364,8 +345,7 @@ class _proState extends State<pro> {
                           studentData[index]['location'],
                           style: const TextStyle(fontSize: 18),
                         ),
-                        const SizedBox(height: 20),
-                        const Row(
+                      Row(
                           children: [
                             Icon(
                               Icons.online_prediction,
@@ -384,21 +364,12 @@ class _proState extends State<pro> {
                           studentData[index]['status'],
                           style: const TextStyle(fontSize: 18),
                         ),
-                                                const SizedBox(height: 25),
-
-ElevatedButton(
-onHover: (value) {
-  "sdsd";
-},
-  onPressed :(){
-
-},
-        
-          child: const Text("save"),
-        
-    ),
-                                                                    const SizedBox(height: 25),
-
+                        const SizedBox(height: 25),
+                        ElevatedButton(
+                          onPressed: () {},
+                          child: const Text("save"),
+                        ),
+                        const SizedBox(height: 25),
                       ],
                     ),
                   ),
@@ -410,7 +381,7 @@ onHover: (value) {
           } else {
             return const Center(
               child: Text(
-                "No Collection Found",
+                "Bad Internet connection",
                 style: TextStyle(fontSize: 20),
               ),
             );
@@ -421,4 +392,58 @@ onHover: (value) {
   }
 }
 
-// final name = studentData[index]['image'];
+
+
+
+// import 'package:flutter/material.dart';
+// import 'package:taskmanagement/constant/colors.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
+
+// class MyWidget extends StatefulWidget {
+//   @override
+//   _MyWidgetState createState() => _MyWidgetState();
+// }
+
+// class _MyWidgetState extends State<MyWidget> {
+//   final TextEditingController _myController = TextEditingController();
+
+//   @override
+//   void initState() {
+//     super.initState();
+
+//     // Retrieve the document data and set the initial value of the controller
+//     FirebaseFirestore.instance.collection('users').doc(uid).get().then((docSnapshot) {
+//       _myController.text = docSnapshot['name'];
+//     });
+//   }
+
+//   @override
+//   void dispose() {
+//     _myController.dispose();
+//     super.dispose();
+//   }
+
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(
+//         actions: [IconButton(
+//             icon: const Icon(Icons.search_rounded),
+//             onPressed: () {
+             
+//              print( _myController);
+//             },
+//           ),],
+//       ),
+//       body: Column(
+//       children: [
+//         TextFormField(
+//           controller: _myController,
+//           decoration: InputDecoration(
+//           ),
+//         ),
+//       ],
+//     ),
+//     );
+//   }
+// }

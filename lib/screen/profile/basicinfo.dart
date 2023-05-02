@@ -10,24 +10,6 @@ String name = " ";
 String emailid = "";
 String phone = ' ';
 
-void updateCollection() async {
-  final CollectionReference collectionReference = FirebaseFirestore.instance
-      .collection("users")
-      .doc(uid)
-      .collection("user profile");
-  final DocumentReference documentReference = collectionReference.doc(uid);
-
-  try {
-    await documentReference.update({
-      'field1': 'updated value',
-      'field2': 42,
-    });
-    print('Document updated successfully!');
-  } catch (e) {
-    print('Error updating document: $e');
-  }
-}
-
 //  class basic information
 
 class basicinfo extends StatefulWidget {
@@ -49,6 +31,23 @@ class basicinfo extends StatefulWidget {
 }
 
 class _basicinfoState extends State<basicinfo> {
+  // void getuserdata() async {
+  //   QuerySnapshot snapshot = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .where("id", isEqualTo: uid)
+  //       .get();
+  //   setState(() {
+  //     userdata = snapshot.docs;
+  //   });
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  //   getuserdata();
+  // }
+
   late TextEditingController _nameController;
   late TextEditingController _emailController;
   late TextEditingController _phoneController;
@@ -89,7 +88,7 @@ class _basicinfoState extends State<basicinfo> {
         backgroundColor: const Color(0xFF17203A),
         title: const Text('User Profile'),
       ),
-      body:SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
@@ -156,8 +155,10 @@ class _basicinfoState extends State<basicinfo> {
                 height: 20,
               ),
               Text("Name:",
-              style: TextStyle( color: textcolor,fontWeight: FontWeight.bold,)
-              ),
+                  style: TextStyle(
+                    color: textcolor,
+                    fontWeight: FontWeight.bold,
+                  )),
               Row(
                 children: [
                   Expanded(
@@ -165,8 +166,7 @@ class _basicinfoState extends State<basicinfo> {
                       controller: _nameController,
                       readOnly: false,
                       decoration: InputDecoration(
-                                                              hintText: 'Enter Lucky name',
-
+                        hintText: 'Enter Lucky name',
                         focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 105, 141, 240)),
@@ -187,8 +187,7 @@ class _basicinfoState extends State<basicinfo> {
                 ],
               ),
               const SizedBox(height: 16),
-              const Text('Email:',              style: TextStyle( color: textcolor)
-),
+              const Text('Email:', style: TextStyle(color: textcolor)),
               Row(
                 children: [
                   Expanded(
@@ -196,8 +195,7 @@ class _basicinfoState extends State<basicinfo> {
                       controller: _emailController,
                       readOnly: false,
                       decoration: InputDecoration(
-                                      hintText: 'example@gmail.com...',
-
+                        hintText: 'example@gmail.com...',
                         focusedBorder: const OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 105, 141, 240)),
@@ -218,8 +216,7 @@ class _basicinfoState extends State<basicinfo> {
                 ],
               ),
               const SizedBox(height: 16),
-              const Text('Phone.NO:',              style: TextStyle( color: textcolor)
-),
+              const Text('Phone.NO:', style: TextStyle(color: textcolor)),
               Row(
                 children: [
                   Expanded(
@@ -228,8 +225,7 @@ class _basicinfoState extends State<basicinfo> {
                       // initialValue: "${widget.pphone}",
                       readOnly: false,
                       decoration: InputDecoration(
-                                                              hintText: 'Enter phone no',
-
+                        hintText: 'Enter phone no',
                         focusedBorder: OutlineInputBorder(
                           borderSide: BorderSide(
                               color: Color.fromARGB(255, 105, 141, 240)),
@@ -264,23 +260,23 @@ class _basicinfoState extends State<basicinfo> {
                         .collection('users')
                         .doc(uid)
                         .update({
-                      "name": name,
-                      "email": emailid,
-                      "phoneno": phone,
-                    }).whenComplete(
-                            () => Navigator.pop(context))
-                            // <-- Nested value
-                    .then((_) => print("profile update"))
-                    .catchError((error) => print('Update failed: $error'));
-                     ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      content: Text(
-                        'Changes saved!',
-                        style: TextStyle(fontWeight: FontWeight.w600),
+                          "name": name,
+                          "email": emailid,
+                          "phoneno": phone,
+                        })
+                        .whenComplete(() => Navigator.pop(context))
+                        // <-- Nested value
+                        .then((_) => print("profile update"))
+                        .catchError((error) => print('Update failed: $error'));
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text(
+                          'Changes saved!',
+                          style: TextStyle(fontWeight: FontWeight.w600),
+                        ),
+                        backgroundColor: Colors.green,
                       ),
-                      backgroundColor: Colors.green,
-                    ),
-                  );
+                    );
                   },
                   child: const Text('Save'),
                 ),
@@ -289,28 +285,10 @@ class _basicinfoState extends State<basicinfo> {
           ),
         ),
       ),
+      
     );
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -332,6 +310,9 @@ class personalinfo extends StatefulWidget {
 }
 
 class _personalinfoState extends State<personalinfo> {
+
+  final TextEditingController _myController = TextEditingController();
+
   late TextEditingController _addressController;
   late TextEditingController _genderController;
   late TextEditingController _dobController;
@@ -372,6 +353,8 @@ class _personalinfoState extends State<personalinfo> {
       email = user.email!;
     });
   }
+
+  
 
   @override
   Widget build(BuildContext context) {
@@ -443,7 +426,7 @@ class _personalinfoState extends State<personalinfo> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   RoundedBackgroundText(
-                    'A cool text to be highlighted',
+                    'Edit Profile',
                     style: const TextStyle(
                         fontWeight: FontWeight.bold, color: Colors.white),
                     backgroundColor: iconcolor,
@@ -465,7 +448,7 @@ class _personalinfoState extends State<personalinfo> {
                   Expanded(
                     child: TextFormField(
                       controller: _addressController,
-                      // initialValue: " ",
+                      // initialValue: "sandila",
                       readOnly: false,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(),
@@ -484,7 +467,7 @@ class _personalinfoState extends State<personalinfo> {
                 children: [
                   Expanded(
                     child: TextFormField(
-                      controller: _genderController,
+                      controller: _addressController,
                       readOnly: false,
                       decoration: InputDecoration(
                         focusedBorder: OutlineInputBorder(),
