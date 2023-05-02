@@ -23,11 +23,11 @@ class SignUpFormWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     //creating the instance of signupcontroller to use its properties
     final controller = Get.put(SignUpController());
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
     return Container(
       padding: const EdgeInsets.only(top: 300),
       child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             children: [
               TextFormField(
@@ -37,7 +37,7 @@ class SignUpFormWidget extends StatelessWidget {
                   prefixIcon: Icon(Icons.person_2_outlined),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: tFormHeight - 20,
               ),
               TextFormField(
@@ -47,7 +47,7 @@ class SignUpFormWidget extends StatelessWidget {
                   prefixIcon: Icon(Icons.mail),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: tFormHeight - 20,
               ),
               TextFormField(
@@ -57,7 +57,7 @@ class SignUpFormWidget extends StatelessWidget {
                   prefixIcon: Icon(Icons.phone),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: tFormHeight - 20,
               ),
               TextFormField(
@@ -67,7 +67,7 @@ class SignUpFormWidget extends StatelessWidget {
                   prefixIcon: Icon(Icons.lock),
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 height: tFormHeight - 20,
               ),
               SizedBox(

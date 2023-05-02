@@ -148,7 +148,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.people,
@@ -172,7 +172,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.email,
@@ -192,7 +192,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                         Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.phone,
@@ -212,7 +212,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                         Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.my_location,
@@ -232,7 +232,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: <Widget>[
                             Row(
                               children: [
@@ -265,7 +265,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                       Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.date_range,
@@ -284,7 +284,8 @@ class _proState extends State<pro> {
                           studentData[index]['dob'],
                           style: const TextStyle(fontSize: 18),
                         ),
-                        Row(
+                        const SizedBox(height: 20),
+                        const Row(
                           children: [
                             Icon(
                               Icons.cast_for_education,
@@ -306,7 +307,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.book_rounded,
@@ -326,7 +327,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                       Row(
+                        const Row(
                           children: [
                             Icon(
                               Icons.location_city,
@@ -345,7 +346,8 @@ class _proState extends State<pro> {
                           studentData[index]['location'],
                           style: const TextStyle(fontSize: 18),
                         ),
-                      Row(
+                        const SizedBox(height: 20),
+                        const Row(
                           children: [
                             Icon(
                               Icons.online_prediction,
@@ -391,59 +393,3 @@ class _proState extends State<pro> {
     );
   }
 }
-
-
-
-
-// import 'package:flutter/material.dart';
-// import 'package:taskmanagement/constant/colors.dart';
-// import 'package:cloud_firestore/cloud_firestore.dart';
-
-// class MyWidget extends StatefulWidget {
-//   @override
-//   _MyWidgetState createState() => _MyWidgetState();
-// }
-
-// class _MyWidgetState extends State<MyWidget> {
-//   final TextEditingController _myController = TextEditingController();
-
-//   @override
-//   void initState() {
-//     super.initState();
-
-//     // Retrieve the document data and set the initial value of the controller
-//     FirebaseFirestore.instance.collection('users').doc(uid).get().then((docSnapshot) {
-//       _myController.text = docSnapshot['name'];
-//     });
-//   }
-
-//   @override
-//   void dispose() {
-//     _myController.dispose();
-//     super.dispose();
-//   }
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         actions: [IconButton(
-//             icon: const Icon(Icons.search_rounded),
-//             onPressed: () {
-             
-//              print( _myController);
-//             },
-//           ),],
-//       ),
-//       body: Column(
-//       children: [
-//         TextFormField(
-//           controller: _myController,
-//           decoration: InputDecoration(
-//           ),
-//         ),
-//       ],
-//     ),
-//     );
-//   }
-// }
