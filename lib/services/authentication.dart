@@ -42,7 +42,7 @@ class AuthenticationRepository extends GetxController {
           "name": fullName,
           "email": email,
           "Password": password,
-          "Phoneno": phoneNo,
+          "phoneno": phoneNo,
         }).whenComplete(()
                 // => Future.delayed(const Duration(seconds: 2), ()
                 {
