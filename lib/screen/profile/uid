@@ -1,0 +1,36 @@
+import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+class MyWidget extends StatefulWidget {
+  @override
+  _MyWidgetState createState() => _MyWidgetState();
+}
+
+class _MyWidgetState extends State<MyWidget> {
+  String _currentUserUid;
+
+  @override
+  void initState() {
+    super.initState();
+
+    // Listen for changes in the authentication state
+    FirebaseAuth.instance.authStateChanges().listen((user) {
+      if (user != null) {
+        setState(() {
+          // Update the current user's UID
+          _currentUserUid = user.uid;
+        });
+      } else {
+        setState(() {
+          // Reset the current user's UID
+          _currentUserUid = null;
+        });
+      }
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Text('Current User UID: $_currentUserUid');
+  }
+}

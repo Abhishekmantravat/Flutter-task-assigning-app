@@ -13,6 +13,8 @@ String phone = ' ';
 //  class basic information
 
 class basicinfo extends StatefulWidget {
+
+
   final String nname;
   final String eemail;
   final String pphone;
@@ -31,27 +33,14 @@ class basicinfo extends StatefulWidget {
 }
 
 class _basicinfoState extends State<basicinfo> {
-  // void getuserdata() async {
-  //   QuerySnapshot snapshot = await FirebaseFirestore.instance
-  //       .collection('users')
-  //       .where("id", isEqualTo: uid)
-  //       .get();
-  //   setState(() {
-  //     userdata = snapshot.docs;
-  //   });
-  // }
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   getData();
-  //   getuserdata();
-  // }
+final _formkey = GlobalKey<FormState>();
 
-  late TextEditingController _nameController;
-  late TextEditingController _emailController;
-  late TextEditingController _phoneController;
-  late TextEditingController _imageController;
+
+late TextEditingController _nameController;
+late TextEditingController _emailController;
+late TextEditingController _phoneController;
+late TextEditingController _imageController;
 
   late TextEditingController txt;
 
@@ -64,12 +53,10 @@ class _basicinfoState extends State<basicinfo> {
 
     super.initState();
     // Initialize text controllers with previous values
-    txt = TextEditingController(text: " ");
-
-    _nameController = TextEditingController(text: "");
-    _emailController = TextEditingController(text: "");
-    _phoneController = TextEditingController(text: "");
-    _imageController = TextEditingController(text: " ");
+    _nameController = TextEditingController(text: "initial value");
+    _emailController = TextEditingController(text: "initial value");
+    _phoneController = TextEditingController(text: "initialvalue");
+    _imageController = TextEditingController(text: "initialvalue");
   }
 
   getuid() async {
@@ -83,209 +70,219 @@ class _basicinfoState extends State<basicinfo> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: const Color(0xFF17203A),
-        title: const Text('User Profile'),
-      ),
-      body: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Center(
-                child: Container(
-                  width: 120,
-                  height: 120,
-
-//
-
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    border: Border.all(width: 2.0, color: Colors.white),
-                    image: const DecorationImage(
-                      fit: BoxFit.fill,
-                      image: NetworkImage(
-                          "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
-                    ),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.only(right: 2.0, bottom: 20),
-                    child: Align(
-                      alignment: Alignment.bottomRight,
-                      child: CircleAvatar(
-                        radius: 20,
-                        child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                          iconSize: 25,
-                          color: Colors.white,
-
-                          tooltip: "change picture",
-
-                          // backgroundColor: const Color(0xff94d500),
-                          mouseCursor: SystemMouseCursors.click,
+    return GestureDetector(
+      onTap: () => FocusScope.of(context).unfocus(),
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: const Color(0xFF17203A),
+          title: const Text('User Profile'),
+        ),
+        body: Form(
+          key: _formkey,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Center(
+                    child: Container(
+                      width: 120,
+                      height: 120,
+            
+            //
+            
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(width: 2.0, color: Colors.white),
+                        image: const DecorationImage(
+                          fit: BoxFit.fill,
+                          image: NetworkImage(
+                              "https://images.pexels.com/photos/2820884/pexels-photo-2820884.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500"),
+                        ),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.only(right: 2.0, bottom: 20),
+                        child: Align(
+                          alignment: Alignment.bottomRight,
+                          child: CircleAvatar(
+                            radius: 20,
+                            child: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.edit),
+                              iconSize: 25,
+                              color: Colors.white,
+            
+                              tooltip: "change picture",
+            
+                              // backgroundColor: const Color(0xff94d500),
+                              mouseCursor: SystemMouseCursors.click,
+                            ),
+                          ),
                         ),
                       ),
                     ),
                   ),
-                ),
-              ),
-
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  RoundedBackgroundText(
-                    'Edit profile',
-                    style: const TextStyle(
-                        fontWeight: FontWeight.bold, color: Colors.white),
-                    backgroundColor: iconcolor,
-                    innerRadius: 15.0,
-                    outerRadius: 10.0,
+            
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      RoundedBackgroundText(
+                        'Edit profile',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, color: Colors.white),
+                        backgroundColor: iconcolor,
+                        innerRadius: 15.0,
+                        outerRadius: 10.0,
+                      ),
+                    ],
                   ),
-                ],
-              ),
-              const SizedBox(
-                height: 20,
-              ),
-              const Divider(),
-              const SizedBox(
-                height: 20,
-              ),
-              Text("Name:",
-                  style: TextStyle(
-                    color: textcolor,
-                    fontWeight: FontWeight.bold,
-                  )),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _nameController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        hintText: 'Enter Lucky name',
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 105, 141, 240)),
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                          tooltip: "change name",
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Divider(),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  Text("Name:",
+                      style: TextStyle(
+                        color: textcolor,
+                        fontWeight: FontWeight.bold,
+                      )),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _nameController , 
+                          readOnly: false,
+                          decoration: InputDecoration(
+                            hintText: 'Enter Lucky name',
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 102, 107, 120)),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.edit),
+                              tooltip: "change name",
+                            ),
+                          ),
+                           onTapOutside: (_) {
+                            setState(() {
+                              name = _nameController.text.toString();
+                           
+                            });
+                          },
                         ),
                       ),
-                      onChanged: (value) {
-                        setState(() {
-                          name = value;
-                        });
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Email:', style: TextStyle(color: textcolor)),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _emailController,
+                          readOnly: false,
+                          decoration: InputDecoration(
+                            hintText: 'example@gmail.com...',
+                            focusedBorder: const OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 105, 141, 240)),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.edit),
+                              tooltip: "change emailId",
+                            ),
+                          ),
+                          onTapOutside: (_) {
+                            setState(() {
+                              email = _emailController.text.toString();
+                           
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  const Text('Phone.NO:', style: TextStyle(color: textcolor)),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: TextFormField(
+                          controller: _phoneController,
+                          // initialValue: "${widget.pphone}",
+                          readOnly: false,
+                          decoration: InputDecoration(
+                            hintText: 'Enter phone no',
+                            focusedBorder: OutlineInputBorder(
+                              borderSide: BorderSide(
+                                  color: Color.fromARGB(255, 105, 141, 240)),
+                            ),
+                            suffixIcon: IconButton(
+                              onPressed: () {},
+                              icon: const Icon(Icons.edit),
+                              tooltip: "change phone.no",
+                            ),
+                          ),
+                          onTapOutside: (_) {
+                            setState(() {
+                              phone = _phoneController.text.toString();
+                           
+                            });
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+                  // "name": _nameController.text.toString(),
+                  //         "email": _emailController.text.toString(),
+                  //         "phone": _phoneController.text.toString(),
+                  const SizedBox(height: 16),
+                  Center(
+                    child: ElevatedButton(
+                      style: ButtonStyle(
+                          backgroundColor:
+                              MaterialStateProperty.all(const Color(0xff17203A))),
+                      onPressed: () async {
+                        print(name);
+                        await FirebaseFirestore.instance
+                            .collection('users')
+                            .doc(uid)
+                            .update({
+                              "name": phone,
+                              "email": email,
+                              "phoneno":phone,
+                            })
+                            .whenComplete(() => Navigator.pop(context))
+                            // <-- Nested value
+                            .then((_) => print("profile update"))
+                            .catchError((error) => print('Update failed: $error'));
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text(
+                              'Changes saved!',
+                              style: TextStyle(fontWeight: FontWeight.w600),
+                            ),
+                            backgroundColor: Colors.green,
+                          ),
+                        );
                       },
+                      child: const Text('Save'),
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              const Text('Email:', style: TextStyle(color: textcolor)),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _emailController,
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        hintText: 'example@gmail.com...',
-                        focusedBorder: const OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 105, 141, 240)),
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                          tooltip: "change emailId",
-                        ),
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          emailid = value;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Text('Phone.NO:', style: TextStyle(color: textcolor)),
-              Row(
-                children: [
-                  Expanded(
-                    child: TextFormField(
-                      controller: _phoneController,
-                      // initialValue: "${widget.pphone}",
-                      readOnly: false,
-                      decoration: InputDecoration(
-                        hintText: 'Enter phone no',
-                        focusedBorder: OutlineInputBorder(
-                          borderSide: BorderSide(
-                              color: Color.fromARGB(255, 105, 141, 240)),
-                        ),
-                        suffixIcon: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(Icons.edit),
-                          tooltip: "change phone.no",
-                        ),
-                      ),
-                      onChanged: (value) {
-                        setState(() {
-                          phone = value;
-                        });
-                      },
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              // "name": _nameController.text.toString(),
-              //         "email": _emailController.text.toString(),
-              //         "phone": _phoneController.text.toString(),
-              const SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  style: ButtonStyle(
-                      backgroundColor:
-                          MaterialStateProperty.all(const Color(0xff17203A))),
-                  onPressed: () async {
-                    await FirebaseFirestore.instance
-                        .collection('users')
-                        .doc(uid)
-                        .update({
-                          "name": name,
-                          "email": emailid,
-                          "phoneno": phone,
-                        })
-                        .whenComplete(() => Navigator.pop(context))
-                        // <-- Nested value
-                        .then((_) => print("profile update"))
-                        .catchError((error) => print('Update failed: $error'));
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        content: Text(
-                          'Changes saved!',
-                          style: TextStyle(fontWeight: FontWeight.w600),
-                        ),
-                        backgroundColor: Colors.green,
-                      ),
-                    );
-                  },
-                  child: const Text('Save'),
-                ),
-              ),
-            ],
+            ),
           ),
         ),
+        
       ),
-      
     );
   }
 }
@@ -364,21 +361,7 @@ class _personalinfoState extends State<personalinfo> {
         title: const Text('User Profile'),
       ),
       body:
-// StreamBuilder<QuerySnapshot>(
-//         stream: FirebaseFirestore.instance.collection("user Profile").snapshots(),
 
-// builder: (context, snapshot) {
-//   if(snapshot.hasData){
-// final Service=snapshot.data.docs;
-// List<widget>Servicewidget=[];
-// for (var profile in Service){
-//   final name=profile.data()['name'];
-// }
-
-//   }
-//   return const  CircularProgressIndicator();
-// },
-//       );
 
           SingleChildScrollView(
         child: Padding(
