@@ -2,14 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 //  get current user collection uid
-final FirebaseAuth auth = FirebaseAuth.instance;
-final user = auth.currentUser!;
-String uid = user.uid;
+// final FirebaseAuth auth = FirebaseAuth.instance;
+// final user = auth.currentUser!;
+// String uid = user.uid;
 // String email= user.email!;
 //   String? phoneno =user.phoneNumber;
 //       String we =user.displayName!;
 
 // List of all colors
+
+final auth =FirebaseAuth.instance;
+
 
 const tPrimaryColor = Color(0xffFFE200);
 const tSecondaryColor = Color(0xFF1E2552);

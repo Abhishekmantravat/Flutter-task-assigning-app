@@ -1,10 +1,11 @@
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
-
+final _auth=FirebaseAuth.instance;
 List<DocumentSnapshot> userdata = [];
 List<DocumentSnapshot> studentData = [];
 
@@ -17,7 +18,7 @@ class _proState extends State<pro> {
   void getData() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('users')
-        .doc(uid)
+        .doc(_auth.currentUser!.uid)
         .collection('user profile')
         .get();
     setState(() {
@@ -28,7 +29,7 @@ class _proState extends State<pro> {
   void getuserdata() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('users')
-        .where("id", isEqualTo: uid)
+        .where("id", isEqualTo: _auth.currentUser!.uid)
         .get();
     setState(() {
       userdata = snapshot.docs;
@@ -46,12 +47,12 @@ class _proState extends State<pro> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(uid),
+        title: Text(_auth.currentUser!.uid),
         actions: [
           IconButton(
             icon: const Icon(Icons.search_rounded),
             onPressed: () {
-              print(uid);
+              print(_auth.currentUser!.uid);
             },
           ),
           const SizedBox(
@@ -60,7 +61,7 @@ class _proState extends State<pro> {
           IconButton(
             icon: const Icon(Icons.more_vert),
             onPressed: () {
-              print(uid);
+              print(_auth.currentUser!.uid);
             },
           ),
         ],
@@ -148,7 +149,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.people,
@@ -172,7 +173,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.email,
@@ -192,7 +193,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.phone,
@@ -212,7 +213,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                        Row(
                           children: [
                             Icon(
                               Icons.my_location,
@@ -232,7 +233,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: <Widget>[
                             Row(
                               children: [
@@ -265,7 +266,7 @@ class _proState extends State<pro> {
                           ],
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.date_range,
@@ -285,7 +286,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                     Row(
                           children: [
                             Icon(
                               Icons.cast_for_education,
@@ -307,7 +308,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.book_rounded,
@@ -327,7 +328,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                         Row(
                           children: [
                             Icon(
                               Icons.location_city,
@@ -347,7 +348,7 @@ class _proState extends State<pro> {
                           style: const TextStyle(fontSize: 18),
                         ),
                         const SizedBox(height: 20),
-                        const Row(
+                       Row(
                           children: [
                             Icon(
                               Icons.online_prediction,

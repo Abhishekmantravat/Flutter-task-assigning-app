@@ -7,7 +7,7 @@ import 'package:taskmanagement/screen/profile/show_profile.dart';
 
 
 
-
+final _auth = FirebaseAuth.instance;
 
 class UserProfileEditPage extends StatefulWidget {
   const UserProfileEditPage({super.key});
@@ -18,7 +18,7 @@ class UserProfileEditPage extends StatefulWidget {
 
 class UserProfileEditPageState extends State<UserProfileEditPage> {
 // future work Abhishek
-
+ 
   // void dispose() {
   //   // Clean up text controllers
   //   _nameController.dispose();
@@ -34,7 +34,6 @@ class UserProfileEditPageState extends State<UserProfileEditPage> {
   //   _imageController.dispose();
   //   super.dispose();
   // }
-
   Widget build(BuildContext context) {
     return const MaterialApp(
 //  call profile class Abhishek
@@ -191,7 +190,7 @@ class _ProfileState extends State<Profile> {
                 ),
               ),
               const SizedBox(height: 16),
-              Text(uid),
+              Text(_auth.currentUser!.uid),
               Row(
                 children: [
                   Expanded(
@@ -390,8 +389,8 @@ class _ProfileState extends State<Profile> {
                     var time = DateTime.now().second;
                     await FirebaseFirestore.instance
                         .collection("users")
-                        .doc(uid)
-                        .collection('user profile').doc(uid)
+                        .doc(_auth.currentUser!.uid)
+                        .collection('user profile').doc(_auth.currentUser!.uid)
                         .set({
                       // "id": currentUser!.uid,
                       "name": _nameController.text.toString(),
@@ -461,7 +460,7 @@ class _ProfileState extends State<Profile> {
 // })
 
 await FirebaseFirestore.instance.collection('users')
-    .doc(uid).collection("user profile").doc(uid)// <-- Doc ID where data should be updated.
+    .doc(_auth.currentUser!.uid).collection("user profile").doc(_auth.currentUser!.uid)// <-- Doc ID where data should be updated.
     .update({
       
        "name": _nameController.text.toString(),
@@ -529,7 +528,7 @@ await FirebaseFirestore.instance.collection('users')
 
 Future<void> getDocumentData() async {
   // Get a reference to a specific document
-  final DocumentReference docRef = FirebaseFirestore.instance.collection('users').doc(uid).collection("user profile ").doc("user profile");
+  final DocumentReference docRef = FirebaseFirestore.instance.collection('users').doc(_auth.currentUser!.uid).collection("user profile ").doc("user profile");
 
   // Get the document data and retrieve the ID
   final DocumentSnapshot docSnapshot = await docRef.get();

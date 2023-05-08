@@ -1,12 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskmanagement/about/about.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/constant/sizes.dart';
 import 'package:taskmanagement/screen/profile/basicinfo.dart';
-
-List<DocumentSnapshot> userdata = [];
-List<DocumentSnapshot> studentData = [];
+final _auth = FirebaseAuth.instance;
 
 class ProfileScreen extends StatefulWidget {
   @override
@@ -14,33 +13,29 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
-  void getData() async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .doc(uid)
-        .collection('user profile')
-        .get();
-    setState(() {
-      studentData = snapshot.docs;
-    });
-  }
+ 
 
-  void getuserdata() async {
-    QuerySnapshot snapshot = await FirebaseFirestore.instance
-        .collection('users')
-        .where("id", isEqualTo: uid)
-        .get();
-    setState(() {
-      userdata = snapshot.docs;
-    });
-  }
+  // for get data in second method
+
+  // void getuserdata() async {
+  //   QuerySnapshot snapshot = await FirebaseFirestore.instance
+  //       .collection('users')
+  //       .where("id", isEqualTo: _auth.currentUser!.uid)
+  //       .get();
+  //   setState(() {
+  //     userdata = snapshot.docs;
+  //   });
+  // }
 
   @override
-  void initState() {
-    super.initState();
-    getData();
-    getuserdata();
-  }
+
+  // for get data in second method
+
+  // void initState() {
+  //   super.initState();
+  //   getData();
+  //   getuserdata();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -51,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             icon: const Icon(Icons.search_rounded),
             onPressed: () {
-              print(uid);
+              print(_auth.currentUser!.uid);
             },
           ),
           const SizedBox(
@@ -65,10 +60,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
           ),
         ],
       ),
-      body: ListView.builder(
-          itemCount: 1,
-          itemBuilder: (BuildContext context, index) {
-            if (userdata.isNotEmpty) {
+      body: StreamBuilder(
+          stream:
+              FirebaseFirestore.instance.collection('users').where("id", isEqualTo: _auth.currentUser!.uid).snapshots(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else {
+              final docs = snapshot.data?.docs;
+
+              return ListView.builder(
+                  itemCount: 1,
+                  itemBuilder: (context, index) {
               return SingleChildScrollView(
                   child: Container(
                       padding: EdgeInsets.all(tDefaultSize),
@@ -112,11 +117,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             const SizedBox(
                               height: 14,
                             ),
-                            Text(userdata[index]['name'],
+                            Text(docs![index]['name'],
                                 style: TextStyle(
                                     color: const Color.fromARGB(255, 0, 0, 0))),
                             Text(
-                              userdata[index]['email'],
+                              docs[index]['email'],
                               style: TextStyle(
                                   color: Color.fromARGB(255, 48, 45, 45)),
                             ),
@@ -167,10 +172,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 context,
                                 MaterialPageRoute(
                                     builder: (context) => basicinfo(
-                                          update: false,
-                                          pphone: '',
-                                          eemail: '',
-                                          nname: '',
+                                        
                                         )));
                           },
                         ),
@@ -222,15 +224,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           },
                         ),
                       ])));
-            } else {
-              return const Center(
-                child: Text(
-                  "Bad Internet connection",
-                  style: TextStyle(fontSize: 20),
-                ),
-              );
-            }
-          }),
+        
+          });
+   }
+   } ),
     );
   }
 }

@@ -10,21 +10,9 @@ class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
   final _auth = FirebaseAuth.instance;
 
-  late final Rx<User?> firebaseUser;
-  var verificationId = ''.obs;
 
-  @override
-  void onReady() {
-    firebaseUser = Rx<User?>(_auth.currentUser);
-    firebaseUser.bindStream(_auth.userChanges());
-    ever(firebaseUser, _setInitialScreen);
-  }
 
-  _setInitialScreen(User? user) {
-    user == null
-        ? Get.offAll(() => const SignUpScreen())
-        : Get.offAll(() => Home_view());
-  }
+  // }
   //creating instance of firebaseauth
 
   //getting the current login user
@@ -45,24 +33,24 @@ class AuthenticationRepository extends GetxController {
       try {
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(uid)
+            .doc(_auth.currentUser!.uid)
             // .collection('user ')
             //     .doc(uid)
             //  .collection('user')
             .set({
-          "id": uid,
+          "id": _auth.currentUser!.uid,
           "name": fullName,
           "email": email,
           "Password": password,
-          "Phoneno": phoneNo,
+          "phoneno": phoneNo,
         }).whenComplete(()
                 // => Future.delayed(const Duration(seconds: 2), ()
                 {
           FirebaseFirestore.instance
               .collection("users")
-              .doc(uid)
+              .doc(_auth.currentUser!.uid)
               .collection('user profile')
-              .doc(uid)
+              .doc(_auth.currentUser!.uid)
               .set({
             // "id": currentUser!.uid,
 
