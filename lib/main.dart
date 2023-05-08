@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +9,7 @@ import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 import 'package:taskmanagement/services/authentication.dart';
 import 'package:taskmanagement/utils/theme/theme.dart';
 import 'package:get/get.dart';
-
+final auth =FirebaseAuth.instance;
 late Size mq;
 
 Future<void> main() async {
@@ -52,7 +53,8 @@ class MyApp extends StatelessWidget {
         theme: TAppTheme.lightTheme,
         darkTheme: TAppTheme.darkTheme,
         themeMode: ThemeMode.system,
-        home: const SignUpScreen(),
+        // making the route on the basis of current user 
+        home:  auth.currentUser==null?SignUpScreen():Home_view(),
 
         // make a routs to use navigate to another pages
         routes: {

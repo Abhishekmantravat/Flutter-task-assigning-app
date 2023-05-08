@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 //  get current user collection uid
-final FirebaseAuth auth = FirebaseAuth.instance;
-final user = auth.currentUser!;
-String uid = user.uid;
+// final FirebaseAuth auth = FirebaseAuth.instance;
+// final user = auth.currentUser!;
+// String uid = user.uid;
 // String email= user.email!;
 //   String? phoneno =user.phoneNumber;
 //       String we =user.displayName!;
