@@ -1,10 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskmanagement/about/about.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/constant/sizes.dart';
 import 'package:taskmanagement/screen/profile/basicinfo.dart';
-
+final _auth = FirebaseAuth.instance;
 List<DocumentSnapshot> userdata = [];
 List<DocumentSnapshot> studentData = [];
 
@@ -17,7 +18,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void getData() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('users')
-        .doc(uid)
+        .doc(_auth.currentUser!.uid)
         .collection('user profile')
         .get();
     setState(() {
@@ -28,7 +29,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void getuserdata() async {
     QuerySnapshot snapshot = await FirebaseFirestore.instance
         .collection('users')
-        .where("id", isEqualTo: uid)
+        .where("id", isEqualTo: _auth.currentUser!.uid)
         .get();
     setState(() {
       userdata = snapshot.docs;
@@ -51,7 +52,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             icon: const Icon(Icons.search_rounded),
             onPressed: () {
-              print(uid);
+              print(_auth.currentUser!.uid);
             },
           ),
           const SizedBox(

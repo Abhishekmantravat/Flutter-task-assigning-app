@@ -14,7 +14,7 @@ import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
 
 // String uid = " ";
 
-
+final _auth= FirebaseAuth.instance;
 class Home_view extends StatefulWidget {
   const Home_view({super.key});
 
@@ -30,7 +30,7 @@ class _Home_viewState extends State<Home_view> {
  List<DocumentSnapshot> users = [];
    void getData() async {
     QuerySnapshot snapshot =
-        (await FirebaseFirestore.instance.collection('users').where("id", isEqualTo: uid).get());
+        (await FirebaseFirestore.instance.collection('users').where("id", isEqualTo: _auth.currentUser!.uid).get());
     setState(() {
       users = snapshot.docs;
     });
@@ -213,7 +213,7 @@ class _Home_viewState extends State<Home_view> {
               leading: const Icon(Icons.more_time_sharp),
               title: const Text(' Time sheet '),
               onTap: () {
-                print(uid);
+                print(_auth.currentUser!.uid);
               },
             ),
             ListTile(
@@ -318,7 +318,7 @@ class _chatState extends State<chat> {
                 final data = snapshot.data?.docs;
                 list = data?.map((e) => Chatuser.fromJson(e.data())).toList() ??
                     [];
-                print(uid);
+                print(_auth.currentUser!.uid);
 
                 //  check user is not empty
                 if (list.isNotEmpty) {

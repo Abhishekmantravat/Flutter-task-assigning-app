@@ -5,6 +5,7 @@ import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/screen/profile/show_profile.dart';
 
 import 'package:rounded_background_text/rounded_background_text.dart';
+final _auth = FirebaseAuth.instance;
 
 String name = " ";
 String emailid = "";
@@ -258,7 +259,7 @@ class _basicinfoState extends State<basicinfo> {
                   onPressed: () async {
                     await FirebaseFirestore.instance
                         .collection('users')
-                        .doc(uid)
+                        .doc(_auth.currentUser!.uid)
                         .update({
                           "name": name,
                           "email": emailid,
@@ -583,9 +584,9 @@ class _personalinfoState extends State<personalinfo> {
                 onPressed: () async {
                   await FirebaseFirestore.instance
                       .collection('users')
-                      .doc(uid)
+                      .doc(_auth.currentUser!.uid)
                       .collection("user profile")
-                      .doc(uid) // <-- Doc ID where data should be updated.
+                      .doc(_auth.currentUser!.uid) // <-- Doc ID where data should be updated.
                       .update({
                         "address": _addressController.text.toString(),
                         "gender": _genderController.text.toString(),
