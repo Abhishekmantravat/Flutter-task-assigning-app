@@ -3,12 +3,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
-import 'package:taskmanagement/all_imployee/all_imployee.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
+import 'package:taskmanagement/screen/all_imployee/all_imployee.dart';
 import 'package:taskmanagement/screen/profile/basicprofile.dart';
-import 'package:taskmanagement/screen/profile/profiles.dart';
 import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
@@ -112,8 +111,7 @@ class _Home_viewState extends State<Home_view> {
           IconButton(
             icon: const Icon(Icons.more_horiz),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (contest) => pro()));
+
             },
           ),
         ],

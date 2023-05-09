@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
-import 'package:taskmanagement/screen/profile/profiles.dart';
 
 class Chat_user_card extends StatefulWidget {
   final Chatuser user;

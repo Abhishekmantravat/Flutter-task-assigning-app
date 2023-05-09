@@ -15,7 +15,7 @@ class _aboutscreenState extends State<aboutscreen> {
         title: const Text('About'),
       ),
       body: Center(
-        child: Text("about page"),
+        child: Text("about Screen"),
       ),
     );
   }
