@@ -3,7 +3,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
-import 'package:taskmanagement/screen/profile/show_profile.dart';
 
 import 'package:rounded_background_text/rounded_background_text.dart';
 final _auth = FirebaseAuth.instance;

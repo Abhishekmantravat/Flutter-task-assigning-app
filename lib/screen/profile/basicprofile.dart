@@ -1,9 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:taskmanagement/about/about.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/constant/sizes.dart';
+import 'package:taskmanagement/screen/about/about.dart';
 import 'package:taskmanagement/screen/profile/basicinfo.dart';
 final _auth = FirebaseAuth.instance;
 

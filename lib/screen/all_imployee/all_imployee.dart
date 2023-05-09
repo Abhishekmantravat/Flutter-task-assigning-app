@@ -7,7 +7,6 @@ import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
 
-import '../screen/chat/Chat_user_card.dart';
 
 class all_employee extends StatefulWidget {
   // final Chatuser user;
