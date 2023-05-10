@@ -10,11 +10,9 @@ import 'package:taskmanagement/screen/all_imployee/all_imployee.dart';
 import 'package:taskmanagement/screen/profile/basicprofile.dart';
 import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
+import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
-import 'package:taskmanagement/screen/signupscreen/signup_screen.dart;
 import '../../services/authentication.dart';
-import '../all_imployee/all_imployee.dart';
-import '../signupscreen/signup_screen.dart';
 
 final _auth = FirebaseAuth.instance;
 

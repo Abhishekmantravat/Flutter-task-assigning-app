@@ -54,15 +54,15 @@ class AuthenticationRepository extends GetxController {
               .set({
             // "id": currentUser!.uid,
 
-            "address": " ",
-            "gender": " ",
-            "dob": " ",
-            "education": " ",
+            "address":"",
+            "gender":"",
+            "dob":"",
+            "education":"",
             "skill": "",
-            "location": " ",
+            "location": "",
             "status": "Active",
             "createdAt": fullName,
-            "pushToken": " ",
+            "pushToken": "",
             "lastActive": "time",
             "isonline": "false",
             "image":
