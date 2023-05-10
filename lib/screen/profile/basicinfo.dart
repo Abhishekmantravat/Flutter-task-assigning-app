@@ -600,7 +600,7 @@ class _personalinfoState extends State<personalinfo> {
                       );
                     },
 
-                    child: Text("Save"),
+                    child: Text("Save Details"),
 
                   
 
