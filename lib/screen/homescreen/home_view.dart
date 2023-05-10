@@ -5,12 +5,14 @@ import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
+import 'package:taskmanagement/screen/loginscreen/login_screen.dart';
 import 'package:taskmanagement/screen/profile/basicprofile.dart';
 import 'package:taskmanagement/screen/profile/profile.dart';
 import 'package:taskmanagement/screen/profile/profiles.dart';
 import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
+import 'package:taskmanagement/services/authentication.dart';
 
 // String uid = " ";
 
@@ -91,6 +93,12 @@ class _Home_viewState extends State<Home_view> {
                   MaterialPageRoute(
                     builder: (context) => const MyHomePage(),
                   ));
+            },
+          ),
+           IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+             AuthenticationRepository.instance.logout().then((value) => Get.to(SignUpScreen()));
             },
           ),
           const SizedBox(
