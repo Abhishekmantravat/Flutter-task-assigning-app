@@ -11,9 +11,10 @@ import 'package:taskmanagement/screen/profile/basicprofile.dart';
 import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
-import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
-
-import '../profile/basicinfo.dart';
+import 'package:taskmanagement/screen/signupscreen/signup_screen.dart;
+import '../../services/authentication.dart';
+import '../all_imployee/all_imployee.dart';
+import '../signupscreen/signup_screen.dart';
 
 final _auth = FirebaseAuth.instance;
 
@@ -103,6 +104,14 @@ class _Home_viewState extends State<Home_view> {
               setState(() {
                 _isSearching = !_isSearching;
               });
+
+            },
+          ),
+           IconButton(
+            icon: const Icon(Icons.logout),
+            onPressed: () {
+             AuthenticationRepository.instance.logout().then((value) => Get.to(SignUpScreen()));
+
             },
           ),
           const SizedBox(
@@ -373,3 +382,6 @@ class _chatState extends State<chat> {
     );
   }
 }
+
+
+

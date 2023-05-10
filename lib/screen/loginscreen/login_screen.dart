@@ -4,8 +4,11 @@ import 'package:taskmanagement/screen/signupscreen/signupform_widget.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
 
-class SignUpScreen extends StatelessWidget {
-  const SignUpScreen({Key? key}) : super(key: key);
+import '../signupscreen/signup_screen.dart';
+import 'loginformwidget.dart';
+
+class LoginScreen extends StatelessWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -15,13 +18,13 @@ class SignUpScreen extends StatelessWidget {
           padding: EdgeInsets.all(30),
           child: Column(
             children: [
-              SignUpFormWidget(),
+              LoginFormWidget(),
               LoginButtonWidget(
                 onTap: () {
-                  Get.to(TaskScreen());
+                  Get.to(()=>SignUpScreen());
                 },
-                title: "Already have an Account",
-                subtitle: "SignIn",
+                title: "Dont have an Account",
+                subtitle: "SignUp",
               )
             ],
           ),

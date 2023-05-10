@@ -90,8 +90,7 @@ late TextEditingController _imageController;
                   itemBuilder: (context, index) {
 
                      final namecontroller= TextEditingController(text: docs![index]['name']);
-                  final emailcontroller = TextEditingController(text: docs[index]['email']);
-                  final phonenocontroller = TextEditingController(text: docs[index]['phoneno']);
+   final phonenocontroller = TextEditingController(text: docs[index]['phoneno']);
 
 
               return SingleChildScrollView(
@@ -160,8 +159,9 @@ late TextEditingController _imageController;
                       const Divider(),
                       const SizedBox(
                         height: 20,
+
                       ),
-                      Text(docs[index]['name'],
+                      Text("Name",
                           style: TextStyle(
                             color: textcolor,
                             fontWeight: FontWeight.bold,
@@ -194,37 +194,7 @@ late TextEditingController _imageController;
                           ),
                         ],
                       ),
-                      const SizedBox(height: 16),
-                      const Text('Email:', style: TextStyle(color: textcolor)),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: emailcontroller,
-                              readOnly: false,
-                              decoration: InputDecoration(
-                                hintText: 'example@gmail.com...',
-                                focusedBorder: const OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                      color: Color.fromARGB(255, 105, 141, 240)),
-                                ),
-                                suffixIcon: IconButton(
-                                  onPressed: () {},
-                                  icon: const Icon(Icons.edit),
-                                  tooltip: "change emailId",
-                                ),
-                              ),
-                              onChanged: (_) {
-                                // setState(() {
-                                //   email = Value;
-                               
-                                // }
-                                // );
-                              },
-                            ),
-                          ),
-                        ],
-                      ),
+                      
                       const SizedBox(height: 16),
                       const Text('Phone.NO:', style: TextStyle(color: textcolor)),
                       Row(
@@ -256,6 +226,8 @@ late TextEditingController _imageController;
                           ),
                         ],
                       ),
+
+                     
                       const SizedBox(height: 16),
                             
                       const SizedBox(height: 16),
@@ -270,7 +242,7 @@ late TextEditingController _imageController;
                             .doc(_auth.currentUser!.uid)
                             .update({
                               "name": namecontroller.text.trim(),
-                              "email": emailcontroller.text.trim(),
+
                               "phoneno": phonenocontroller.text.trim(),
                             })
                             .whenComplete(() => Navigator.pop(context))
@@ -422,7 +394,8 @@ class _personalinfoState extends State<personalinfo> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       RoundedBackgroundText(
-                        'Edit Profile',
+                        'Add Personal Information',
+
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
                         backgroundColor: iconcolor,
@@ -447,6 +420,9 @@ class _personalinfoState extends State<personalinfo> {
                           // initialValue: "sandila",
                           readOnly: false,
                           decoration: InputDecoration(
+
+                             hintText: 'Address',
+
                             focusedBorder: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -466,6 +442,9 @@ class _personalinfoState extends State<personalinfo> {
                           controller: gendercontroller,
                           readOnly: false,
                           decoration: InputDecoration(
+
+                             hintText: 'Gender',
+
                             focusedBorder: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -485,6 +464,9 @@ class _personalinfoState extends State<personalinfo> {
                           controller: dobcontroller,
                           readOnly: false,
                           decoration: InputDecoration(
+
+                             hintText: 'DOB',
+
                             focusedBorder: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -504,6 +486,9 @@ class _personalinfoState extends State<personalinfo> {
                           controller: educationcontroller,
                           readOnly: false,
                           decoration: InputDecoration(
+
+                             hintText: 'Education',
+
                             focusedBorder: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -523,6 +508,9 @@ class _personalinfoState extends State<personalinfo> {
                           controller: skillcontroller,
                           readOnly: false,
                           decoration: InputDecoration(
+
+                            hintText: 'Skills',
+
                             focusedBorder: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -542,6 +530,9 @@ class _personalinfoState extends State<personalinfo> {
                           controller: locationcontroller,
                           readOnly: false,
                           decoration: InputDecoration(
+
+                             hintText: 'Location',
+
                             focusedBorder: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -560,6 +551,9 @@ class _personalinfoState extends State<personalinfo> {
                         child: TextFormField(
                           controller: statuscontroller,
                           decoration: InputDecoration(
+
+                             hintText: 'Status',
+
                             focusedBorder: OutlineInputBorder(),
                             suffixIcon: IconButton(
                               onPressed: () {},
@@ -605,7 +599,11 @@ class _personalinfoState extends State<personalinfo> {
                         ),
                       );
                     },
-                    child: Text("update"),
+
+                    child: Text("Save"),
+
+                  
+
                   )),
                 ],
               ),
