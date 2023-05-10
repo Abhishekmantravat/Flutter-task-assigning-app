@@ -319,7 +319,11 @@ packages:
       sha256: "6c268b42ed578a53088d834796959e4a1814b5e9e164f147f580a386e5decf42"
       url: "https://pub.dev"
     source: hosted
+<<<<<<< HEAD
+    version: "1.9.0"
+=======
     version: "1.8.0"
+>>>>>>> 0b553487177490dc7833b56d9c0f0c7b9c70c5d0
   octo_image:
     dependency: transitive
     description:

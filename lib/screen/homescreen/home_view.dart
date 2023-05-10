@@ -1,22 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
-import 'package:taskmanagement/screen/loginscreen/login_screen.dart';
 import 'package:taskmanagement/screen/profile/basicprofile.dart';
-import 'package:taskmanagement/screen/profile/profile.dart';
-import 'package:taskmanagement/screen/profile/profiles.dart';
 import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
-import 'package:taskmanagement/services/authentication.dart';
 
-// String uid = " ";
+import '../../services/authentication.dart';
+import '../all_imployee/all_imployee.dart';
+import '../signupscreen/signup_screen.dart';
 
-final _auth= FirebaseAuth.instance;
+final _auth = FirebaseAuth.instance;
+
 class Home_view extends StatefulWidget {
   const Home_view({super.key});
 
@@ -25,27 +25,12 @@ class Home_view extends StatefulWidget {
 }
 
 class _Home_viewState extends State<Home_view> {
+//for storing search status
+  bool _isSearching = false;
 
+  // for storing search items
 
-
-
- List<DocumentSnapshot> users = [];
-   void getData() async {
-    QuerySnapshot snapshot =
-        (await FirebaseFirestore.instance.collection('users').where("id", isEqualTo: _auth.currentUser!.uid).get());
-    setState(() {
-      users = snapshot.docs;
-    });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    getData();
-  }
-
-
-  List<Chatuser> list = [];
+  final List<Chatuser> _searchlist = [];
 
   int _selectedIndex = 0;
 
@@ -69,7 +54,32 @@ class _Home_viewState extends State<Home_view> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: tSecondaryColor,
-        title: const Text("Mantravat"),
+        title: _isSearching
+            ? TextField(
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    hintMaxLines: 1,
+                    hintText: "search by email",
+                    hintStyle: TextStyle(color: Colors.white)),
+                autofocus: true,
+                style: TextStyle(
+                    fontSize: 17, letterSpacing: 0.5, color: Colors.white),
+                // when search text changes then updated search list
+                onChanged: (value) {
+                  //  search login
+                  _searchlist.clear();
+
+                  //  for(var i in users){
+                  //   if(i.name.toLowerCase().contains(value.toLowerCase()) || i.email.toLowerCase().contains(value.toLowerCase())){
+                  //     _searchlist.add(i);
+                  //   }
+                  //   setState(() {
+                  //     _searchlist ;
+                  //   });
+                  //  }
+                },
+              )
+            : const Text("Mantravat"),
         centerTitle: true,
         leading: Builder(
           builder: (BuildContext context) {
@@ -86,13 +96,13 @@ class _Home_viewState extends State<Home_view> {
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search_rounded),
+            icon: Icon(_isSearching
+                ? CupertinoIcons.clear_circled_solid
+                : Icons.search),
             onPressed: () {
-              Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const MyHomePage(),
-                  ));
+              setState(() {
+                _isSearching = !_isSearching;
+              });
             },
           ),
            IconButton(
@@ -107,153 +117,165 @@ class _Home_viewState extends State<Home_view> {
           IconButton(
             icon: const Icon(Icons.more_horiz),
             onPressed: () {
-              Navigator.push(
-                  context, MaterialPageRoute(builder: (contest) => pro()));
-            
+
             },
           ),
         ],
       ),
       drawer: Drawer(
-        backgroundColor: const Color(0xff17203A),
+          backgroundColor: const Color(0xff17203A),
+          child: StreamBuilder(
+              stream: FirebaseFirestore.instance
+                  .collection('users')
+                  .where("id", isEqualTo: _auth.currentUser!.uid)
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.connectionState == ConnectionState.waiting) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                } else {
+                  final docs = snapshot.data?.docs;
 
-         child:ListView.builder(
-             itemCount: 1,
-            itemBuilder: (BuildContext context, index) 
-            {  
-              if (users.isNotEmpty) {
-        return  Column(
-          children: [
-             DrawerHeader(
-              decoration:
-                  const BoxDecoration(color: Color.fromRGBO(23, 32, 58, 1)),
-              //BoxDecoration
-              child: UserAccountsDrawerHeader(
-                decoration: const BoxDecoration(color: Color(0xFF17203A)),
-                accountName:  Text(
-                  users[index]["name"],
-                  style: TextStyle(fontSize: 18),
-                ),
-                accountEmail:  Text(users[index]["email"]),
-                currentAccountPictureSize: const Size.square(50),
-                currentAccountPicture: CircleAvatar(
-                    backgroundColor: const Color.fromARGB(255, 1, 117, 211),
-                    child: TextButton(
-                      onPressed: () {
-                       Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileScreen()));
-                      },
-                      child: const Text(
-                        "A",
-                        style: TextStyle(fontSize: 30.0, color: Colors.white),
-                      ),
-                    )), //circleAvatar
-              ), //UserAccountDrawerHeader
-            ), //DrawerHeader
-            const Divider(
-              color: Colors.white24,
-              height: 1,
-            ),
+                  return ListView.builder(
+                      itemCount: 1,
+                      itemBuilder: (context, index) {
+                        return Column(
+                          children: [
+                            DrawerHeader(
+                              decoration: const BoxDecoration(
+                                  color: Color.fromRGBO(23, 32, 58, 1)),
+                              //BoxDecoration
+                              child: UserAccountsDrawerHeader(
+                                decoration: const BoxDecoration(
+                                    color: Color(0xFF17203A)),
+                                accountName: Text(
+                                  docs![index]['name'],
+                                  style: TextStyle(fontSize: 18),
+                                ),
+                                accountEmail: Text(docs[index]['email']),
+                                currentAccountPictureSize:
+                                    const Size.square(50),
+                                currentAccountPicture: CircleAvatar(
+                                    backgroundColor:
+                                        const Color.fromARGB(255, 1, 117, 211),
+                                    child: TextButton(
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    ProfileScreen()));
+                                      },
+                                      child: const Text(
+                                        "A",
+                                        style: TextStyle(
+                                            fontSize: 30.0,
+                                            color: Colors.white),
+                                      ),
+                                    )), //circleAvatar
+                              ), //UserAccountDrawerHeader
+                            ), //DrawerHeader
+                            const Divider(
+                              color: Colors.white24,
+                              height: 1,
+                            ),
 
-            const SizedBox(height: 10),
+                            const SizedBox(height: 10),
 
-            ListTile(
-              textColor: Colors.white,
-              iconColor: Colors.white,
-              hoverColor: const Color.fromARGB(255, 102, 185, 213),
-              leading: const Icon(
-                Icons.account_box_rounded,
-              ),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              title: const Text(
-                ' Profile ',
-                style: TextStyle(),
-              ),
-              onTap: () {
-             Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => ProfileScreen()));
-              },
-            ),
+                            ListTile(
+                              textColor: Colors.white,
+                              iconColor: Colors.white,
+                              hoverColor:
+                                  const Color.fromARGB(255, 102, 185, 213),
+                              leading: const Icon(
+                                Icons.account_box_rounded,
+                              ),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              title: const Text(
+                                ' Profile ',
+                                style: TextStyle(),
+                              ),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => ProfileScreen()));
+                              },
+                            ),
 
-            ListTile(
-              textColor: Colors.white,
-              iconColor: Colors.white,
-              hoverColor: const Color.fromARGB(255, 102, 185, 213),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              leading: const Icon(Icons.emoji_people),
-              title: const Text(' All Employee '),
-              onTap: () {
-                Navigator.pushNamed(context, 'all_employee');
-              },
-            ),
-            ListTile(
-              textColor: Colors.white,
-              iconColor: Colors.white,
-              hoverColor: const Color.fromARGB(255, 102, 185, 213),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              leading: const Icon(Icons.task_alt),
-              title: const Text(' Task '),
-              onTap: () {
-                //  use for routes abhishek
-                // Navigator.pushNamed(context, 'task');
+                            ListTile(
+                              textColor: Colors.white,
+                              iconColor: Colors.white,
+                              hoverColor:
+                                  const Color.fromARGB(255, 102, 185, 213),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              leading: const Icon(Icons.emoji_people),
+                              title: const Text(' All Employee '),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => all_employee()));
+                              },
+                            ),
+                            ListTile(
+                              textColor: Colors.white,
+                              iconColor: Colors.white,
+                              hoverColor:
+                                  const Color.fromARGB(255, 102, 185, 213),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              leading: const Icon(Icons.task_alt),
+                              title: const Text(' Task '),
+                              onTap: () {
+                                //  use for routes abhishek
+                                // Navigator.pushNamed(context, 'task');
 
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => TaskScreen()));
-              },
-            ),
-            ListTile(
-              textColor: Colors.white,
-              iconColor: Colors.white,
-              hoverColor: const Color.fromARGB(255, 102, 185, 213),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(10),
-              ),
-              leading: const Icon(Icons.more_time_sharp),
-              title: const Text(' Time sheet '),
-              onTap: () {
-                print(_auth.currentUser!.uid);
-              },
-            ),
-            ListTile(
-                textColor: Colors.white,
-                iconColor: Colors.white,
-                hoverColor: const Color.fromARGB(255, 102, 185, 213),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                leading: const Icon(Icons.logout),
-                title: const Text('LogOut'),
-                onTap: () async {
-                  await FirebaseAuth.instance.signOut();
-                  Get.back();
-                }),
-          ],
-
-          
-        );
-      }  else {
-            return const Center(
-              child: Text(
-                "Bad Internet connection ! check your internet connection",
-                style: TextStyle(fontSize: 20),
-              ),
-            );
-          }
-            }
-            
-         )
-
-      ),
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TaskScreen()));
+                              },
+                            ),
+                            ListTile(
+                              textColor: Colors.white,
+                              iconColor: Colors.white,
+                              hoverColor:
+                                  const Color.fromARGB(255, 102, 185, 213),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              leading: const Icon(Icons.more_time_sharp),
+                              title: const Text(' Time sheet '),
+                              onTap: () {
+                                print(_auth.currentUser!.uid);
+                              },
+                            ),
+                            ListTile(
+                                textColor: Colors.white,
+                                iconColor: Colors.white,
+                                hoverColor:
+                                    const Color.fromARGB(255, 102, 185, 213),
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                leading: const Icon(Icons.logout),
+                                title: const Text('LogOut'),
+                                onTap: () async {
+                                  await FirebaseAuth.instance.signOut();
+                                  Get.to(() => SignUpScreen());
+                                }),
+                          ],
+                        );
+                      });
+                }
+              })),
       body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
@@ -291,6 +313,7 @@ class chat extends StatefulWidget {
 }
 
 class _chatState extends State<chat> {
+  // for storing all users
   List<Chatuser> list = [];
 
   Widget build(BuildContext context) {
@@ -306,6 +329,7 @@ class _chatState extends State<chat> {
       body: StreamBuilder(
           stream: FirebaseFirestore.instance
               .collection("users")
+              .where("id", isNotEqualTo: _auth.currentUser!.uid)
 
 //  get data to the user profile collection
               // .doc(uid)
@@ -356,9 +380,3 @@ class _chatState extends State<chat> {
   }
 }
 
-
-
-
-
-
-  

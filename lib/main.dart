@@ -1,15 +1,17 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
+// import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taskmanagement/screen/homescreen/home_view.dart';
-import 'package:taskmanagement/screen/profile/edit_profile_view.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 import 'package:taskmanagement/services/authentication.dart';
 import 'package:taskmanagement/utils/theme/theme.dart';
 import 'package:get/get.dart';
-final auth =FirebaseAuth.instance;
+
+import 'constant/colors.dart';
 late Size mq;
 
 Future<void> main() async {
@@ -59,7 +61,6 @@ class MyApp extends StatelessWidget {
         // make a routs to use navigate to another pages
         routes: {
           'homeview': (context) => const Home_view(),
-          'edit_profile': (context) => UserProfileEditPage(),
           // 'show_profile':(context) =>   UserProfilePage(),
         });
   }

@@ -3,7 +3,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
-import 'package:taskmanagement/screen/profile/profiles.dart';
 
 class Chat_user_card extends StatefulWidget {
   final Chatuser user;
@@ -29,18 +28,18 @@ class _Chat_user_cardState extends State<Chat_user_card> {
 
 
               // leading: CircleAvatar(child: Icon(CupertinoIcons.person)),
-              // leading:  ClipRRect(
-              //   borderRadius: BorderRadius.circular(mq.height*.3),
-              //   child: CachedNetworkImage(
-              //     width:mq.height*.055,
-              //     height: mq.height*.055,
-              //     fit: BoxFit.fill,
-              //         imageUrl:
-              //           widget.user.image,
-              //         placeholder: (context, url) => const CircularProgressIndicator(),
-              //         errorWidget: (context, url, error) => const  CircleAvatar(child: Icon(CupertinoIcons.person)),
-              //      ),
-              // ),
+              leading:  ClipRRect(
+                borderRadius: BorderRadius.circular(mq.height*.3),
+                child: CachedNetworkImage(
+                  width:mq.height*.055,
+                  height: mq.height*.055,
+                  fit: BoxFit.fill,
+                      imageUrl:
+                        widget.user.image,
+                      placeholder: (context, url) => const CircularProgressIndicator(),
+                      errorWidget: (context, url, error) => const  CircleAvatar(child: Icon(CupertinoIcons.person)),
+                   ),
+              ),
               
               title: Text(widget.user.name),
               subtitle: Text(
