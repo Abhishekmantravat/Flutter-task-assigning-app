@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:taskmanagement/screen/loginscreen/login_screen.dart';
 import 'package:taskmanagement/screen/signupscreen/signupbuttonwidget.dart';
 import 'package:taskmanagement/screen/signupscreen/signupform_widget.dart';
 import 'package:get/get.dart';
@@ -18,7 +19,7 @@ class SignUpScreen extends StatelessWidget {
               SignUpFormWidget(),
               SignUpButtonWidget(
                 onTap: () {
-                  Get.to(TaskScreen());
+                  Get.to(()=>LoginScreen());
                 },
                 title: "Already have an Account",
                 subtitle: "SignIn",
