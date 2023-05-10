@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:taskmanagement/screen/homescreen/home_view.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
+import 'package:taskmanagement/screen/welcomescreen/welcomescreen.dart';
 import 'package:taskmanagement/services/authentication.dart';
 import 'package:taskmanagement/utils/theme/theme.dart';
 import 'package:get/get.dart';
@@ -56,7 +57,7 @@ class MyApp extends StatelessWidget {
         darkTheme: TAppTheme.darkTheme,
         themeMode: ThemeMode.system,
         // making the route on the basis of current user 
-        home:  auth.currentUser==null?SignUpScreen():Home_view(),
+        home:  auth.currentUser==null? welcome():Home_view(),
 
         // make a routs to use navigate to another pages
         routes: {

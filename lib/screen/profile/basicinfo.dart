@@ -236,7 +236,7 @@ late TextEditingController _imageController;
                               readOnly: false,
                               decoration: InputDecoration(
                                 hintText: 'Enter phone no',
-                                focusedBorder: OutlineInputBorder(
+                                focusedBorder: const OutlineInputBorder(
                                   borderSide: BorderSide(
                                       color: Color.fromARGB(255, 105, 141, 240)),
                                 ),
@@ -422,7 +422,7 @@ class _personalinfoState extends State<personalinfo> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       RoundedBackgroundText(
-                        'Edit Profile',
+                        'Edit personal information',
                         style: const TextStyle(
                             fontWeight: FontWeight.bold, color: Colors.white),
                         backgroundColor: iconcolor,

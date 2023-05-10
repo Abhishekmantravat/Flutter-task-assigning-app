@@ -495,3 +495,175 @@
                           //     ],
                           //   ),
                           // ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                          //  welcome page
+
+
+                          Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: <Widget>[
+                //We take the image from the assets
+                Image.asset(
+                  'assets/images/images.jpeg',
+                  height: 250,
+                ),
+                SizedBox(
+                  height: 20,
+                ),
+                //Texts and Styling of them
+                Text(
+                  'Welcome to TGD !',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(color: Colors.black, fontSize: 28),
+                ),
+                SizedBox(height:10),
+                Text(
+                  'A one-stop portal for you to learn the latest technologies from SCRATCH',
+                  style: TextStyle(color: Colors.black, fontSize: 16),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                //Our MaterialButton which when pressed will take us to a new screen named as 
+                //LoginScreen
+                MaterialButton(
+                  elevation: 0,
+                  height: 50,
+                  onPressed: () {
+                    // Navigator.push(context,
+                    //     MaterialPageRoute(builder: (_) => LoginScreen()));
+                  },
+                  color: iconcolor,
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: <Widget>[
+                      Text('Get Started',
+                          style: TextStyle(color: Colors.white, fontSize: 20)),
+                      Icon(Icons.arrow_forward_ios)
+                    ],
+                  ),
+                  textColor: Colors.white,
+                )
+              ],
+            ),
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            //   second welcome screen 
+
+
+            import 'package:flutter/material.dart';
+
+class welcom extends StatelessWidget {
+  const welcom({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Color.fromARGB(255, 9, 8, 29),
+      body: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Row(
+              children: [
+                Text(
+                  "Welcome",
+                  style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                      fontSize: 40),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 15,
+            ),
+            Row(
+              children: [
+                Text(
+                  "WE promis that you'll have the ",
+                  style: TextStyle(
+                    color: Colors.white,
+                    height: 1.4,
+                  ),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "most",
+                  style: TextStyle(color: Colors.white),
+                ),
+              ],
+            ),
+            Row(
+              children: [
+                Text(
+                  "Fuss-free time eith us ever",
+                  style: TextStyle(color: Colors.white),
+                )
+              ],
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  width: 80,
+                  height: 80,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(100),
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.arrow_forward),
+                    iconSize: 30,
+                    color: Color.fromARGB(255, 32, 67, 222),
+                    tooltip: "Continue",
+                    mouseCursor: SystemMouseCursors.click,
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
+      ),
+    );
+  }
+}
