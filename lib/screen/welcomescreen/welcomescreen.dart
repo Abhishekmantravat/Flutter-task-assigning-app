@@ -8,8 +8,7 @@ class welcome extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Welcome Screen',
-      theme: ThemeData(
-      ),
+      theme: ThemeData(),
       home: WelcomeScreen(),
     );
   }
@@ -18,9 +17,8 @@ class welcome extends StatelessWidget {
 class WelcomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
     return Scaffold(
-      backgroundColor:  Color.fromARGB(255, 8, 4, 48),
+      backgroundColor: const Color.fromARGB(255, 8, 4, 48),
       body: Container(
         alignment: Alignment.center,
         child: Column(
@@ -35,55 +33,65 @@ class WelcomeScreen extends StatelessWidget {
                 height: 200,
               ),
             ),
-            SizedBox(height: 30),
+            const SizedBox(height: 30),
             const Text(
               'Welcome to Mantravat !',
               style: TextStyle(
-                fontSize: 28,
-                fontWeight: FontWeight.bold,
-                color: Colors.white
+                  fontSize: 28,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white),
+            ),
+            const SizedBox(height: 15),
+            const Text(
+              'A one-stop portal for you to learn the latest ',
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255), fontSize: 16),
+            ),
+            const SizedBox(
+              height: 5,
+            ),
+            const Text(
+              "technologies from SCRATCH",
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                  color: Color.fromARGB(255, 255, 255, 255), fontSize: 16),
+            ),
+            const SizedBox(height: 30),
+            Container(
+              width: 350.0,
+              height: 50.0,
+              // padding:EdgeInsets.only(left: 80, right: 80) ,
+              // margin: EdgeInsets.only(left: 80 , right: 80),
+              child: OutlinedButton.icon(
+                onPressed: () {
+                  Navigator.pushReplacement(context,
+                      MaterialPageRoute(builder: (_) => const SignUpScreen()));
+                },
+                
+                label: const Text("CONTINUE",
+                    style: TextStyle(
+                      fontSize: 18,
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    )),
+                style: OutlinedButton.styleFrom(
+                  backgroundColor: const Color.fromARGB(255, 38, 144, 141),
+                ),
+                icon: const Icon(
+                  Icons.arrow_forward,
+                  size: 18,
+                  color: Colors.white,
+                ),
               ),
             ),
-            SizedBox(height: 15),
-            Text( 
-               'A one-stop portal for you to learn the latest ',
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255), fontSize: 16),),
-                  SizedBox(height: 5,),
-                   Text( 
-   
-                "technologies from SCRATCH",
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: const Color.fromARGB(255, 255, 255, 255), fontSize: 16),),
-            SizedBox(height: 30),
-           Container(
-             width: 350.0,
-          height: 50.0,
-            // padding:EdgeInsets.only(left: 80, right: 80) ,
-            // margin: EdgeInsets.only(left: 80 , right: 80),
-             child: OutlinedButton.icon(
-                              onPressed: () {
-Navigator.push(context, MaterialPageRoute(builder: (_)=> SignUpScreen()))   ;                           },
-                              label: const Text("CONTINUE",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    color: Colors.white,
-                                    fontWeight: FontWeight.bold,
-                                  )),
-                              style: OutlinedButton.styleFrom(
-                                backgroundColor: Color.fromARGB(255, 38, 144, 141),
-                              ),
-                              icon: const Icon(
-                                Icons.arrow_forward,
-                                size: 18,
-                                color: Colors.white,
-                              ),
-                            ),
-           ),
-                          SizedBox(height: 15,),
-                          Text("Click on continue",
-                          style: TextStyle(color: Colors.white),),
-      
+            const SizedBox(
+              height: 15,
+            ),
+            const Text(
+              "Click on continue",
+              style: TextStyle(color: Colors.white),
+            ),
           ],
         ),
       ),

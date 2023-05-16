@@ -48,6 +48,10 @@ dependencies:
   cached_network_image: ^3.2.3
   # use rounded_background_text 
   rounded_background_text: ^0.3.0
+  #  input dob
+  dob_input_field: ^2.0.0
+  # auto suggestion
+  flutter_typeahead: ^3.2.3
 
 
 dev_dependencies:

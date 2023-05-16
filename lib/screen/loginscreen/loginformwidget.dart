@@ -47,7 +47,10 @@ class LoginFormWidget extends StatelessWidget {
                       LoginController.instance.loginUser(
                           controller.email.text.trim(),
                           controller.password.text.trim());
-                          Future.delayed(const Duration(seconds: 2),(){Get.to(()=>Home_view());});
+                          Future.delayed(const Duration(seconds: 5),(){Navigator.pushReplacement(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home_view()));});
                     },
                     child: Text("SignIn".toUpperCase())),
               )
