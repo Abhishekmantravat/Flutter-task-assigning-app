@@ -2,10 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:intl/intl.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
+import 'package:taskmanagement/screen/all_imployee/employeesdedails.dart';
 
 
 class all_employee extends StatefulWidget {
@@ -45,7 +48,12 @@ class _all_employeeState extends State<all_employee> {
                   itemCount: docs?.length,
                   itemBuilder: (context, index) {
                     return InkWell(
-                      onTap: () {},
+                      onTap: () {
+                         if (docs[index]['role'] == 'manager') {
+Get.to(() => employeesdetails(
+                                  name: docs[index]['name'],
+                                  email: docs[index]['email'],
+                                ));                   }   },
                       child: Card(
                      margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
@@ -68,7 +76,7 @@ class _all_employeeState extends State<all_employee> {
                             ),
                             title: Text(docs![index]['name']),
                             subtitle: Text(docs[index]['email']),
-                            trailing:    Icon(Icons.verified_rounded),
+                            trailing:  const   Text("Attendance"),
                       ),
                     ),
                     );

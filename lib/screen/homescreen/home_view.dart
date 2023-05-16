@@ -7,10 +7,13 @@ import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
 import 'package:taskmanagement/screen/all_imployee/all_imployee.dart';
+import 'package:taskmanagement/screen/attendance/attendance.dart';
+import 'package:taskmanagement/screen/basicdetail/basicdetail.dart';
 import 'package:taskmanagement/screen/profile/basicprofile.dart';
 import 'package:taskmanagement/screen/search/search.dart';
 import 'package:taskmanagement/screen/chat/Chat_user_card.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
+import 'package:taskmanagement/screen/taskscreen/addtask.dart';
 import 'package:taskmanagement/screen/taskscreen/taskscreen.dart';
 import '../../services/authentication.dart';
 
@@ -102,14 +105,14 @@ class _Home_viewState extends State<Home_view> {
               setState(() {
                 _isSearching = !_isSearching;
               });
-
             },
           ),
-           IconButton(
+          IconButton(
             icon: const Icon(Icons.logout),
             onPressed: () {
-             AuthenticationRepository.instance.logout().then((value) => Get.to(SignUpScreen()));
-
+              AuthenticationRepository.instance
+                  .logout()
+                  .then((value) => Get.to(SignUpScreen()));
             },
           ),
           const SizedBox(
@@ -117,9 +120,7 @@ class _Home_viewState extends State<Home_view> {
           ),
           IconButton(
             icon: const Icon(Icons.more_horiz),
-            onPressed: () {
-
-            },
+            onPressed: () {},
           ),
         ],
       ),
@@ -215,13 +216,23 @@ class _Home_viewState extends State<Home_view> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              leading: const Icon(Icons.emoji_people),
-                              title: const Text(' All Employee '),
+                              leading: const Icon(Icons.add_task_outlined),
+                              title: const Text(' Task '),
                               onTap: () {
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => all_employee()));
+                                //  use for routes abhishek
+                                // Navigator.pushNamed(context, 'task');
+                                if (docs[index]['role'] == 'manager') {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => AddTask()));
+                                }
+                                 else {
+                                  Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                          builder: (context) => TaskScreen()));
+                                }
                               },
                             ),
                             ListTile(
@@ -232,16 +243,32 @@ class _Home_viewState extends State<Home_view> {
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                               ),
-                              leading: const Icon(Icons.task_alt),
-                              title: const Text(' Task '),
+                              leading: const Icon(Icons.emoji_people),
+                              title: const Text(' All Employee '),
                               onTap: () {
-                                //  use for routes abhishek
-                                // Navigator.pushNamed(context, 'task');
-
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => TaskScreen()));
+                                        builder: (context) => all_employee()));
+                              },
+                            ),
+
+                            ListTile(
+                              textColor: Colors.white,
+                              iconColor: Colors.white,
+                              hoverColor:
+                                  const Color.fromARGB(255, 102, 185, 213),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              leading:
+                                  const Icon(Icons.online_prediction_outlined),
+                              title: const Text(' Attendance'),
+                              onTap: () {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => attendance()));
                               },
                             ),
                             ListTile(
@@ -256,6 +283,10 @@ class _Home_viewState extends State<Home_view> {
                               title: const Text(' Time sheet '),
                               onTap: () {
                                 print(_auth.currentUser!.uid);
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => TaskScreen()));
                               },
                             ),
                             ListTile(
@@ -380,6 +411,3 @@ class _chatState extends State<chat> {
     );
   }
 }
-
-
-

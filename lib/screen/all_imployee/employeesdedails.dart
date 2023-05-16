@@ -4,45 +4,35 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/constant/sizes.dart';
 import 'package:taskmanagement/screen/about/about.dart';
+import 'package:taskmanagement/screen/all_imployee/employeeacountdetail.dart';
 import 'package:taskmanagement/screen/profile/basicinfo.dart';
 final _auth = FirebaseAuth.instance;
 
-class ProfileScreen extends StatefulWidget {
-  @override
-  _ProfileScreenState createState() => _ProfileScreenState();
+class employeesdetails extends StatefulWidget {
+
+  
+const employeesdetails({
+    super.key,
+    this.name,
+    this.email,
+  });
+  final String? name;
+  final String? email;
+  
+    _employeesdetailsState createState() => _employeesdetailsState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
- 
+class _employeesdetailsState extends State<employeesdetails> {
 
-  // for get data in second method
-
-  // void getuserdata() async {
-  //   QuerySnapshot snapshot = await FirebaseFirestore.instance
-  //       .collection('users')
-  //       .where("id", isEqualTo: _auth.currentUser!.uid)
-  //       .get();
-  //   setState(() {
-  //     userdata = snapshot.docs;
-  //   });
-  // }
-
+  // final String? title;
+  // final String? description;
   @override
-
-  // for get data in second method
-
-  // void initState() {
-  //   super.initState();
-  //   getData();
-  //   getuserdata();
-  // }
-
-  @override
+  
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
                   backgroundColor: primaryColor,
-        title: Text("Profile"),
+        title: Text("Employee Details"),
         actions: [
           IconButton(
             icon: const Icon(Icons.search_rounded),
@@ -56,7 +46,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           IconButton(
             icon: const Icon(Icons.more_vert),
             onPressed: () {
-              ;
+              
             },
           ),
         ],
@@ -93,36 +83,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       //  Image(image: AssetImage(userprofiledata[index]["image"])),
                                       ),
                                 ),
-                                Positioned(
-                                    bottom: 0,
-                                    right: 0,
-                                    child: Container(
-                                      width: 30,
-                                      height: 30,
-                                      decoration: BoxDecoration(
-                                        borderRadius:
-                                            BorderRadius.circular(100),
-                                        color: tSecondaryColor,
-                                      ),
-                                      child: IconButton(
-                                        onPressed: () {},
-                                        icon: const Icon(Icons.edit),
-                                        iconSize: 20,
-                                        color: Colors.white,
-                                        tooltip: "change picture",
-                                        mouseCursor: SystemMouseCursors.click,
-                                      ),
-                                    ))
+                               
                               ],
                             ),
                             const SizedBox(
                               height: 14,
                             ),
-                            Text(docs![index]['name'],
+                            Text(widget.name!,
                                 style: TextStyle(
                                     color: const Color.fromARGB(255, 0, 0, 0))),
                             Text(
-                              docs[index]['email'],
+                              widget.email!,
                               style: TextStyle(
                                   color: Color.fromARGB(255, 48, 45, 45)),
                             ),
@@ -133,10 +104,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 200,
                               child: ElevatedButton(
                                 onPressed: () {
-                                  // Get.to(()=>UpdateProfileScreen());
+                                  // Get.to(()=>Updateemployeesdetails());
                                 },
                                 child: const Text(
-                                  "Edit picture",
+                                  "All Details",
                                   style: TextStyle(color: Colors.white),
                                 ),
                                 style: ElevatedButton.styleFrom(
@@ -159,22 +130,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           iconColor: iconcolor,
                           hoverColor: hovercolor,
                           leading: const Icon(
-                            Icons.manage_accounts_rounded,
+                            Icons.pending_actions_outlined,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                           title: const Text(
-                            ' Edit Profile ',
+                            ' Pending tasks ',
                             style: TextStyle(),
                           ),
                           onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => basicinfo(
-                                        
-                                        )));
+                           
                           },
                         ),
                         ListTile(
@@ -182,21 +148,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           iconColor: iconcolor,
                           hoverColor: hovercolor,
                           leading: const Icon(
-                            Icons.info_rounded,
+                            Icons.task_alt_outlined,
                           ),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
                           title: const Text(
-                            ' Personal information ',
+                            'Completed Task',
                             style: TextStyle(),
                           ),
                           onTap: () {
                             // basicinfo
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => personalinfo()));
+                           
                           },
                         ),
                         const Divider(),
@@ -214,14 +177,35 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           title: const Text(
-                            ' About ',
+                            'Personal Details',
                             style: TextStyle(),
                           ),
                           onTap: () {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => aboutscreen()));
+                                    builder: (context) => employeeacountdetail(
+                                      email: widget.email
+                                    )));
+                          },
+                        ),
+                      
+                        ListTile(
+                          textColor: iconcolor,
+                          iconColor: iconcolor,
+                          hoverColor: hovercolor,
+                          leading: const Icon(
+                            Icons.co_present_outlined,
+                          ),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          title: const Text(
+                            'Attendance Details',
+                            style: TextStyle(),
+                          ),
+                          onTap: () {
+                            
                           },
                         ),
                       ])));

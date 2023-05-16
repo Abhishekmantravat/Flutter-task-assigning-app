@@ -14,26 +14,30 @@ class AddTask extends StatefulWidget {
 class _AddTaskState extends State<AddTask> {
   TextEditingController titleController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
+  TextEditingController emailidontroller = TextEditingController();
+  TextEditingController complectiontimeController = TextEditingController();
 
-  addtasktofirebase() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final user = await auth.currentUser;
-    String? uid = user?.uid;
-    var time = DateTime.now();
-    await FirebaseFirestore.instance
-        .collection('tasks')
-        .doc(uid)
-        .collection('mytasks')
-        .doc(time.toString())
-        .set({
-      'title': titleController.text,
-      'description': descriptionController.text,
-      'time': time.toString(),
-      'timestamp': time
-    });
-    Fluttertoast.showToast(msg: 'Data Added');
-    Get.back();
-  }
+
+
+  // addtasktofirebase() async {
+  //   FirebaseAuth auth = FirebaseAuth.instance;
+  //   final user = await auth.currentUser;
+  //   String? uid = user?.uid;
+  //   var time = DateTime.now();
+  //   await FirebaseFirestore.instance
+  //       .collection('tasks')
+  //       .doc(uid)
+  //       .collection('mytasks')
+  //       .doc(time.toString())
+  //       .set({
+  //     'title': titleController.text,
+  //     'description': descriptionController.text,
+  //     'time': time.toString(),
+  //     'timestamp': time
+  //   });
+  //   Fluttertoast.showToast(msg: 'Data Added');
+  //   Get.back();
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -48,6 +52,16 @@ class _AddTaskState extends State<AddTask> {
             children: [
               Container(
                 child: TextField(
+                  controller: emailidontroller,
+                  decoration: InputDecoration(
+                    labelText: 'Employee email id',
+                  ),
+                ),
+              ),
+                            SizedBox(height: 10),
+
+               Container(
+                child: TextField(
                   controller: titleController,
                   decoration: InputDecoration(
                     labelText: 'Enter Title',
@@ -59,6 +73,16 @@ class _AddTaskState extends State<AddTask> {
                 child: TextField(
                   controller: descriptionController,
                   decoration: InputDecoration(labelText: 'Enter Description'),
+                ),
+              ),
+                            SizedBox(height: 10),
+
+               Container(
+                child: TextField(
+                  controller: complectiontimeController,
+                  decoration: InputDecoration(
+                    labelText: 'Enter complection time',
+                  ),
                 ),
               ),
               SizedBox(height: 10),
@@ -77,12 +101,31 @@ class _AddTaskState extends State<AddTask> {
                       'Add Task',
                       style: GoogleFonts.roboto(fontSize: 18),
                     ),
-                    onPressed: () {
-                      addtasktofirebase();
+                    onPressed: () 
+                      async{ 
+    FirebaseAuth auth = FirebaseAuth.instance;
+    final user = await auth.currentUser;
+    String? uid = user?.uid;
+    var time = DateTime.now();
+    await FirebaseFirestore.instance
+        .collection('tasks').doc(emailidontroller.text.toString()).
+        collection("task").doc(time.toString())
+        .set({
+      'title': titleController.text,
+      'description': descriptionController.text,
+      'time': time.toString(),
+      'timestamp': time
+    });
+    Fluttertoast.showToast(msg: 'Data Added');
+    Get.back();
+  
                     },
+                    
                   ))
             ],
           )),
     );
   }
 }
+
+
