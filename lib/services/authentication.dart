@@ -1,7 +1,12 @@
+import 'dart:js';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
+import 'package:taskmanagement/screen/basicdetail/basicdetail.dart';
 import 'package:taskmanagement/screen/homescreen/home_view.dart';
 import 'package:taskmanagement/screen/profile/basicprofile.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
@@ -27,13 +32,14 @@ class AuthenticationRepository extends GetxController {
       // print("user created");
       Get.snackbar('successful', 'you logged in successfully');
       //query to store user data in firestore
-      Get.to(() => Home_view());
-      var time = DateTime.now().millisecondsSinceEpoch.toString();
+ Navigator.pushReplacement(context as BuildContext,
+                      MaterialPageRoute(builder: (_) => basicdetail()));             
+                                 var time = DateTime.now().millisecondsSinceEpoch.toString();
 
       try {
         await FirebaseFirestore.instance
             .collection('users')
-            .doc(_auth.currentUser!.uid)
+            .doc(_auth.currentUser!.email)
             // .collection('user ')
             //     .doc(uid)
             //  .collection('user')
@@ -48,16 +54,16 @@ class AuthenticationRepository extends GetxController {
                 {
           FirebaseFirestore.instance
               .collection("users")
-              .doc(_auth.currentUser!.uid)
+              .doc(_auth.currentUser!.email)
               .collection('user profile')
               .doc(_auth.currentUser!.uid)
               .set({
             // "id": currentUser!.uid,
 
-            "address":"",
-            "gender":"",
-            "dob":"",
-            "education":"",
+            "address": "",
+            "gender": "",
+            // "dob": "",
+            "education": "",
             "skill": "",
             "location": "",
             "status": "Active",

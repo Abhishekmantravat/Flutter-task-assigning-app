@@ -67,7 +67,7 @@ late TextEditingController _imageController;
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: const Color(0xFF17203A),
+          backgroundColor: primaryColor,
           title: const Text('User Profile'),
         ),
         body: Form(
@@ -239,7 +239,7 @@ late TextEditingController _imageController;
                           onPressed: () async  {
                         await FirebaseFirestore.instance
                             .collection('users')
-                            .doc(_auth.currentUser!.uid)
+                            .doc(_auth.currentUser!.email)
                             .update({
                               "name": namecontroller.text.trim(),
 
@@ -325,7 +325,7 @@ class _personalinfoState extends State<personalinfo> {
       body:
   StreamBuilder(
           stream:
-              FirebaseFirestore.instance.collection('users').doc( _auth.currentUser!.uid).collection("user profile").snapshots(),
+              FirebaseFirestore.instance.collection('users').doc( _auth.currentUser!.email).collection("user profile").snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
@@ -573,7 +573,7 @@ class _personalinfoState extends State<personalinfo> {
                     onPressed: () async {
                       await FirebaseFirestore.instance
                           .collection('users')
-                          .doc(_auth.currentUser!.uid)
+                          .doc(_auth.currentUser!.email)
                           .collection("user profile")
                           .doc(_auth.currentUser!.uid) // <-- Doc ID where data should be updated.
                           .update({

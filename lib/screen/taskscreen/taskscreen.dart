@@ -37,7 +37,7 @@ class _TaskScreenState extends State<TaskScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ALL TASKS'),
+        title: Text('MY TASKS'),
         backgroundColor: tSecondaryColor,
       ),
       // ],
@@ -49,8 +49,8 @@ class _TaskScreenState extends State<TaskScreen> {
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('tasks')
-                  .doc(uid)
-                  .collection('mytasks')
+                  .doc(email)
+                  .collection('task')
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -104,7 +104,7 @@ class _TaskScreenState extends State<TaskScreen> {
                                 ),
                                 Container(
                                   child: IconButton(
-                                    icon: Icon(
+                                    icon: const Icon(
                                       Icons.delete,
                                       color: Colors.white,
                                     ),

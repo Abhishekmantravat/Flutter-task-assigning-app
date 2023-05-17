@@ -14,7 +14,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 final auth =FirebaseAuth.instance;
 
 
-const tPrimaryColor = Color(0xffFFE200);
+const primaryColor =Color.fromARGB(255, 0, 0, 0);
 const tSecondaryColor = Color(0xFF1E2552);
 // const tAccentColor = Color(0xFF001BFF);
 
