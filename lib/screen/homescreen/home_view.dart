@@ -37,7 +37,7 @@ class _Home_viewState extends State<Home_view> {
   int _selectedIndex = 0;
 
   static List<Widget> _pages = <Widget>[
-    Text("Home screen"),
+    const Text("Home screen"),
     // call task screen page
     TaskScreen(),
     // call chat screen page
@@ -201,6 +201,7 @@ class _Home_viewState extends State<Home_view> {
                                 style: TextStyle(),
                               ),
                               onTap: () {
+                                // go to profile screen
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
@@ -219,8 +220,7 @@ class _Home_viewState extends State<Home_view> {
                               leading: const Icon(Icons.add_task_outlined),
                               title: const Text(' Task '),
                               onTap: () {
-                                //  use for routes abhishek
-                                // Navigator.pushNamed(context, 'task');
+                        // check login person manager or employee if manager then show add task screen otherwise task screen
                                 if (docs[index]['role'] == 'manager') {
                                   Navigator.push(
                                       context,
@@ -249,7 +249,7 @@ class _Home_viewState extends State<Home_view> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => all_employee()));
+                                        builder: (context) => all_employee( role: docs[index]['role'],)));
                               },
                             ),
 
@@ -268,7 +268,7 @@ class _Home_viewState extends State<Home_view> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => attendance()));
+                                        builder: (context) => MyButtonPage()));
                               },
                             ),
                             ListTile(
