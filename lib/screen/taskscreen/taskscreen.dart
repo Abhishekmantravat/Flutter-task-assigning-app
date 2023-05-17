@@ -125,14 +125,7 @@ class _TaskScreenState extends State<TaskScreen> {
                       });
                 }
               })),
-      floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add, color: Colors.white),
-          backgroundColor: tSecondaryColor,
-          onPressed: () {
-            print(email);
-            Navigator.push(
-                context, MaterialPageRoute(builder: (context) => AddTask()));
-          }),
+     
     );
   }
 }

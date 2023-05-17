@@ -13,10 +13,12 @@ import 'package:taskmanagement/screen/all_imployee/employeesdedails.dart';
 
 class all_employee extends StatefulWidget {
   // final Chatuser user;
-  const all_employee({
+const all_employee({
     super.key,
+    this.role,
+    
   });
-
+  final String? role;
   @override
   State<all_employee> createState() => _all_employeeState();
 }
@@ -34,6 +36,7 @@ class _all_employeeState extends State<all_employee> {
       ),
       body: StreamBuilder(
           stream:
+          // fetch data in to user collection
               FirebaseFirestore.instance.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -49,7 +52,8 @@ class _all_employeeState extends State<all_employee> {
                   itemBuilder: (context, index) {
                     return InkWell(
                       onTap: () {
-                         if (docs[index]['role'] == 'manager') {
+                        // check login person manager or employee if manager then work
+                         if (widget.role== 'manager') {
 Get.to(() => employeesdetails(
                                   name: docs[index]['name'],
                                   email: docs[index]['email'],
@@ -66,6 +70,7 @@ Get.to(() => employeesdetails(
                                 width: mq.height * .055,
                                 height: mq.height * .055,
                                 fit: BoxFit.fill,
+                                //  user profile image in users collection
                                 imageUrl: " widget.user.image",
                                 placeholder: (context, url) =>
                                     const CircularProgressIndicator(),
