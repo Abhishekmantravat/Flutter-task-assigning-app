@@ -81,7 +81,7 @@ Get.to(() => employeesdetails(
                             ),
                             title: Text(docs![index]['name']),
                             subtitle: Text(docs[index]['email']),
-                            trailing:  const   Text("Attendance"),
+                            trailing:    Text(docs[index]['status']),
                       ),
                     ),
                     );

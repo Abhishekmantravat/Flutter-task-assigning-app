@@ -29,3 +29,10 @@ const hovercolor=const Color.fromARGB(255, 102, 185, 213);
 const textcolor = Color.fromARGB(255, 0, 0, 0);
 
 //  FirebaseFirestore.instance.collection('users').doc('USER_ID_HERE')
+
+  var date = new DateTime.now().toString();
+
+    var dateParse = DateTime.parse(date);
+
+    final formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+

@@ -1,9 +1,7 @@
-import 'dart:js';
+import 'dart:html';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/screen/basicdetail/basicdetail.dart';
@@ -14,8 +12,6 @@ import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
   final _auth = FirebaseAuth.instance;
-
-
 
   // }
   //creating instance of firebaseauth
@@ -32,10 +28,9 @@ class AuthenticationRepository extends GetxController {
       // print("user created");
       Get.snackbar('successful', 'you logged in successfully');
       //query to store user data in firestore
- Navigator.pushReplacement(context as BuildContext,
-                      MaterialPageRoute(builder: (_) => basicdetail()));             
-                                 var time = DateTime.now().millisecondsSinceEpoch.toString();
-
+      Get.to(() => const basicdetail());
+      var time = DateTime.now().millisecondsSinceEpoch.toString();
+      var currenttime = DateTime.now();
       try {
         await FirebaseFirestore.instance
             .collection('users')
@@ -49,6 +44,7 @@ class AuthenticationRepository extends GetxController {
           "email": email,
           "Password": password,
           "phoneno": phoneNo,
+          "status": "",
         }).whenComplete(()
                 // => Future.delayed(const Duration(seconds: 2), ()
                 {
@@ -60,15 +56,15 @@ class AuthenticationRepository extends GetxController {
               .set({
             // "id": currentUser!.uid,
 
-            "address": "",
-            "gender": "",
-            // "dob": "",
-            "education": "",
+            "address": " ",
+            "gender": " ",
+            // "dob": " ",
+            "education": " ",
             "skill": "",
-            "location": "",
+            "location": " ",
             "status": "Active",
             "createdAt": fullName,
-            "pushToken": "",
+            "pushToken": " ",
             "lastActive": "time",
             "isonline": "false",
             "image":
@@ -76,7 +72,20 @@ class AuthenticationRepository extends GetxController {
           });
         }
                 // ),
-                );
+                ).whenComplete(() {
+          FirebaseFirestore.instance
+              .collection("users")
+              .doc(_auth.currentUser!.email)
+              .collection('attendance')
+              .doc(formattedDate.toString())
+              .set({
+            // "id": currentUser!.uid,
+            "attendance": "attendance",
+            "date":formattedDate.toString(),
+            "time" :currenttime.toLocal().toString()
+          });
+        });
+        ;
 
         // });
       } catch (exception) {
@@ -92,7 +101,8 @@ class AuthenticationRepository extends GetxController {
       }
     }
   }
-   Future<void> loginWithEmailAndPassword(String email, String password) async {
+
+  Future<void> loginWithEmailAndPassword(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       print("signin");
@@ -112,5 +122,6 @@ class AuthenticationRepository extends GetxController {
       }
     }
   }
-   Future<void>logout() async =>  _auth.signOut();
+
+  Future<void> logout() async => _auth.signOut();
 }

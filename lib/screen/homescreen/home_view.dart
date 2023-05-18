@@ -268,7 +268,10 @@ class _Home_viewState extends State<Home_view> {
                                 Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyButtonPage()));
+                                        builder: (context) => MyButtonPage(
+                                          name: docs[index]['name'],
+                                          status: docs[index]['status'],
+                                        )));
                               },
                             ),
                             ListTile(
@@ -289,6 +292,20 @@ class _Home_viewState extends State<Home_view> {
                                         builder: (context) => TaskScreen()));
                               },
                             ),
+                             ListTile(
+                              textColor: Colors.white,
+                              iconColor: Colors.white,
+                              hoverColor:
+                                  const Color.fromARGB(255, 102, 185, 213),
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(10),
+                              ),
+                              leading: const Icon(Icons.account_box_outlined),
+                              title: const Text(' About '),
+                              onTap: () {
+                               
+                              },
+                            ),
                             ListTile(
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
@@ -305,9 +322,12 @@ class _Home_viewState extends State<Home_view> {
                                 }),
                           ],
                         );
-                      });
+                      }
+                      );
                 }
-              })),
+              }
+              )
+              ),
       body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
