@@ -160,7 +160,7 @@ class _MyButtonPageState extends State<MyButtonPage> {
   // }
 
   bool isButtonActive = false;
-  String tooltipmessage = "Time out valide only 9 o'clock";
+  String tooltipmessage = "Time out valide only 9:00 o'clock";
   String message = "Time ";
   // final currentTie = DateTime.now();
 
@@ -200,9 +200,10 @@ class _MyButtonPageState extends State<MyButtonPage> {
       }
     });
   }
-
+ 
   @override
-  void dispose() {
+  void dispose() { 
+    
     activateButton();
     super.dispose();
   }
