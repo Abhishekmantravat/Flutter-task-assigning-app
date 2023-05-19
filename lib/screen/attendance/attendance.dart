@@ -173,14 +173,14 @@ class _MyButtonPageState extends State<MyButtonPage> {
   }
 
   void activateButton() {
-    Timer.periodic(const Duration(minutes: 15), (timer) {
+    Timer.periodic(const Duration(seconds: 50), (timer) {
       final currentTime = DateTime.now();
       final activationTime = DateTime(
         currentTime.year,
         currentTime.month,
         currentTime.day,
-        15, // Hour
-        9,
+        19, // Hour
+        44,
         // Minute
       );
 
@@ -219,7 +219,8 @@ class _MyButtonPageState extends State<MyButtonPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          formattedDate.toString(),
+          // formattedDate.toString(),
+          currentTie.toString(),
           // currentTie.day.toString()
         ),
         centerTitle: true,
