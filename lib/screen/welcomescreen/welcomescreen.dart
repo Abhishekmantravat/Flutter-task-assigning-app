@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/screen/signupscreen/signup_screen.dart';
 
@@ -65,8 +66,7 @@ class WelcomeScreen extends StatelessWidget {
               // margin: EdgeInsets.only(left: 80 , right: 80),
               child: OutlinedButton.icon(
                 onPressed: () {
-                  Navigator.pushReplacement(context,
-                      MaterialPageRoute(builder: (_) => const SignUpScreen()));
+                 Get.to(()=>SignUpScreen());
                 },
                 
                 label: const Text("CONTINUE",
