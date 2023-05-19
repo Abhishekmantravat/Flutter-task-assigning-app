@@ -32,8 +32,7 @@ class AuthenticationRepository extends GetxController {
       // print("user created");
       Get.snackbar('successful', 'you logged in successfully');
       //query to store user data in firestore
- Navigator.pushReplacement(context as BuildContext,
-                      MaterialPageRoute(builder: (_) => basicdetail()));             
+            Get.off(()=>basicdetail());             
                                  var time = DateTime.now().millisecondsSinceEpoch.toString();
 
       try {

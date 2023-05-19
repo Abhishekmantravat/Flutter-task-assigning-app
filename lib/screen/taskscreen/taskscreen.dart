@@ -32,6 +32,16 @@ class _TaskScreenState extends State<TaskScreen> {
       email = user.email!;
     });
   }
+  bool ischecked= false;
+ done()async{
+  var time = DateTime.now();
+          await FirebaseFirestore.instance
+          .collection('tasks').doc(auth.currentUser!.email).
+          collection("task").doc(auth.currentUser!.email)
+          .update({
+            'status':"completed"
+          });
+}
 
   @override
   Widget build(BuildContext context) {
@@ -81,11 +91,20 @@ class _TaskScreenState extends State<TaskScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
+                                  Checkbox(
+                                    value: ischecked,
+                                    onChanged: (bool? newvalue){
+                                      setState(() {
+                                          ischecked=newvalue!;
+                                      });
+                                       
+
+                                    }),
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Padding(
+                                     Padding(
                                       padding: const EdgeInsets.all(10),
                                       child: Text(docs[index]['title'],
                                           style: const TextStyle(
@@ -118,6 +137,20 @@ class _TaskScreenState extends State<TaskScreen> {
                                     },
                                   ),
                                 ),
+                                 Container(
+                                  margin: EdgeInsets.only(top: 10),
+                                  child: MaterialButton(
+                                    child: Text('Done'),
+                                    onPressed:ischecked? ()async{
+                                       await FirebaseFirestore.instance
+          .collection('tasks').doc(auth.currentUser!.email).
+          collection("task").doc()
+          .update({
+            'status':"completed"
+          });
+}:null,
+                                  ),
+                                )
                               ],
                             ),
                           ),

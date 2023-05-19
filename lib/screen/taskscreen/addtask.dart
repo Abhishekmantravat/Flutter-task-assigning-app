@@ -46,84 +46,87 @@ class _AddTaskState extends State<AddTask> {
         title: Text('New Task'),
         backgroundColor: tSecondaryColor,
       ),
-      body: Container(
-          padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
-          child: Column(
-            children: [
-              Container(
-                child: TextField(
-                  controller: emailidontroller,
-                  decoration: InputDecoration(
-                    labelText: 'Employee email id',
-                  ),
-                ),
-              ),
-                            SizedBox(height: 10),
-
-               Container(
-                child: TextField(
-                  controller: titleController,
-                  decoration: InputDecoration(
-                    labelText: 'Enter Title',
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                child: TextField(
-                  controller: descriptionController,
-                  decoration: InputDecoration(labelText: 'Enter Description'),
-                ),
-              ),
-                            SizedBox(height: 10),
-
-               Container(
-                child: TextField(
-                  controller: complectiontimeController,
-                  decoration: InputDecoration(
-                    labelText: 'Enter complection time',
-                  ),
-                ),
-              ),
-              SizedBox(height: 10),
-              Container(
-                  width: double.infinity,
-                  height: 50,
-                  child: ElevatedButton(
-                    // style: ButtonStyle(backgroundColor:
-                    // MaterialStateProperty.resolveWith<Color>(
-                    //         (Set<MaterialState> states) {
-                    //       if (states.contains(MaterialState.pressed))
-                    //         return Colors.purple.shade100;
-                    //       return Theme.of(context).primaryColor;
-                    //     })),
-                    child: Text(
-                      'Add Task',
-                      style: GoogleFonts.roboto(fontSize: 18),
+      body: SingleChildScrollView(
+        child: Container(
+            padding: EdgeInsets.symmetric(vertical: 100, horizontal: 20),
+            child: Column(
+              children: [
+                Container(
+                  child: TextField(
+                    controller: emailidontroller,
+                    decoration: InputDecoration(
+                      labelText: 'Employee email id',
                     ),
-                    onPressed: () 
-                      async{ 
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final user = await auth.currentUser;
-    String? uid = user?.uid;
-    var time = DateTime.now();
-    await FirebaseFirestore.instance
-        .collection('tasks').doc(emailidontroller.text.toString()).
-        collection("task").doc(time.toString())
-        .set({
-      'title': titleController.text,
-      'description': descriptionController.text,
-      'time': time.toString(),
-      'timestamp': time
-    });
-    Fluttertoast.showToast(msg: 'Data Added');
-    Get.back();
-  
-                    },
-                    
-                  ))
-            ],
-          )),
+                  ),
+                ),
+                              SizedBox(height: 10),
+      
+                 Container(
+                  child: TextField(
+                    controller: titleController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter Title',
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                  child: TextField(
+                    controller: descriptionController,
+                    decoration: InputDecoration(labelText: 'Enter Description'),
+                  ),
+                ),
+                              SizedBox(height: 10),
+      
+                 Container(
+                  child: TextField(
+                    controller: complectiontimeController,
+                    decoration: InputDecoration(
+                      labelText: 'Enter complection time',
+                    ),
+                  ),
+                ),
+                SizedBox(height: 10),
+                Container(
+                    width: double.infinity,
+                    height: 50,
+                    child: ElevatedButton(
+                      // style: ButtonStyle(backgroundColor:
+                      // MaterialStateProperty.resolveWith<Color>(
+                      //         (Set<MaterialState> states) {
+                      //       if (states.contains(MaterialState.pressed))
+                      //         return Colors.purple.shade100;
+                      //       return Theme.of(context).primaryColor;
+                      //     })),
+                      child: Text(
+                        'Add Task',
+                        style: GoogleFonts.roboto(fontSize: 18),
+                      ),
+                      onPressed: () 
+                        async{ 
+          FirebaseAuth auth = FirebaseAuth.instance;
+          final user = await auth.currentUser;
+          String? uid = user?.uid;
+          var time = DateTime.now();
+          await FirebaseFirestore.instance
+          .collection('tasks').doc(emailidontroller.text.toString()).
+          collection("task").doc(time.toString())
+          .set({
+        'title': titleController.text,
+        'description': descriptionController.text,
+        'time': time.toString(),
+        'timestamp': time,
+        'status':''
+          });
+          Fluttertoast.showToast(msg: 'Data Added');
+          Get.back();
+        
+                      },
+                      
+                    ))
+              ],
+            )),
+      ),
     );
   }
 }
