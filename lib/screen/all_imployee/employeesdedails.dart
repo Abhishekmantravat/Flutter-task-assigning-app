@@ -6,6 +6,7 @@ import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/constant/sizes.dart';
 import 'package:taskmanagement/screen/about/about.dart';
 import 'package:taskmanagement/screen/all_imployee/employeeacountdetail.dart';
+import 'package:taskmanagement/screen/attendance/attendancedetail.dart';
 import 'package:taskmanagement/screen/profile/basicinfo.dart';
 import 'package:taskmanagement/screen/taskscreen/completedtask.dart';
 
@@ -209,6 +210,15 @@ class _employeesdetailsState extends State<employeesdetails> {
                             style: TextStyle(),
                           ),
                           onTap: () {
+                            
+  Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => attendencedetail(
+                                      email: widget.email!,
+                                      name: widget.name!,
+                                    )));
+
                             
                           },
                         ),

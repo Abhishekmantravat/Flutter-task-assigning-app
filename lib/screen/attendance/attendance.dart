@@ -2,7 +2,7 @@
 // // import 'dart:async';
 
 // // import 'package:taskmanagement/screen/homescreen/home_view.dart';
-// // import 'package:taskmanagement/screen/profile/basicprofile.dart'; 
+// // import 'package:taskmanagement/screen/profile/basicprofile.dart';
 
 // // class attendance extends StatefulWidget {
 // //   const attendance({super.key});
@@ -59,18 +59,20 @@
 // //   }
 // // }
 
+// //  second page
 
-
-
-
-
-// //  second page 
-
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:taskmanagement/screen/homescreen/home_view.dart';
 
+import '../../constant/colors.dart';
+import '../../model/chat_user.dart';
+
+final _auth = FirebaseAuth.instance;
 
 // class attendance extends StatelessWidget {
 //   @override
@@ -129,20 +131,41 @@ import 'package:taskmanagement/screen/homescreen/home_view.dart';
 //   }
 // }
 
-
-
-
-
-
-
 class MyButtonPage extends StatefulWidget {
   @override
+  MyButtonPage({
+    super.key,
+    required this.name,
+    this.status,
+  });
+  final String name;
+  final String? status;
+
   _MyButtonPageState createState() => _MyButtonPageState();
 }
 
 class _MyButtonPageState extends State<MyButtonPage> {
+  String finalDate = '';
+
+  // getCurrentDate() {
+  // var date = new DateTime.now().toString();
+
+  // var dateParse = DateTime.parse(date);
+
+  // var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+
+  //   setState(() {
+  //     finalDate = formattedDate.toString();
+  //   });
+  // }
+
   bool isButtonActive = false;
-String tooltipmessage = "Time out valide only 9'o clock";
+  String tooltipmessage = "Time out valide only 9:00 o'clock";
+  String message = "Time ";
+  // final currentTie = DateTime.now();
+
+  var currentTie = DateTime.now();
+
   @override
   void initState() {
     super.initState();
@@ -150,20 +173,21 @@ String tooltipmessage = "Time out valide only 9'o clock";
   }
 
   void activateButton() {
-    Timer.periodic(const Duration(seconds: 144), (timer) {
+    Timer.periodic(const Duration(seconds: 50), (timer) {
       final currentTime = DateTime.now();
       final activationTime = DateTime(
         currentTime.year,
         currentTime.month,
         currentTime.day,
-        10, // Hour
-        37,
-         // Minute
+        15, // Hour
+        14,
+        // Minute
       );
 
-      final endTime = activationTime.add(Duration(seconds: 60));
-      
-      if (currentTime.isAfter(activationTime) && currentTime.isBefore(endTime)) {
+      final endTime = activationTime.add(Duration(minutes: 30));
+
+      if (currentTime.isAfter(activationTime) &&
+          currentTime.isBefore(endTime)) {
         setState(() {
           isButtonActive = true;
           tooltipmessage = "set attendance";
@@ -171,358 +195,311 @@ String tooltipmessage = "Time out valide only 9'o clock";
       } else {
         setState(() {
           isButtonActive = false;
-          tooltipmessage="Time out valide only 9'o clock";
+          tooltipmessage = "Time out valide only 9'o clock";
         });
       }
     });
   }
+ 
+  @override
+  void dispose() { 
+    
+    activateButton();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    // var date = new DateTime.now().toString();
+
+    // var dateParse = DateTime.parse(date);
+
+    // var formattedDate = "${dateParse.day}-${dateParse.month}-${dateParse.year}";
+
     return Scaffold(
-       appBar: AppBar(
-        title: Text("Attdence"),
+      appBar: AppBar(
+        title: Text(
+          // formattedDate.toString(),
+          currentTie.toString(),
+          // currentTie.day.toString()
+        ),
         centerTitle: true,
       ),
       body: SingleChildScrollView(
+        child: Column(
+          //crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            DefaultTabController(
+              length: 2, // length of tabs
+              initialIndex: 0,
               child: Column(
-            //crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: <Widget>[
-              DefaultTabController(
-                length: 2, // length of tabs
-                initialIndex: 0,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    child: Container(
+                      child: TabBar(
+                        labelColor: Colors.black,
+                        unselectedLabelColor: Colors.black26,
+                        indicatorColor: Colors.black,
+                        tabs: [
+                          Tab(text: 'Today Attendance'),
+                          Tab(text: 'Overall Attendance'),
+                        ],
                       ),
-                      child: Container(
-                        child: TabBar(
-                          labelColor: Colors.black,
-                          unselectedLabelColor: Colors.black26,
-                          indicatorColor: Colors.black,
-                          tabs: [
-                            Tab(text: 'Today'),
-                            Tab(text: 'Overall'),
-                          ],
+                    ),
+                  ),
+                  Container(
+                    height: MediaQuery.of(context).size.height *
+                        0.68, //height of TabBarView
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 10,
+                    ),
+                    child: TabBarView(
+                      children: <Widget>[
+                        AttendanceManagementScreen(
+                          name: widget.name,
+                          status: widget.status,
+                          isButtonActive: isButtonActive,
+                          tooltipmessage: tooltipmessage,
                         ),
-                      ),
-                    ),
-                    Container(
-                      height: MediaQuery.of(context).size.height*0.68, //height of TabBarView
-                      padding: EdgeInsets.symmetric(
-                        horizontal: 10,
-                      ),
-                      child: TabBarView(
-                        children: <Widget>[todayattendence(isButtonActive: isButtonActive,tooltipmessage: tooltipmessage),
-                        OverallAttendance(isButtonActive: isButtonActive,tooltipmessage: tooltipmessage),
-              
+                        todayattendence(
+                            isButtonActive: isButtonActive,
+                            tooltipmessage: tooltipmessage),
+                        // OverallAttendance(isButtonActive: isButtonActive,tooltipmessage: tooltipmessage),
                       ],
-                      ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
+        ),
       ),
-      
-      
-      
-      
-      
-      
-      
-     
     );
   }
 }
 
-
-
-
-
-
-
-
 // import 'package:flutter/material.dart';
 
+class Employee {
+  final String name;
+  bool isPresent;
+  bool isFullDay;
+  bool isHalfDay;
+  bool isAbsent;
+  bool isHalfDayLeave;
+  bool isPaidLeave;
+  String additionalInfo;
 
-// class Employee {
-//   final String name;
-//   bool isPresent;
-//   bool isFullDay;
-//   bool isHalfDay;
-//   bool isAbsent;
-//   bool isHalfDayLeave;
-//   bool isPaidLeave;
-//   String additionalInfo;
+  Employee({
+    required this.name,
+    this.isPresent = true,
+    this.isFullDay = false,
+    this.isHalfDay = false,
+    this.isAbsent = false,
+    this.isHalfDayLeave = false,
+    this.isPaidLeave = false,
+    this.additionalInfo = '',
+  });
+}
 
-//   Employee({
-//     required this.name,
-//     this.isPresent = true,
-//     this.isFullDay = false,
-//     this.isHalfDay = false,
-//     this.isAbsent = false,
-//     this.isHalfDayLeave = false,
-//     this.isPaidLeave = false,
-//     this.additionalInfo = '',
-//   });
-// }
+class AttendanceManagementScreen extends StatefulWidget {
+  @override
+  AttendanceManagementScreen({
+    super.key,
+    required this.name,
+    this.status,
+    this.tooltipmessage,
+    required this.isButtonActive,
+  });
+  final String name;
+  final String? status;
+  final String? tooltipmessage;
+  bool isButtonActive;
+  _AttendanceManagementScreenState createState() =>
+      _AttendanceManagementScreenState();
+}
 
-// // class attendances extends StatelessWidget {
-// //   @override
-// //   Widget build(BuildContext context) {
-// //     return MaterialApp(
-// //       title: 'Attendance Management',
-// //       home: AttendanceHomeScreen(),
-// //     );
-// //   }
-// // }
-// class AttendanceManagementScreen extends StatefulWidget {
-//   @override
-//   _AttendanceManagementScreenState createState() =>
-//       _AttendanceManagementScreenState();
-// }
+class _AttendanceManagementScreenState
+    extends State<AttendanceManagementScreen> {
+  List<Chatuser> list = [];
 
-// class _AttendanceManagementScreenState
-//     extends State<AttendanceManagementScreen> {
-//   List<Employee> employees = [
-//     Employee(name: 'John Doe'),
-//     Employee(name: 'Jane Doe'),
-//     Employee(name: 'Bob Smith'),
-//   ];
+  List<Employee> employees = [
+    Employee(name: " widget.name"),
+  ];
 
-//   List<String> attendanceOptions = [
-//     'Present',
-//     'Full Day',
-//     'Half Day',
-//     'Absent',
-//     'Half Day Leave',
-//     'Paid Leave',
-//   ];
+  List<String> attendanceOptions = [
+    'Present',
+    'Full Day',
+    'Half Day',
+    'Absent',
+    'Half Day Leave',
+    'Paid Leave',
+  ];
 
-//   Map<Employee, String> selectedOptions = {};
+  Map<Employee, String> selectedOptions = {};
 
-//   @override
-//   Widget build(BuildContext context) {
-//     int presentCount =
-//         employees.where((employee) => employee.isPresent).length;
+  @override
+  Widget build(BuildContext context) {
+    int presentCount = employees.where((employee) => employee.isPresent).length;
 
-//     return StreamBuilder<Object>(
-//       stream: FirebaseFirestore.instance.collection("users").where("id").
-//       builder: (context, snapshot) {
-//         return Scaffold(
-//           appBar: AppBar(
-//             title: Text('Attendance Management'),
-//           ),
-//           body: Column(
-//             crossAxisAlignment: CrossAxisAlignment.start,
-//             children: [
-//               SizedBox(height: 20),
-//               Text(
-//                 'Employees Present Today: $presentCount',
-//                 style: TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                   fontSize: 18,
-//                 ),
-//               ),
-//               SizedBox(height: 16),
-//               Text(
-//                 'Employee List:',
-//                 style: TextStyle(
-//                   fontWeight: FontWeight.bold,
-//                   fontSize: 18,
-//                 ),
-//               ),
-//               SizedBox(height: 8),
-//               Expanded(
-//                 child: ListView.builder(
-//                   itemCount: employees.length,
-//                   itemBuilder: (context, index) {
-//                     Employee employee = employees[index];
-//                     return ListTile(
-//                       title: Text(employee.name),
-//                       subtitle: Text('Status: ${selectedOptions[employee]}'),
-//                       trailing: ElevatedButton(
-//                         onPressed: () {
-//                           _showAttendanceOptionsDialog(employee);
-//                         },
-//                         child: Text(
-//                           selectedOptions.containsKey(employee)
-//                               ? selectedOptions[employee]!
-//                               : 'Select',
-//                         ),
-//                       ),
-//                     );
-//                   },
-//                 ),
-//               ),
-//             ],
-//           ),
-//         );
-//       }
-//     );
-//   }
+    return StreamBuilder(
+        stream:
+            // fetch data in to user collection
+            FirebaseFirestore.instance
+                .collection('users')
+                .doc(_auth.currentUser!.email)
+                .collection("attendance")
+                .where("date", isEqualTo: formattedDate.toString())
+                .snapshots(),
+        builder: (context, snapshot) {
+          switch (snapshot.connectionState) {
+            // check firebase data is loding
+            case ConnectionState.waiting:
+            case ConnectionState.none:
+              return const Center(child: CircularProgressIndicator());
 
-//   void _showAttendanceOptionsDialog(Employee employee) {
-//     showDialog(
-//       context: context,
-//       builder: (context) {
-//         return AlertDialog(
-//           title: Text('Select Attendance Option'),
-//           content: Column(
-//             mainAxisSize: MainAxisSize.min,
-//             children: attendanceOptions
-//                 .map(
-//                   (option) => ListTile(
-//                     title: Text(option),
-//                     onTap: () {
-//                       setState(() {
-//                         selectedOptions[employee] = option;
-//                         _setAttendance(employee, option);
-//                       });
-//                       Navigator.pop(context);
-//                     },
-//                   ),
-//                 )
-//                 .toList(),
-//           ),
-//         );
-//       },
-//     );
-//   }
+            // check data loaded
+            case ConnectionState.active:
+            case ConnectionState.done:
+              final docs = snapshot.data?.docs;
+              list =
+                  docs?.map((e) => Chatuser.fromJson(e.data())).toList() ?? [];
+              if (list.isNotEmpty) {
+                //  final docs =
+                //     snapshot.data?.docs;
+                return Scaffold(
+                  body: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(height: 20),
+                      SizedBox(height: 16),
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: 1,
+                          itemBuilder: (context, index) {
+                            Employee employee = employees[index];
+                            return ListTile(
+                              title: Text(widget.name),
+                              subtitle: Text(
+                                  'Status: ${selectedOptions.containsKey(employee) ? selectedOptions[employee]! : docs![index]["attendance"]}'),
+                              trailing: Tooltip(
+                                message: widget.tooltipmessage,
+                                child: ElevatedButton(
+                                  onPressed: widget.isButtonActive
+                                      ? ()async {    
+                                      _showAttendanceOptionsDialog( employee); 
+                                        }
+                                      : null,
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: widget.status == "present"
+                                        ? Colors.green
+                                        : Color.fromARGB(255, 195, 16, 3),
+                                  ),
+                                  child: Text(
+                                    selectedOptions.containsKey(employee)
+                                        ? selectedOptions[employee]!
+                                        : 'Select',
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              } else {
+                return const Center(
+                  child: Text(
+                    "No Collection Found",
+                    style: TextStyle(fontSize: 20),
+                  ),
+                );
+              }
+              
+          }
+        });
+  }
 
-//   void _setAttendance(Employee employee, String option) {
-//     employee.isPresent = true;
-//     employee.isFullDay = false;
-//     employee.isHalfDay = false;
-//     employee.isAbsent = false;
-//     employee.isHalfDayLeave = false;
-//     employee.isPaidLeave = false;
+  void _showAttendanceOptionsDialog(Employee employee) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          title: Text('Select Today Attendance '),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: attendanceOptions
+                .map(
+                  (option) => ListTile(
+                    title: Text(option),
+                    onTap: () async {
+                      setState(() {
+                        selectedOptions[employee] = option;
+                        _setAttendance(employee, option);
+                      });
+                      await FirebaseFirestore.instance
+                          .collection('users')
+                          .doc(_auth.currentUser!.email)
+                          .collection("attendance")
+                          .doc(formattedDate.toString())
+                          .update({
+                        "attendance": option.trim(),
+                      }).whenComplete(() => Navigator.pop(
+                              context)); // Navigator.pop(context);
+                    },
+                  ),
+                )
+                .toList(),
+          ),
+        );
+      },
+    );
+  }
 
-//     switch (option) {
-//       case 'Present':
-//         break;
-//       case 'Full Day':
-//         employee.isFullDay = true;
-//         break;
-//       case 'Half Day':
-//         employee.isHalfDay = true;
-//         break;
-//       case 'Absent':
-//         employee.isAbsent = true;
-//         break;
-//       case 'Half Day Leave':
-//         employee.isHalfDayLeave = true;
-//         break;
-//       case 'Paid Leave':
-//         employee.isPaidLeave = true;
-//         break;
-//     }
-//   }
-// }
+  void _setAttendance(Employee employee, String option) {
+    employee.isPresent = true;
+    employee.isFullDay = false;
+    employee.isHalfDay = false;
+    employee.isAbsent = false;
+    employee.isHalfDayLeave = false;
+    employee.isPaidLeave = false;
 
-
-
-// import 'package:flutter/material.dart';
-// import 'package:school_management/Screens/Attendance/OverallAttendance.dart';
-// import 'package:school_management/Screens/Attendance/TodayAttendance.dart';
-// import 'package:school_management/Screens/home.dart';
-// import 'package:school_management/Widgets/AppBar.dart';
-// import 'package:school_management/Widgets/MainDrawer.dart';
-// import 'package:school_management/Widgets/UserDetailCard.dart';
-
-// class Attendance extends StatefulWidget {
-//   @override
-//   _AttendanceState createState() => _AttendanceState();
-// }
-
-// class _AttendanceState extends State<Attendance>
-//     with SingleTickerProviderStateMixin {
-//   @override
-//   Widget build(BuildContext context) {
-//     final GlobalKey<ScaffoldState> _scaffoldKey =
-//         new GlobalKey<ScaffoldState>();
-//     return Scaffold(
-//       key: _scaffoldKey,
-//       appBar: ( app),
-//       // CommonAppBar(
-//       //   title: "Attendance",
-//       //   menuenabled: true,
-//       //   notificationenabled: true,
-//       //   ontap: () {
-//       //     _scaffoldKey.currentState.openDrawer();
-//       //   },
-//       // ),
-//       drawer: Drawer(
-//             elevation: 0,
-//             child:
-//             //  MainDrawer(),
-//           ),
-//       body: SingleChildScrollView(
-//               child: Column(
-//             //crossAxisAlignment: CrossAxisAlignment.stretch,
-//             children: <Widget>[
-//               UserDetailCard(),
-//               DefaultTabController(
-//                 length: 2, // length of tabs
-//                 initialIndex: 0,
-//                 child: Column(
-//                   crossAxisAlignment: CrossAxisAlignment.stretch,
-//                   children: <Widget>[
-//                     Padding(
-//                       padding: const EdgeInsets.symmetric(
-//                         horizontal: 10,
-//                       ),
-//                       child: Container(
-//                         child: TabBar(
-//                           labelColor: Colors.black,
-//                           unselectedLabelColor: Colors.black26,
-//                           indicatorColor: Colors.black,
-//                           tabs: [
-//                             Tab(text: 'Today'),
-//                             Tab(text: 'Overall'),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                     Container(
-//                       height: MediaQuery.of(context).size.height*0.68, //height of TabBarView
-//                       padding: EdgeInsets.symmetric(
-//                         horizontal: 10,
-//                       ),
-//                       child: TabBarView(
-//                         children: <Widget>[
-//                           // TodayAttendance(),
-//                           // OverallAttendance(),
-//                         ],
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ],
-//           ),
-//       ),
-      
-//     );
-//   }
-// }
-
-
+    switch (option) {
+      case 'Present':
+        break;
+      case 'Full Day':
+        employee.isFullDay = true;
+        break;
+      case 'Half Day':
+        employee.isHalfDay = true;
+        break;
+      case 'Absent':
+        employee.isAbsent = true;
+        break;
+      case 'Half Day Leave':
+        employee.isHalfDayLeave = true;
+        break;
+      case 'Paid Leave':
+        employee.isPaidLeave = true;
+        break;
+    }
+  }
+}
 
 class todayattendence extends StatefulWidget {
-   todayattendence({super.key,
-  this.tooltipmessage,
-   this.isButtonActive,
-
+  todayattendence({
+    super.key,
+    this.tooltipmessage,
+    required this.isButtonActive,
   });
-   final String? tooltipmessage;
-       bool? isButtonActive;
-
+  final String? tooltipmessage;
+  bool isButtonActive;
 
   @override
   State<todayattendence> createState() => _todayattendenceState();
@@ -532,65 +509,53 @@ class _todayattendenceState extends State<todayattendence> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-     
-      body:  Center(
-        child: Tooltip(
-                            message: widget.tooltipmessage,
-
-
-          child: ElevatedButton(
-          onPressed:  () {
-        if(widget.isButtonActive=true){
-                           Navigator.push(context, MaterialPageRoute(builder: (context)=> Home_view()));
-
-        }
-            } ,
-        
-            child: Text('Click Me'),
+      body: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: <Widget>[
+          CircleAvatar(
+            radius: 20,
+            backgroundImage: AssetImage('assets/images/images.jpeg'),
           ),
-        ),
-      ),  
-    );
-  }
-}
-
-class OverallAttendance extends StatefulWidget {
-
-  OverallAttendance({
-    super.key,
-    this.tooltipmessage,
-        this.isButtonActive,
-
-    
-  });
-  final String? tooltipmessage;
-   bool? isButtonActive;
-
-  
-  @override
-  State<OverallAttendance> createState() => _OverallAttendanceState();
-}
-
-class _OverallAttendanceState extends State<OverallAttendance > {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body:  Center(
-        child: Tooltip(
-                            message: widget.tooltipmessage,  
-
-          child: ElevatedButton(
-            onPressed:  () {
-if(widget.isButtonActive=true){
-                             Navigator.push(context, MaterialPageRoute(builder: (context)=> Home_view()));
-
-}        
-            } 
-        ,
-            child: Text('Click Me'),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.only(left: 5),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  RichText(
+                    text: TextSpan(
+                      style: DefaultTextStyle.of(context).style,
+                      children: [
+                        TextSpan(
+                          text: 'hello :  ',
+                          style: TextStyle(fontWeight: FontWeight.bold),
+                        ),
+                        TextSpan(
+                          text: 'tcomment comment the comment comment',
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ),
-        ),
-      ), 
+        ],
+      ),
+      // Center(
+      //   child: Tooltip(
+      //     message: widget.tooltipmessage,
+      //     child: ElevatedButton(
+      //       onPressed: widget.isButtonActive
+      //           ? () {
+      //               Navigator.push(context,
+      //                   MaterialPageRoute(builder: (context) => Home_view()));
+      //             }
+      //           : null,
+      //       child: Text("currentTie.toString()"),
+      //     ),
+      //   ),
+      // ),
     );
   }
 }

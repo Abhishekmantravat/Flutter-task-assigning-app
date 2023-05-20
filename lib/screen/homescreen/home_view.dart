@@ -264,14 +264,39 @@ class _Home_viewState extends State<Home_view> {
                               leading:
                                   const Icon(Icons.online_prediction_outlined),
                               title: const Text(' Attendance'),
-                              onTap: () {
-                                Navigator.push(
+                              onTap: () async {      var currenttime = DateTime.now();
+
+                                       await FirebaseFirestore.instance
+              .collection("users")
+              .doc(_auth.currentUser!.email)
+              .collection('attendance')
+              .doc(formattedDate.toString())
+              .set({
+            // "id": currentUser!.uid,
+            "attendance": "attendance",
+            "date":formattedDate.toString(),
+          }).whenComplete(()  {  Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                        builder: (context) => MyButtonPage()));
-                              },
+                                        builder: (context) => MyButtonPage(
+                                          name: docs[index]['name'],
+                                          status: docs[index]['status'],
+                                        ))); } ); 
+                                          // _show
+                                      
+                                        }
+
+
+
+
+
+
+
+
+                               
+                              // },
                             ),
-                          
+
                             ListTile(
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
@@ -288,9 +313,12 @@ class _Home_viewState extends State<Home_view> {
                                 }),
                           ],
                         );
-                      });
+                      }
+                      );
                 }
-              })),
+              }
+              )
+              ),
       body: Center(
         child: _pages.elementAt(_selectedIndex),
       ),
