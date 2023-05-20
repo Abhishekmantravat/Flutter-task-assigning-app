@@ -1,11 +1,16 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:get/get.dart';
 import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/constant/sizes.dart';
 import 'package:taskmanagement/screen/about/about.dart';
 import 'package:taskmanagement/screen/all_imployee/employeeacountdetail.dart';
+import 'package:taskmanagement/screen/attendance/attendancedetail.dart';
 import 'package:taskmanagement/screen/profile/basicinfo.dart';
+import 'package:taskmanagement/screen/taskscreen/completedtask.dart';
+
+import '../taskscreen/pendingtask.dart';
 final _auth = FirebaseAuth.instance;
 
 class employeesdetails extends StatefulWidget {
@@ -140,7 +145,7 @@ class _employeesdetailsState extends State<employeesdetails> {
                             style: TextStyle(),
                           ),
                           onTap: () {
-                           
+                           Get.to(()=>PendingTask(email: widget.email));
                           },
                         ),
                         ListTile(
@@ -159,7 +164,7 @@ class _employeesdetailsState extends State<employeesdetails> {
                           ),
                           onTap: () {
                             // basicinfo
-                           
+                           Get.to(()=>CompletedTask( email: widget.email));
                           },
                         ),
                         const Divider(),
@@ -205,6 +210,15 @@ class _employeesdetailsState extends State<employeesdetails> {
                             style: TextStyle(),
                           ),
                           onTap: () {
+                            
+  Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => attendencedetail(
+                                      email: widget.email!,
+                                      name: widget.name!,
+                                    )));
+
                             
                           },
                         ),

@@ -28,9 +28,13 @@ class AuthenticationRepository extends GetxController {
       // print("user created");
       Get.snackbar('successful', 'you logged in successfully');
       //query to store user data in firestore
-      Get.to(() => const basicdetail());
-      var time = DateTime.now().millisecondsSinceEpoch.toString();
+
+            Get.off(()=>basicdetail());             
+                                 var time = DateTime.now().millisecondsSinceEpoch.toString();
+
+
       var currenttime = DateTime.now();
+
       try {
         await FirebaseFirestore.instance
             .collection('users')
@@ -72,19 +76,21 @@ class AuthenticationRepository extends GetxController {
           });
         }
                 // ),
-                ).whenComplete(() {
-          FirebaseFirestore.instance
-              .collection("users")
-              .doc(_auth.currentUser!.email)
-              .collection('attendance')
-              .doc(formattedDate.toString())
-              .set({
-            // "id": currentUser!.uid,
-            "attendance": "attendance",
-            "date":formattedDate.toString(),
-            "time" :currenttime.toLocal().toString()
-          });
-        });
+                )
+        //         .whenComplete(() {
+        //   FirebaseFirestore.instance
+        //       .collection("users")
+        //       .doc(_auth.currentUser!.email)
+        //       .collection('attendance')
+        //       .doc(formattedDate.toString())
+        //       .set({
+        //     // "id": currentUser!.uid,
+        //     "attendance": "attendance",
+        //     "date":formattedDate.toString(),
+        //     "time" :currenttime.toLocal().toString()
+        //   });
+        // })
+        ;
         ;
 
         // });

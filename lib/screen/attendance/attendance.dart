@@ -179,8 +179,8 @@ class _MyButtonPageState extends State<MyButtonPage> {
         currentTime.year,
         currentTime.month,
         currentTime.day,
-        19, // Hour
-        44,
+        15, // Hour
+        14,
         // Minute
       );
 
@@ -390,9 +390,8 @@ class _AttendanceManagementScreenState
                                 message: widget.tooltipmessage,
                                 child: ElevatedButton(
                                   onPressed: widget.isButtonActive
-                                      ? () {
-                                          _showAttendanceOptionsDialog(
-                                              employee);
+                                      ? ()async {    
+                                      _showAttendanceOptionsDialog( employee); 
                                         }
                                       : null,
                                   style: ElevatedButton.styleFrom(

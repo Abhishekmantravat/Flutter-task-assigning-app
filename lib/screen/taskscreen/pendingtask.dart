@@ -10,48 +10,25 @@ import '../../constant/colors.dart';
 import 'addtask.dart';
 import 'description.dart';
 
-class TaskScreen extends StatefulWidget {
+class PendingTask extends StatefulWidget {
+  const PendingTask({super.key,
+  this.email,});
+   final String? email;
+
   @override
-  _TaskScreenState createState() => _TaskScreenState();
+  State<PendingTask> createState() => _PendingTaskState();
 }
 
-class _TaskScreenState extends State<TaskScreen> {
-  String uid = '';
-  String email= " ";
+class _PendingTaskState extends State<PendingTask> {
   @override
-  void initState() {
-    getuid();
-    super.initState();
-  }
-
-  getuid() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final user = await auth.currentUser!;
-    setState(() {
-      uid = user.uid ;
-      email = user.email!;
-    });
-  }
-  bool ischecked= false;
- done()async{
-  var time = DateTime.now();
-          await FirebaseFirestore.instance
-          .collection('tasks').doc(auth.currentUser!.email).
-          collection("task").doc(auth.currentUser!.email)
-          .update({
-            'status':"completed"
-          });
-}
-
-  @override
+  final _auth=FirebaseAuth.instance;
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MY TASKS'),
+        title: Text('Pending Task'),
         backgroundColor: tSecondaryColor,
       ),
-      // ],
-      // ),
+      
       body: Container(
           padding: const EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height,
@@ -59,8 +36,8 @@ class _TaskScreenState extends State<TaskScreen> {
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('tasks')
-                  .doc(email)
-                  .collection('task')
+                  .doc(widget.email)
+                  .collection('task').where('status',isEqualTo: 'pending')
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -131,21 +108,9 @@ class _TaskScreenState extends State<TaskScreen> {
                                 //     },
                                 //   ),
                                 // ),
-                                 Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: MaterialButton(
-                                    
-                                    child: Text('Done',style: TextStyle(color: tWhiteColor),),
-                                    onPressed: ()async{
-                                       await FirebaseFirestore.instance
-          .collection('tasks').doc(auth.currentUser!.email).
-          collection("task").doc(docs[index]['time'])
-          .update({
-            'status':"completed"
-          });
-},
-                                  ),
-                                )
+                               
+                                
+                              
                               ],
                             ),
 
@@ -156,6 +121,6 @@ class _TaskScreenState extends State<TaskScreen> {
                 }
               })),
      
-    );
+    );;;
   }
 }

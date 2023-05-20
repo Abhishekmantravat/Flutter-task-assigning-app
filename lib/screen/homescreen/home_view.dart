@@ -264,48 +264,39 @@ class _Home_viewState extends State<Home_view> {
                               leading:
                                   const Icon(Icons.online_prediction_outlined),
                               title: const Text(' Attendance'),
-                              onTap: () {
-                                Navigator.push(
+                              onTap: () async {      var currenttime = DateTime.now();
+
+                                       await FirebaseFirestore.instance
+              .collection("users")
+              .doc(_auth.currentUser!.email)
+              .collection('attendance')
+              .doc(formattedDate.toString())
+              .set({
+            // "id": currentUser!.uid,
+            "attendance": "attendance",
+            "date":formattedDate.toString(),
+          }).whenComplete(()  {  Navigator.push(
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => MyButtonPage(
                                           name: docs[index]['name'],
                                           status: docs[index]['status'],
-                                        )));
-                              },
-                            ),
-                            ListTile(
-                              textColor: Colors.white,
-                              iconColor: Colors.white,
-                              hoverColor:
-                                  const Color.fromARGB(255, 102, 185, 213),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              leading: const Icon(Icons.more_time_sharp),
-                              title: const Text(' Time sheet '),
-                              onTap: () {
-                                print(_auth.currentUser!.uid);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => TaskScreen()));
-                              },
-                            ),
-                             ListTile(
-                              textColor: Colors.white,
-                              iconColor: Colors.white,
-                              hoverColor:
-                                  const Color.fromARGB(255, 102, 185, 213),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              leading: const Icon(Icons.account_box_outlined),
-                              title: const Text(' About '),
-                              onTap: () {
+                                        ))); } ); 
+                                          // _show
+                                      
+                                        }
+
+
+
+
+
+
+
+
                                
-                              },
+                              // },
                             ),
+
                             ListTile(
                                 textColor: Colors.white,
                                 iconColor: Colors.white,
