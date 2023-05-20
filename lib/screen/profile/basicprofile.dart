@@ -129,22 +129,22 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             const SizedBox(
                               height: 10,
                             ),
-                            SizedBox(
-                              width: 200,
-                              child: ElevatedButton(
-                                onPressed: () {
-                                  // Get.to(()=>UpdateProfileScreen());
-                                },
-                                child: const Text(
-                                  "Edit picture",
-                                  style: TextStyle(color: Colors.white),
-                                ),
-                                style: ElevatedButton.styleFrom(
-                                    backgroundColor: tSecondaryColor,
-                                    side: BorderSide.none,
-                                    shape: StadiumBorder()),
-                              ),
-                            ),
+                            // SizedBox(
+                            //   width: 200,
+                            //   child: ElevatedButton(
+                            //     onPressed: () {
+                            //       // Get.to(()=>UpdateProfileScreen());
+                            //     },
+                            //     child: const Text(
+                            //       "Edit picture",
+                            //       style: TextStyle(color: Colors.white),
+                            //     ),
+                            //     style: ElevatedButton.styleFrom(
+                            //         backgroundColor: tSecondaryColor,
+                            //         side: BorderSide.none,
+                            //         shape: StadiumBorder()),
+                            //   ),
+                            // ),
                             const SizedBox(
                               height: 20,
                             ),
@@ -203,27 +203,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         const SizedBox(
                           height: 20,
                         ),
-                        ListTile(
-                          textColor: iconcolor,
-                          iconColor: iconcolor,
-                          hoverColor: hovercolor,
-                          leading: const Icon(
-                            Icons.account_box_outlined,
-                          ),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          title: const Text(
-                            ' About ',
-                            style: TextStyle(),
-                          ),
-                          onTap: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => aboutscreen()));
-                          },
-                        ),
+                        // ListTile(
+                        //   textColor: iconcolor,
+                        //   iconColor: iconcolor,
+                        //   hoverColor: hovercolor,
+                        //   leading: const Icon(
+                        //     Icons.account_box_outlined,
+                        //   ),
+                        //   shape: RoundedRectangleBorder(
+                        //     borderRadius: BorderRadius.circular(10),
+                        //   ),
+                        //   title: const Text(
+                        //     ' About ',
+                        //     style: TextStyle(),
+                        //   ),
+                        //   onTap: () {
+                        //     Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => aboutscreen()));
+                        //   },
+                        // ),
                       ])));
         
           });

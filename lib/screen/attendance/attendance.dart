@@ -195,7 +195,7 @@ class _MyButtonPageState extends State<MyButtonPage> {
       } else {
         setState(() {
           isButtonActive = false;
-          tooltipmessage = "Time out valide only 9'o clock";
+          tooltipmessage = "Time out valid only 9'o clock";
         });
       }
     });
