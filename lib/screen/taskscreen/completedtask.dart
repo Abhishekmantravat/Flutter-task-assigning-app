@@ -10,48 +10,27 @@ import '../../constant/colors.dart';
 import 'addtask.dart';
 import 'description.dart';
 
-class TaskScreen extends StatefulWidget {
+class CompletedTask extends StatefulWidget {
+const CompletedTask({
+    super.key,
+    this.email,
+  });
+  final String? email;
+
   @override
-  _TaskScreenState createState() => _TaskScreenState();
+  State<CompletedTask> createState() => _CompletedTaskState();
 }
 
-class _TaskScreenState extends State<TaskScreen> {
-  String uid = '';
-  String email= " ";
-  @override
-  void initState() {
-    getuid();
-    super.initState();
-  }
-
-  getuid() async {
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final user = await auth.currentUser!;
-    setState(() {
-      uid = user.uid ;
-      email = user.email!;
-    });
-  }
-  bool ischecked= false;
- done()async{
-  var time = DateTime.now();
-          await FirebaseFirestore.instance
-          .collection('tasks').doc(auth.currentUser!.email).
-          collection("task").doc(auth.currentUser!.email)
-          .update({
-            'status':"completed"
-          });
-}
-
+class _CompletedTaskState extends State<CompletedTask> {
+ final _auth=FirebaseAuth.instance;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('MY TASKS'),
+        title: Text('Completed Task'),
         backgroundColor: tSecondaryColor,
       ),
-      // ],
-      // ),
+      
       body: Container(
           padding: const EdgeInsets.all(10),
           height: MediaQuery.of(context).size.height,
@@ -59,8 +38,8 @@ class _TaskScreenState extends State<TaskScreen> {
           child: StreamBuilder(
               stream: FirebaseFirestore.instance
                   .collection('tasks')
-                  .doc(email)
-                  .collection('task')
+                  .doc(widget.email)
+                  .collection('task').where('status',isEqualTo: 'completed')
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
@@ -131,21 +110,9 @@ class _TaskScreenState extends State<TaskScreen> {
                                 //     },
                                 //   ),
                                 // ),
-                                 Container(
-                                  margin: EdgeInsets.only(top: 10),
-                                  child: MaterialButton(
-                                    
-                                    child: Text('Done',style: TextStyle(color: tWhiteColor),),
-                                    onPressed: ()async{
-                                       await FirebaseFirestore.instance
-          .collection('tasks').doc(auth.currentUser!.email).
-          collection("task").doc(docs[index]['time'])
-          .update({
-            'status':"completed"
-          });
-},
-                                  ),
-                                )
+                               
+                                
+                              
                               ],
                             ),
 
@@ -156,6 +123,6 @@ class _TaskScreenState extends State<TaskScreen> {
                 }
               })),
      
-    );
+    );;
   }
 }

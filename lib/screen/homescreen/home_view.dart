@@ -271,24 +271,7 @@ class _Home_viewState extends State<Home_view> {
                                         builder: (context) => MyButtonPage()));
                               },
                             ),
-                            ListTile(
-                              textColor: Colors.white,
-                              iconColor: Colors.white,
-                              hoverColor:
-                                  const Color.fromARGB(255, 102, 185, 213),
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              leading: const Icon(Icons.more_time_sharp),
-                              title: const Text(' Time sheet '),
-                              onTap: () {
-                                print(_auth.currentUser!.uid);
-                                Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => TaskScreen()));
-                              },
-                            ),
+                          
                             ListTile(
                                 textColor: Colors.white,
                                 iconColor: Colors.white,

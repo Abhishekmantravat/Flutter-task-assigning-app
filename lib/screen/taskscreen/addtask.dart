@@ -116,7 +116,7 @@ class _AddTaskState extends State<AddTask> {
         'description': descriptionController.text,
         'time': time.toString(),
         'timestamp': time,
-        'status':''
+        'status':'pending'
           });
           Fluttertoast.showToast(msg: 'Data Added');
           Get.back();
