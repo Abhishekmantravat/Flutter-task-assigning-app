@@ -10,15 +10,15 @@ import 'package:taskmanagement/constant/colors.dart';
 import 'package:taskmanagement/main.dart';
 import 'package:taskmanagement/model/chat_user.dart';
 import 'package:taskmanagement/screen/all_imployee/employeesdedails.dart';
-final _auth = FirebaseAuth.instance;
 
+final _auth = FirebaseAuth.instance;
 
 class all_employee extends StatefulWidget {
   // final Chatuser user;
-const all_employee({
+  const all_employee({
     super.key,
     this.role,
-    
+    // this.email,
   });
   final String? role;
   @override
@@ -26,7 +26,6 @@ const all_employee({
 }
 
 class _all_employeeState extends State<all_employee> {
-
   @override
   Widget build(BuildContext context) {
     mq = MediaQuery.of(context).size;
@@ -39,7 +38,7 @@ class _all_employeeState extends State<all_employee> {
       ),
       body: StreamBuilder(
           stream:
-          // fetch data in to user collection
+              // fetch data in to user collection
               FirebaseFirestore.instance.collection('users').snapshots(),
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
@@ -48,55 +47,49 @@ class _all_employeeState extends State<all_employee> {
               );
             } else {
               final docs = snapshot.data?.docs;
-                  return ListView.builder(
-                    
-                                          padding: EdgeInsets.only(top: mq.height * .02),
-                      itemCount: docs?.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            // check login person manager or employee if manager then work
-                             var rol = docs[index]['name'];
-                             if (widget.role== 'manager') {
-              Get.to(() => employeesdetails(
-                                      name: docs[index]['name'],
-                                      email: docs[index]['email'],
-                                    ));                   }   },
-                          child: Card(
-                         margin: EdgeInsets.symmetric(horizontal: mq.width * .04, vertical: 4),
-                      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                      elevation: 1,
-                            child: StreamBuilder(
-                             stream:  FirebaseFirestore.instance.collection('users').doc( docs![index]['email'] ).collection("attendance").snapshots(),
-                builder: (context, snapshot) {
-                   final doc = snapshot.data?.docs;
-                                return ListTile(
-                                    leading: ClipRRect(
-                                      borderRadius:
-                                          BorderRadius.circular(mq.height * .3),
-                                      child: CachedNetworkImage(
-                                        width: mq.height * .055,
-                                        height: mq.height * .055,
-                                        fit: BoxFit.fill,
-                                        //  user profile image in users collection
-                                        imageUrl: " widget.user.image",
-                                        placeholder: (context, url) =>
-                                            const CircularProgressIndicator(),
-                                        errorWidget: (context, url, error) =>
-                                            const CircleAvatar(
-                                                child: Icon(CupertinoIcons.person)),
-                                      ),
-                                    ),
-                                    title: Text(docs[index]['name']),
-                                    subtitle: Text(docs[index]['email']),
-                                    trailing:    Text(doc![index]['attendance']),
-                                                      );
-                              }
+              return ListView.builder(
+                  padding: EdgeInsets.only(top: mq.height * .02),
+                  itemCount: docs?.length,
+                  itemBuilder: (context, index) {
+                    return InkWell(
+                      onTap: () {
+                        // check login person manager or employee if manager then work
+                        if (widget.role == 'manager') {
+                          Get.to(() => employeesdetails(
+                                name: docs[index]['name'],
+                                email: docs[index]['email'],
+                              ));
+                        }
+                      },
+                      child: Card(
+                        margin: EdgeInsets.symmetric(
+                            horizontal: mq.width * .04, vertical: 4),
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10)),
+                        elevation: 1,
+                        child: ListTile(
+                          leading: ClipRRect(
+                            borderRadius: BorderRadius.circular(mq.height * .3),
+                            child: CachedNetworkImage(
+                              width: mq.height * .055,
+                              height: mq.height * .055,
+                              fit: BoxFit.fill,
+                              //  user profile image in users collection
+                              imageUrl: " widget.user.image",
+                              placeholder: (context, url) =>
+                                  const CircularProgressIndicator(),
+                              errorWidget: (context, url, error) =>
+                                  const CircleAvatar(
+                                      child: Icon(CupertinoIcons.person)),
                             ),
+                          ),
+                          title: Text(docs![index]['name']),
+                          subtitle: Text(docs[index]['email']),
+                          trailing: const Text("Status"),
                         ),
-                        );
-                      });
-               
+                      ),
+                    );
+                  });
             }
           }),
     );
