@@ -134,8 +134,21 @@ class _TaskScreenState extends State<TaskScreen> {
                                  Container(
                                   margin: EdgeInsets.only(top: 10),
                                   child: MaterialButton(
+
+
+
+                                  //  
+
+                                    child: Text('Done',style: TextStyle(color: 
                                     
-                                    child: Text('Done',style: TextStyle(color: tWhiteColor),),
+                                  docs[index]['status'] == "pending"
+                                        ?  Color.fromARGB(255, 195, 16, 3)
+                                        : Colors.green,
+                                        
+                                    
+                                    ),
+                                    
+                                    ),
                                     onPressed: ()async{
                                        await FirebaseFirestore.instance
           .collection('tasks').doc(auth.currentUser!.email).
